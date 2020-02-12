@@ -1,0 +1,94 @@
+/* 구글 웹폰트 */
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap');
+/* 공통사항 */
+* {box-sizing: border-box;}
+body{
+	font-family: 'Nanum Gothic Coding', monospace;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	color: #171616;
+}
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+a{
+	color: inherit;
+	text-decoration: none;
+}
+form{
+	margin: 0;
+}
+/* 글자색, 배경색 */
+.f-color1{color:#595959;}
+.f-color2{color:#798F8C;}
+.f-color3{color:#BFD0E6;}
+.f-color4{color:#D3E1EE;}
+.dg-color1{background-color: #F7B8B4;}
+.dg-color2{background-color: #798F8C;}
+.dg-color3{background-color: #BFD0E6;}
+.dg-color4{background-color: #D3E1EE;}
+.dg-color5{background-color: #f9f9f9;}
+
+/* 버튼들 */
+button.btn{
+	display: inline-block;
+	font-weight: 600;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+	padding: 11px 12px;
+	/*border: 1px solid transparent;*/
+	outline: none;
+	}
+button.btn-basic{
+	border: 1px solid #5d6f6d;
+	background-color: white;
+	color: #5d6f6d;
+}
+button.btn-basic:hover{
+	color: #171616;
+	border-color: #171616;
+}
+button.btn_agree{
+	color: white;
+	background-color: #f7b8b4;
+	font-weight: bold;
+}
+button.btn_agree:hover{
+	color: white;
+	background-color: #f46665;
+	font-weight: bold;
+}
+button.btn-primary{
+	background-color: #FFD0BF;
+	border-color: transparent;
+	color: white;
+}
+button.btn-primary:hover{
+	background-color: #F7B8B4;
+}
+.btn-support{
+	background-color: #BCA0C9;
+	color: white;
+}
+.btn-support:hover{
+	background-color: #4D5075;
+	border-color: transparent;
+}
+
+/* text에 밑줄쳐지는 CSS 효과 */
+.magicline:after{
+	content : '';
+	display: block;
+	width: 0;
+	height: 2.5px;
+	background-color: #F7B8B4;
+	transition: width .3s;
+}
+.magicline:hover:after{
+	width: 100%;
+}
