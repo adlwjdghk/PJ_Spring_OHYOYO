@@ -17,6 +17,7 @@
 		background-color:white;
 		box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
 		z-index: 999;
+		display:fixed;
 	}
 	div.header_content{
 		width: 1400px;
@@ -156,8 +157,9 @@
 		top: 53;
 		left: 0;
 		display: none;
+		z-index: 2000;
 	}
-	/*.arrow{
+	.arrow{
 		position: absolute;
 		top: -5px;
 		left: 16px;
@@ -167,7 +169,7 @@
 		background-color: #ffe6dc;
 		border-color: #fff transparent #fff transparent;
 		z-index: 99;
-	}*/
+	}
 
 
 

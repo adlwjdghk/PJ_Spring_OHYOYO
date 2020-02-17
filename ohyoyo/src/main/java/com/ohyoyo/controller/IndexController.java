@@ -1,18 +1,44 @@
 package com.ohyoyo.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.ohyoyo.domain.ProductDTO;
+import com.ohyoyo.service.index.IndexService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class IndexController {
-	@GetMapping("/")
+	// @Inject, @Autowired, @Resource중 1개라도 붙어있으면 의존성 주입
+	// @Inject, @Autowired는 타입(변수타입)으로 의존성 주입
+	// @Resource는 변수명(이름)으로 가져와서 의존성 주입
+	
+	// 변수명으로 가져오면 찾을수없음 변수명이 다르기 때문에 
+	// 타입으로 가져오면 구현으로 부모 타입으로 동일하기 때문에 가져올수있음
+	@Autowired
+	IndexService iService; // == indexServiceImpl Beans; Spring이 이렇게 만들어주기 때문에 우리는 그냥 쓰기만 하면 됨
+	
+	@GetMapping("/index")
 	public String indexView(Model model) {
 		log.info(">>> INDEX PAGE 출력");
 		
+		// view단에 출력할 데이터
+//		List<ProductDTO> list = iService.bestPdtList();
+		// ( "이름표", 담을 데이터 );
+//		model.addAttribute("BestPdt",list);
+		
+		// 위 두줄을 한줄로 줄이기
+		// 1. view단에 출력할 데이터
+		model.addAttribute("BestPdt", iService.bestPdtList());
+		
+		
+		// 2. 출력할 화면을 결정
 		return "index";
 	}
 

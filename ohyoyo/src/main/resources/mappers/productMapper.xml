@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohyoyo.persistence.ProductDAO">
+	<!--  <select id="getCount2" resultType="int">
+		SELECT COUNT(*) FROM tbl_pdt
+	</select> -->
+	<select id="bestPdtList" resultType="ProductDTO">
+		SELECT *
+		FROM(SELECT rownum rnum, best.*
+		     FROM(SELECT * FROM tbl_pdt
+		          WHERE avail_cnt > 0
+		          ORDER BY sale_cnt DESC
+		          ) best
+		    )
+		WHERE rnum between 1 and 5
+	</select>
+</mapper>
