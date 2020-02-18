@@ -13,4 +13,8 @@ public interface ProductDAO {
 	
 	public List<ProductDTO> bestPdtList();
 	
+	//4. @관련 SQL이 없으면 mapper.xml에 가서 ind가 newPdtList와 같은 sql문을 찾아 oracledb로 가서 실행후
+	// 결과를 return 받음 
+	public List<ProductDTO> newPdtList();
+	
 }

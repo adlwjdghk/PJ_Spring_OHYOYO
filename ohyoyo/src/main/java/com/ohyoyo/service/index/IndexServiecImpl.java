@@ -47,4 +47,15 @@ public class IndexServiecImpl implements IndexService{
 		return pDao.bestPdtList();
 	}
 
+	@Override
+	public List<ProductDTO> newPdtList() {
+		// 비즈니스 로직을 처리!!
+		// 신상품 4건 출력 -> db작업
+		// db작업은 Model단에 시킴
+		
+		// db작업을 위해 model단으로 이동
+		// Model(ProductDAO+Mapper) 인터페이스의 newPdtList() 메서드를 실행시키고 return받음
+		return pDao.newPdtList();
+	}
+
 }

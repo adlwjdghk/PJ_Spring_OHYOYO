@@ -34,11 +34,14 @@ public class IndexController {
 //		model.addAttribute("BestPdt",list);
 		
 		// 위 두줄을 한줄로 줄이기
-		// 1. view단에 출력할 데이터
+		// 1. view단에 출력할 베스트 상품 4건(데이터)
 		model.addAttribute("BestPdt", iService.bestPdtList());
 		
+		// 2. view단에 출력할 신상품 4건
+		// 신상품 4건을 출력하는 비즈니스로직을 처리하는 서비스단으로 이동
+		model.addAttribute("NewPdt", iService.newPdtList());
 		
-		// 2. 출력할 화면을 결정
+		// 3. 출력할 화면을 결정
 		return "index";
 	}
 

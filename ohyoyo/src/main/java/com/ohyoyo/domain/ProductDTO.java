@@ -18,8 +18,10 @@ public class ProductDTO {
 	private String pname;
 	private String ptype;
 	private String pmemo;
+	private int sale_price;
 	private int price;
 	private int avail_cnt;
 	private int sale_cnt;
+	private String p_img;
 	private Date regdate;
 }

@@ -13,11 +13,12 @@
 <!-- ${path}/resources 로 경로타게 할수있음 -->
 <style type="text/css">
 	div.header_wrap{
+		position:fixed;
+		top:0;
+		z-index: 999;
 		width: 100%;
 		background-color:white;
 		box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
-		z-index: 999;
-		display:fixed;
 	}
 	div.header_content{
 		width: 1400px;
@@ -166,13 +167,10 @@
 		width: 15px;
 		height: 15px;
 		transform: rotate(45deg);
-		background-color: #ffe6dc;
+		background-color: white;
 		border-color: #fff transparent #fff transparent;
 		z-index: 99;
 	}
-
-
-
 
 	/* 모달 로그인 창 */
 	.modal_wrap{
@@ -379,7 +377,7 @@
 			<div class="login_close"><button><i class="fas fa-times"></i></button></div>
 
 			<div class="login_box login_main">
-				<div><h1><img src="${path}/resources/img/33333.png"></h1></div>
+				<div><h1><img src="${path}/resources/img/logo/33333.png"></h1></div>
 
 				<form class="frm_login">
 					<!-- <h2>제품을 구매하시려면 로그인이 필요합니다.</h2> -->
@@ -437,7 +435,7 @@
 			<div class="header_content">
 				<div class="header_content_logo">
 					<a href="#">
-						<img class="header_content_logo_img" src="${path}/resources/img/333333_final.png" alt="로고이미지">
+						<img class="header_content_logo_img" src="${path}/resources/img/logo/333333_final.png" alt="로고이미지">
 					</a>
 				</div>
 				

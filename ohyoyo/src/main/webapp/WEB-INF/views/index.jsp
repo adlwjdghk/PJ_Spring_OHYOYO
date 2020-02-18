@@ -14,7 +14,8 @@
 		@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 		#main_wrap{
 			width: 100%;
-			margin: 0 auto;
+			margin: 73px auto 0;
+			background-color: white;
 		}
 		#main_container{
 			width: 1260px;
@@ -103,45 +104,48 @@
 		}
 
 		/* 베스트 상품 */
-		.main_product{
+		.main_product1{
 			margin: 115px 0 50px;
 		}
-		.title h2{
+		.main_pdt_title h2{
 			font-size: 20px;
 			color: #333;
 			text-align: center;
 			margin:0 0 70px;
 		}
-		.product_list{
+		.main_product_list{
 			display: table;
 			width: 100%;
 			min-width: 756px;
 			margin: -20px 0 0;
 		}
-		.product_list > li{
+		.main_product_list > li{
 			display: inline-block;
 			width: 25%;
 			color: #757575;
 		}
-		.product_list > li:hover .product_button{
+		.main_product_list > li:hover .main_product_button{
 			visibility: visible;
 		}
-		.product_img{
+		.main_product_list > li:hover .main_product_img img{
+			opacity: 0.5;
+		}
+		.main_product_img{
 			position: relative;
 			margin: 0 7px 25px;
 			text-align: center;
 		}
-		.product_img a img{
+		.main_product_img a img{
 			max-width: 100%;
 			box-sizing: border-box;
 		}
-		.product_ex{
+		.main_product_ex{
 			margin: 0 auto;
 			padding: 0 13px;
 			font-size: 13px;
 			line-height: 18px; 
 		}
-		.product_name{
+		.main_product_name{
 			/*display: block;*/
 			border-bottom: 1px solid #ddd;
 			padding-bottom: 7px;
@@ -151,10 +155,10 @@
 			display: flex;
 			align-items: flex-end;
 		}
-		.product_name span{
+		.main_product_name span{
 			
 		}
-		.product_ex > ul{
+		.main_product_ex > ul{
 			font-family: 'Nanum Gothic', sans-serif;
 		}
 		.normalprice{
@@ -165,66 +169,22 @@
 			font-size: 13px;
 			font-weight: bold;
 		}
-		.product_button{
+		.main_product_button{
 			margin: 0 0 15px;
 			height: 35px;
 			visibility: hidden;
 		}
-		.product_icon{
+		.main_product_icon{
 			margin: 10px 0 4px;
 		}
-		.product_icon i{
+		.main_product_icon i{
 			font-size: 18px;
 			color: #dddddd;
+			padding-right: 2px;
 		}
-
-		/* review */
-		.main_review{
-			padding-bottom: 44px;
-		}
-		.review_wrap{
-			border-bottom: 1px solid #dadada;
-			position: relative;
-		}
-		.review_list{
-			width: 1185px;
-			
-			margin: 0 auto;
-		}
-		.review_one{
-			cursor: pointer;
-			float: left;
-			width: 215px;
-			border: 1px solid #e5e5e5;
-			padding: 0;
-			margin: 0 10px 50px 10px;
-			box-shadow: 0 3px 3px #fafafa;
-			
-		}
-		.li_photo{
-			/* height: 100%; */
-			border-bottom: 1px solid #f3f3f3;
-			overflow: hidden;
-		}
-		.li_photo img{
-			width: 215px;
-		}
-		.li_text{
-			height: 32px;
-			padding: 12px 2px 15px 2px;
-			margin: 0 10px;
-			border-bottom: 1px solid #f3f3f3;
-		}
-		.li_text div:first-child{
-			display: block;
-			font-size: 12px;
-			padding-bottom: 5px;
-			color: black;
-			overflow: hidden;
-		}
-		.review_name{
-			font-size: 11px;
-			color: #c4c4c4;
+		.main_product_icon i:hover{
+			font-size: 18px;
+			color: #888888;
 		}
 	</style>
 </head>
@@ -249,198 +209,84 @@
 				</div>
  			</div>
  		
-	 		<div class="main_product">
-	 			<div class="title">
+	 		<div class="main_product main_product1">
+	 			<div class="main_pdt_title">
 	 				<h2><b>BEST PRODUCT</b></h2>
 	 			</div>
-	 			<ul class="product_list">
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/homeone.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>오요요 포근포근 텐트</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">39,000원</span></li>
-	 							<li><span class="discount">29,500원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/foodone.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>ANF 6FREE 플러스 소고기 연어 5.6kg</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">45,000원</span></li>
-	 							<li><span class="discount">38,000원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/foodthree.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>네츄럴코어 강아지용 미트스틱 20P</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">12,000원</span></li>
-	 							<li><span class="discount">8,900원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/foodtwo.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>프레스키 터키츄 칠면조힘줄 하드링 M</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">5,500원</span></li>
-	 							<li><span class="discount">4,500원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/pillone.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>풀무원 아미오 헬씨믹스 트릿 눈물 눈물자국 100g</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">45,000원</span></li>
-	 							<li><span class="discount">38,000원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/playone.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>브리더 캐릭터 장난감 문어</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">3,000원</span></li>
-	 							<li><span class="discount">2,500원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/playtwo.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>쥬쥬베 노즈워크 트릿볼 핑크</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">8,500원</span></li>
-	 							<li><span class="discount">4,500원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
-	 				<li class="product_one">
-	 					<div class="product_img">
-	 						<a href="#"><img src="${path}/resources/img/product/houseone.png"></a>
-	 					</div>
-	 					<div class="product_ex">
-	 						<strong class="product_name">
-	 							<a href="#"><span>페로가토 구름 원형 강아지 방석 (색상선택가능) - 중형</span></a>
-	 						</strong>
-	 						<ul>
-	 							<li><span class="normalprice">27,000원</span></li>
-	 							<li><span class="discount">21,900원</span></li>
-	 						</ul>
-	 						<div class="product_button">
-	 							<div class="product_icon">
-	 								<span><i class="fas fa-shopping-cart"></i></span>
-	 								<span><i class="fas fa-heart"></i></span>
-	 							</div>
-	 						</div>	
-	 					</div>
-	 				</li>
+	 			<ul class="main_product_list">
+	 				<c:forEach items="${BestPdt}" var="pdt">
+		 				<li class="main_product_one">
+		 					<div class="main_product_img">
+		 						<a href="#"><img src="${path}/resources/img/product/${pdt.p_img}"></a>
+		 					</div>
+		 					<div class="main_product_ex">
+		 						<strong class="main_product_name">
+		 							<a href="#"><span>${pdt.pname}</span></a>
+		 						</strong>
+		 						<ul>
+		 							<li>
+		 								<span class="normalprice">
+		 									<fmt:formatNumber type="number" maxFractionDigits="3" value="${pdt.sale_price}"/>원
+		 								</span>
+		 							</li>
+		 							<li>
+		 								<span class="discount">
+		 									<fmt:formatNumber type="number" maxFractionDigits="3" value="${pdt.price}"/>원
+		 								</span>
+		 							</li>
+		 						</ul>
+		 						<div class="main_product_button">
+		 							<div class="main_product_icon">
+		 								<span><i class="fas fa-shopping-cart"></i></span>
+		 								<span><i class="fas fa-heart"></i></span>
+		 							</div>
+		 						</div>	
+		 					</div>
+		 				</li>
+	 				</c:forEach>
 	 			</ul>
 	 		</div>
-	 		<div class="main_review">
-	 			<div class="rewiew_wrap">
-	 				<ul class="review_list">
-	 					<li class="review_one">
-	 						<div>
-		 						<div class="li_photo">
-		 							<ul>
-		 								<li><img src="${path}/resources/img/reviewPhoto/dog-3875108_1920.jpg"></li>
-		 							</ul>
-		 						</div>
-		 						<div class="li_text">
-		 							<div>강아지가 입맛이 까다로운데 기호성이 좋아서 엄청 잘먹네요!</div>
-		 							<div class="review_name">이**</div>
-		 						</div>
-		 					</div>
-		 					<div></div>
-	 					</li>
-	 				</ul>
+	 		<div class="main_product">
+	 			<div class="main_pdt_title">
+	 				<h2><b>NEW PRODUCT</b></h2>
 	 			</div>
+	 			<ul class="main_product_list">
+	 				<c:forEach items="${NewPdt}" var="npdt">
+		 				<li class="main_product_one">
+		 					<div class="main_product_img">
+		 						<a href="#"><img src="${path}/resources/img/product/${npdt.p_img}"></a>
+		 					</div>
+		 					<div class="main_product_ex">
+		 						<strong class="main_product_name">
+		 							<a href="#"><span>${npdt.pname}</span></a>
+		 						</strong>
+		 						<ul>
+		 							<li>
+		 								<span class="normalprice">
+		 									<fmt:formatNumber type="number" maxFractionDigits="3" value="${npdt.sale_price}"/>원
+		 								</span>
+		 							</li>
+		 							<li>
+		 								<span class="discount">
+		 									<fmt:formatNumber type="number" maxFractionDigits="3" value="${npdt.price}"/>원
+		 								</span>
+		 							</li>
+		 						</ul>
+		 						<div class="main_product_button">
+		 							<div class="main_product_icon">
+		 								<span><i class="fas fa-shopping-cart"></i></span>
+		 								<span><i class="fas fa-heart"></i></span>
+		 							</div>
+		 						</div>	
+		 					</div>
+		 				</li>
+	 				</c:forEach>
+	 			</ul>
 	 		</div>
  		</div>
  	</div>
  </div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var slideIndex = 0;
 	showSlides(slideIndex);
