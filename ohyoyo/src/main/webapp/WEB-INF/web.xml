@@ -29,6 +29,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
 	<!-- 한글처리를 위한 인코딩 필터 -->
 	<filter> 
     	<filter-name>encodingFilter</filter-name> 
@@ -38,8 +39,10 @@
 	       <param-value>UTF-8</param-value> 
 	    </init-param> 
 	</filter> 
+	
 	<filter-mapping> 
 	    <filter-name>encodingFilter</filter-name> 
 	    <url-pattern>/*</url-pattern> 
 	</filter-mapping> 
+	
 </web-app>

@@ -1,13 +1,10 @@
 package com.ohyoyo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ohyoyo.domain.ProductDTO;
 import com.ohyoyo.service.index.IndexService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +21,7 @@ public class IndexController {
 	@Autowired
 	IndexService iService; // == indexServiceImpl Beans; Spring이 이렇게 만들어주기 때문에 우리는 그냥 쓰기만 하면 됨
 	
-	@GetMapping("/index")
+	@RequestMapping("/")
 	public String indexView(Model model) {
 		log.info(">>> INDEX PAGE 출력");
 		

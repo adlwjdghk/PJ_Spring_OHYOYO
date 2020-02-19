@@ -6,26 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"  type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
-	/* Common */
-	* { box-sizing: border-box; }
-	/* 기본적으로 태그에 margin 또는 padding이 들어가있는 태그들 */
-	body, ul, h1, h2, h3, h4, h5, h6 {
-		margin: 0; padding: 0;
-		font-family: Dotum, 돋움, Helvetica, sans-serif;
-		/* 여러 폰트를 해 놓으면 제일 처음 폰트부터 적용되고
-			없으면 그 다음 폰트로 넘어가서 적용됨 */
-	}
-	body{
-		background-color: #f9f9f9;
-	}
-	ul{
-		list-style: none;
-	}
-	a{
-		text-decoration: none;
-		color: inherit;
-	}
 	/* Header */
 	.wrap{
 		width: 768px;
@@ -55,10 +37,8 @@
 		display: block;
 		width: 310px;
 		height: 100px;
-		/*background: url('../../img/logo_onlyy.png') -100px -100px;*/
 		margin: 0 auto;
 		font-size: 60px;
-		font-family: 'Nanum Gothic Coding', monospace;
 		text-align: center;
 	}
 	.o_logo img{
@@ -72,7 +52,7 @@
 		margin: 0 auto;
 	}
 	.terms{
-		margin-bottom: 20px;
+		margin-bottom: 14px;
 		background-color: white;
 		border: 1px solid #dadada;
 		border-radius:1px;
@@ -144,7 +124,7 @@
 	.label2{
 		height: 24px;
 		line-height: 24px;
-		font-size: 12px;
+		font-size: 13px;
 		color: #333;
 	}
 	.span_only{
@@ -216,17 +196,16 @@
 		font-weight: 400;
 	}
 	.err_check_msg{
-		height: 24px;
 		font-size: 12px;
 		line-height:  14px;
 		color: red;
 		display: block;
 	}
 	.err_check{
-		display: none;
+		visibility: hidden;
 	}
 	.btn_double_area{
-		margin: 30px -5px 0px;
+		margin: 12px -5px 0px;
 		overflow: hidden;
 		border-radius: 5px;
 	}
@@ -236,7 +215,7 @@
 		width: 50%;
 	}
 	.btn_type{
-		width: auto;
+		width: 225px;
 		margin: 0px 5px;
 		font-size: 20px;
 		font-weight: 600;
@@ -247,6 +226,7 @@
 		margin-top: 1px;
 		text-align: center;
 		border-radius: 4px;
+		outline:none;
 	}
 	.btn_default{
 		color: #333;
@@ -266,7 +246,7 @@
 		margin: 20px 0 65px;
 		text-align: center;
 		color: #666;
-		font-size: 12px;
+		font-size: 13px;
 	}
 	.group_join > a{
 		text-decoration: underline;
@@ -351,7 +331,7 @@
 						<ul class="terms_ul">
 							<li class="trems_ul_li1">
 								<span class="ul_li_span">
-									<input type="checkbox" id="li1box" class="ckbox">
+									<input type="checkbox" id="li1box" class="ckboxs">
 									<label for="li1box" class="label1">
 										오요요 이용약관 동의
 										<span class="span_only">(필수)</span>
@@ -369,7 +349,7 @@
 							</li>
 							<li class="trems_ul_li2">
 								<span class="ul_li_span">
-									<input type="checkbox" id="li2box" class="ckbox">
+									<input type="checkbox" id="li2box" class="ckboxs">
 									<label for="li2box" class="label1">
 										개인정보 수집 및 이용에 대한 안내
 										<span class="span_only">(필수)</span>
@@ -385,7 +365,7 @@
 							</li>
 							<li class="trems_ul_li3">
 								<span class="ul_li_span">
-									<input type="checkbox" id="li3box" class="ckbox">
+									<input type="checkbox" id="li3box" class="ckboxs">
 									<label for="li3box" class="label1">
 										쇼핑정보 수신 동의
 										<span class="span_select">(선택)</span>
@@ -394,11 +374,11 @@
 								</span>
 								
 								<span class="ul_li_span li4_span">
-									<input type="checkbox" id="li4box" class="ckbox">
+									<input type="checkbox" id="li4box" class="ckboxs li4box">
 									<label for="li4box" class="label2">
 										SNS 수신 동의
 									</label>
-									<input type="checkbox" id="li5box" class="ckbox">
+									<input type="checkbox" id="li5box" class="ckboxs li4box">
 									<label for="li5box" class="label2">
 										이메일 수신 동의
 									</label>
@@ -417,8 +397,8 @@
 						<span class="err_check_msg">오요요 이용약관과 개인정보 수집 및 이용에 대한 안내 모두 동의해주세요.</span>
 					</div>
 					<div class="btn_double_area">
-						<span><a href="#" class="btn_type btn_default">취소</a></span>
-						<span><a href="#" class="btn_type btn_agree">확인</a></span>
+						<span><button type="button" id="cons_btn_cancel" class="btn_type btn_default">취소</button></span>
+						<span><button type="button" id="cons_btn_agree" class="btn_type btn_agree">확인</button></span>
 					</div>
 				</form>
 				<div class="group_join">
@@ -447,6 +427,7 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+		// 내용보기 클릭시 세부내용 나오게하기
 		var flog = 'no';
 		$('.li1co').click(function(){
 			if(flog == 'no'){
@@ -474,6 +455,76 @@
 				$('.li3terms').css('display','none');
 				flog ='no';
 			}
+		});
+		
+		/* 전체동의 클릭시 전체 체크 or 전체체크해제 */
+		$('#cbox').on('click',function(){
+			var flag = $(this).is(':checked'); /* 체크여부 Bool값 */
+//			console.log(flag);
+			/* checkbox를 선택해제할때 prop함수를 사용하기 
+			   다른 함수는 막혔음 */
+			if(flag == true){	
+				$('.ckbox').prop('checked',true); // 체크
+			} else {
+				$('.ckbox').prop('checked',false); // 체크 해제
+				
+			}
+		});
+		
+		/* 선택체크가 모두 체크가 되면 전체체크버튼 True
+		   선택체크가 하나라도 체크해제이면 전체체크버튼 False */
+		$('.ckboxs').on('click',function(){
+			var ckLen = $('.ckboxs:checkbox:checked').length;
+//			console.log(ckLen);
+			if(ckLen != 5){
+				$('#cbox').prop('checked',false);
+			} else{
+				$('#cbox').prop('checked',true);
+			}
+		});
+		
+		// 쇼핑정보 전체동의 or 전체취소
+		$('#li3box').on('click',function(){
+			var flag = $(this).is(':checked'); /* 체크여부 Bool값 */
+			if(flag == true){	
+				$('.li4box').prop('checked',true); 
+			} else {
+				$('.li4box').prop('checked',false); 
+				
+			}
+		});
+		$('.li4box').on('click',function(){
+			var ckLen = $('.li4box:checkbox:checked').length;
+//			console.log(ckLen);
+			if(ckLen != 2){
+				$('#li3box').prop('checked',false);
+			} else{
+				$('#li3box').prop('checked',true);
+			}
+		});
+		
+		/* 확인버튼 클릭시 필수체크 2개 체크유무 유효성체크 */
+		$('#cons_btn_agree').on('click', function(){
+			var agree_one = $('#li1box').is(':checked');
+			var agree_two = $('#li2box').is(':checked');
+			var agree_four = $('#li4box').is(':checked');
+			var agree_five = $('#li5box').is(':checked');
+			
+			if(agree_one == false || agree_two == false){
+				$('.err_check').css('visibility','visible');
+				console.log("필수체크필요");
+				return false;
+			}
+			// 유효성체크 통과시 회원가입 페이지로 이동
+			location.href='${path}/member/join?useon='+agree_one
+											   +'&primaryon='+agree_two
+											   +'&snson='+agree_four
+											   +'&emailon='+agree_five;
+		});
+		
+		/* 취소버튼 클릭시 INDEX페이지로 이동 */
+		$('#cons_btn_cancel').on('click', function(){
+			location.href='${path}/';
 		});
 	});
 </script>

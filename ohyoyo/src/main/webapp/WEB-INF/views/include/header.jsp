@@ -423,7 +423,7 @@
 
 			<div class="login_box login_signup_button">
 				<p class="signup">계정이 없으신가요?
-					<a href="#">회원가입</a>
+					<a href="${path}/member/constract">회원가입</a>
 				</p>
 			</div>
 				
@@ -512,101 +512,66 @@
 						<div class="header_content_member_cart"><a href="#"><i class="fas fa-shopping-bag"></i></a></div>
 					</div>
 					<div><button class="btn btn-basic login_open">로그인</button></div>
-					<div><button class="btn btn-primary">가입하기</button></div>
+					<div><button id="header_btn_join" class="btn btn-primary">가입하기</button></div>
 				</div>
 			</div>
 		</div>
 	</header>
 </body>
 <script type="text/javascript">
-  // jQuery 문법
-  	// $('선택자').옵션();
-  	// $('#test').css('color','green');
-  	// $ == jQuery
-  	// ('#test') = 선택자(id가 test)
-  	// .css() = 옵션(글자색을 녹색);
 
-  // jQuery 이벤트문법(클릭, 포커스, 블러 등)
-  	// $(document).on('이벤트','선택자', function(){
-  	//		이벤트발생시 동작할 내용들...	
-  	// });
-  	// $(document).on('click','#test', function(){
-  	//		$(this).css('color','orange');
-  	// });
-  	// $(document).on() = 문서전체에서 
-  	// ('click') = 클릭이벤트가 발생하면 
-  	// ('#test') = 아이디가 test인 
-  	// function() = 익명함수(이름이 없는 함수) 
-  	// $(this) = 나 자신(여기서는 #test)
-  	// 해석: 문서전체에서 id가 test인 태그가 클릭되면 나를(#test) 글자색을 orange로 변경해라!
-
-// 로그인 input(id, pw)에 focus되면 테두리색 변경
- $(document).on('focus','.input_wrap',function() {
-		// console.log('fosus 됨');
-		$(this).css('borer','1px solid red')
- });
- $(document).on('blur','.input_wrap',function() {
-		$(this).css('borer','1px solid #595959')
- });
- 
- // LOGIN 버튼 클릭시 Modal창 open
- $(document).on('click','.login_open',function() {
-  	// alert('test');
-  	// alert 이벤트로 click 이벤트가 동작하는지 확인하는 것 test를 alert창으로 보여야함
-  
-  	$('.modal_wrap').css('display','flex');
-  	$('#login_id').focus();
- });	
-
-// MODAL창 X버튼을 클릭하면 Modal창 Close
-$(document).on('click','.login_close', function() {
-	$('.modal_wrap').css('display','none');
-	$('.frm_login')[0].reset();
-	// $('.login_input').val('');
-	$('.pw_eye').prev().attr('type','password');
-	$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
-		   .css('color','#aaa');
-});
-
-// 값을 가져오는 방법
-	// <span class="aaa">동토리</span>
-	// <input type="text" class="dobby">도비</input>
+	// 로그인 input(id, pw)에 focus되면 테두리색 변경
+	 $(document).on('focus','.input_wrap',function() {
+			// console.log('fosus 됨');
+			$(this).css('borer','1px solid red')
+	 });
+	 $(document).on('blur','.input_wrap',function() {
+			$(this).css('borer','1px solid #595959')
+	 });
+	 
+	 // LOGIN 버튼 클릭시 Modal창 open
+	 $(document).on('click','.login_open',function() {
+	  	// alert('test');
+	  	// alert 이벤트로 click 이벤트가 동작하는지 확인하는 것 test를 alert창으로 보여야함
+	  
+	  	$('.modal_wrap').css('display','flex');
+	  	$('#login_id').focus();
+	 });	
 	
-  // input태그 값 가져오는 방법
-	//  : 서버단으로 값을 보낼때 사용하는 태그들이 대부분
-	// $('.dobby').val();
-	// input태그 값 넣는 방법
-	// $('.dobby').val('메롱');
-
-  // input태그 이외의 값 가져오는 방법
-	// $('.aaa').text();
-	// input태그 이외의 값 넣는  방법
-	// $('.aaa').text('뭐시여?');
-
-  // 태그의 옵션(attribute)을 가져오고 싶을때 
-	// $('.dobby').attr('type');
-	// $('.dobby').attr('class');
-
-
-// LOGIN MODAL창 암호 보이기 or 숨기기
-$(document).on('click','.pw_eye',function(){
-	// alert('sns');
-	var code = $(this).prev().attr('type');
-	// alert(code); // 모름 input type을 가져와야함 
-	// 같은 형제의 위 아래를 선택할때 위는 prev() 아래는 next()를 적으면 됨
-	if(code == 'password'){
-		$(this).prev().attr('type','text');
-		$(this).html('<i class="fas fa-eye"></i>')
-			   .css('color','#666');
-	} else{
-		$(this).prev().attr('type','password');
-		$(this).html('<i class="fas fa-eye-slash"></i>')
+	// MODAL창 X버튼을 클릭하면 Modal창 Close
+	$(document).on('click','.login_close', function() {
+		$('.modal_wrap').css('display','none');
+		$('.frm_login')[0].reset();
+		// $('.login_input').val('');
+		$('.pw_eye').prev().attr('type','password');
+		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
 			   .css('color','#aaa');
-			   // .html().css() 체이닝 기법
-	}
-		
-
-})  ;
-
+	});
+	
+	
+	// LOGIN MODAL창 암호 보이기 or 숨기기
+	$(document).on('click','.pw_eye',function(){
+		// alert('sns');
+		var code = $(this).prev().attr('type');
+		// alert(code); // 모름 input type을 가져와야함 
+		// 같은 형제의 위 아래를 선택할때 위는 prev() 아래는 next()를 적으면 됨
+		if(code == 'password'){
+			$(this).prev().attr('type','text');
+			$(this).html('<i class="fas fa-eye"></i>')
+				   .css('color','#666');
+		} else{
+			$(this).prev().attr('type','password');
+			$(this).html('<i class="fas fa-eye-slash"></i>')
+				   .css('color','#aaa');
+				   // .html().css() 체이닝 기법
+		}
+			
+	
+	})  ;
+	
+	// Header가입하기 버튼 클릭시 동의 페이지 이동
+	$(document).on('click','#header_btn_join',function(){
+		location.href="${path}/member/constract";
+	});
 </script>
 </html>

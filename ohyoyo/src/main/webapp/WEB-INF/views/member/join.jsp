@@ -7,23 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	* {
-		box-sizing: border-box;
-		font-family: Dotum, 돋움, Helvetica, sans-serif;
-	}
-	body, h1, h2, h3, h4, h5, h5, ul, p{
-		margin: 0;	padding: 0;
-	}
-	body { 
-		background-color: #f9f9f9; 
-		font-size: 12px;
-	}
-	ul{ list-style: none; }
-	a{
-		text-decoration: none;
-		color: inherit;
-	}
-	
 	/* Header */
 	.wrap{
 		width: 768px;
@@ -69,7 +52,7 @@
 		border: 1px solid #999;
 	}
 	.ps_box input:hover{
-		border: 1px solid transparent;
+		border: none;
 	}
 	.ps_box{
 		display: flex;
@@ -218,6 +201,8 @@
 	}
 	.addr_poc_button:hover{
 		border: 1px solid #999;
+		right:1px;
+		bottom:1px;
 	}
 	.postcode{
 		display: flex;
@@ -689,7 +674,7 @@
 		});
 
 		// 버튼 활성화!
-		$('.int').blur(function(){
+		$('.int').keyup(function(){
 			var checkAll = true;
 			for(var i = 0; i < checkArr.length; i++){
 				if(!checkArr[i]){
