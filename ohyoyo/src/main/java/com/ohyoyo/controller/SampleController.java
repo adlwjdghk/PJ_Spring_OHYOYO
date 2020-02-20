@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ohyoyo.domain.SampleDTO;
 
@@ -83,5 +84,24 @@ public class SampleController {
 		
 		return "result";
 	}
+	
+	// 동기방식
+	@GetMapping("/sync")
+	public String sync(String name, Model model) {
+		log.info("동기방식 : "+name);
+		model.addAttribute("name", name);
+		return "sample";
+	}
+	// 비동기방식 
+	// ajax는 페이지를 이동하지않기때문에 페이지를 알려줄 필요가 없음 다시 되돌아와야해서
+	// @ResponseBody return; 을 더이상 화면단으로 인식하지않음 실제 데이터로 인식
+	@ResponseBody
+	@PostMapping(value="/ajax",produces="application/text; charset=utf-8")
+	public String async(String name) {
+		log.info("비동기방식 : "+name);
+		
+		return name;
+	}
+	
 	
 }

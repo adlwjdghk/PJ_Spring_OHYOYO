@@ -1,11 +1,15 @@
 package com.ohyoyo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ohyoyo.domain.MemberDTO;
+import com.ohyoyo.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,4 +39,16 @@ public class MemberController {
 //		log.info(">>> MEMBER/DROP PAGE 출력");
 //		return "member/drop";
 //	}
+	
+	@Autowired
+	MemberService mService; 
+	
+	// 회원가입 ID 중복체크
+	@ResponseBody
+	@PostMapping("/idoverlap")
+	public int idOverlap(String id) {
+		log.info(">> ID OVERLAP CHECK");
+		log.info(" ID : "+id);
+		return mService.idOverlap(id);
+	}
 }

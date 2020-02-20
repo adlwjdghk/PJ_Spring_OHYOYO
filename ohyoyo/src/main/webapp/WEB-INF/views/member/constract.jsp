@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"  type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
 	/* Header */
 	.wrap{
@@ -464,9 +463,9 @@
 			/* checkbox를 선택해제할때 prop함수를 사용하기 
 			   다른 함수는 막혔음 */
 			if(flag == true){	
-				$('.ckbox').prop('checked',true); // 체크
+				$('.ckboxs').prop('checked',true); // 체크
 			} else {
-				$('.ckbox').prop('checked',false); // 체크 해제
+				$('.ckboxs').prop('checked',false); // 체크 해제
 				
 			}
 		});
