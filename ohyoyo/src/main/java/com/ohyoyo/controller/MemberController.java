@@ -17,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
+	@Autowired
+	MemberService mService;
+	
 	@GetMapping("/join")
 	public String getJoin(MemberDTO mDto) {
 		log.info("GET방식");
@@ -40,15 +43,20 @@ public class MemberController {
 //		return "member/drop";
 //	}
 	
-	@Autowired
-	MemberService mService; 
 	
 	// 회원가입 ID 중복체크
 	@ResponseBody
-	@PostMapping("/idoverlap")
-	public int idOverlap(String id) {
+	@PostMapping(value="/idoverlap",produces="application/text; charset=utf-8")
+	public String idOverlap(String id) {
 		log.info(">> ID OVERLAP CHECK");
 		log.info(" ID : "+id);
-		return mService.idOverlap(id);
+		int cnt = mService.idOverlap(id); 
+		log.info("cnt: " + cnt);
+		String flag = "1";
+		if(cnt == 0) {
+			flag = "0";
+		}
+		
+		return flag;
 	}
 }

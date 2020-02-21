@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"  type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
 	/* Header */
 	.wrap{
@@ -432,7 +433,7 @@
 			var id = $(this).val().trim();  // 사용자가 입력한 값
 			//validation.js의 checkId로 유효성체크를 실행후 결과를 result에 담음 (code, desc)
 			var result = joinValidate.checkId(id);
-			console.log(result.code+","+result.desc);
+			console.log('id>>>>> '+result.code+","+result.desc);
 
 			if(result.code == 0){
 				checkArr[0] = true;

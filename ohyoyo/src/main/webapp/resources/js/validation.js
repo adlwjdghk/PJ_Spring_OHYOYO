@@ -270,8 +270,9 @@ function idCheck(id){
 		async: false,
 		success: function(data){
 			console.log(data);
-			if(data >= 1){
+			if(data == "1"){
 				return_val = true;
+					
 			} else {
 				return_val = false;
 			}
