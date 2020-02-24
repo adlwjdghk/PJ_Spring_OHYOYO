@@ -341,7 +341,7 @@
 	}
 	.login_close{
 		position: absolute;
-		top: -31px;
+		top: -10px;
 		right: 7px;
 	}
 	.login_close > button{
@@ -377,7 +377,7 @@
 			<div class="login_close"><button><i class="fas fa-times"></i></button></div>
 
 			<div class="login_box login_main">
-				<div><h1><img src="${path}/resources/img/logo/33333.png"></h1></div>
+				<div><h1><a herf="${path}/"><img src="${path}/resources/img/logo/33333.png"></a></h1></div>
 
 				<form class="frm_login">
 					<!-- <h2>제품을 구매하시려면 로그인이 필요합니다.</h2> -->

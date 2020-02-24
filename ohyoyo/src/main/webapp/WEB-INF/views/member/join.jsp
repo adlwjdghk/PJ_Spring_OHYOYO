@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/header.jsp" %> 
 <!DOCTYPE html>
 <html>
@@ -270,7 +271,11 @@
 			</a></h1>
 		</div></header>
 		<section>
-			<form name="frm_join" action="" method="POST">
+			 <!-- <form id="frm_member" name="frm_member" action="${path}/member/join" method="POST"> -->
+			 <!-- Spring form태그 form:form -->
+			 <!-- form:form 태그는 method를 생략하면 defalut는 POST -->
+			 <!-- action을 생략하면 왔던(기존의) url을 그대로 넣어줌  -->
+			 <form:form id="frm_member" modelAttribute="memberDTO" autocomplete="on">
 				<div class="contaioner">
 					<div class="join_content">
 						<div class="row_group">
@@ -279,7 +284,7 @@
 									<label for="uid">아이디<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box int_id">
-									<input type="text" id="uid" name="uid" class="int" placeholder="아이디 입력">
+									<input type="text" id="uid" name="id" class="int" placeholder="아이디 입력">
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
 							</div>
@@ -288,7 +293,7 @@
 									<label for="upw">비밀번호<span class="highlight"> *</span></label>
 								</h3>
 								<span class="ps_box int_pass overlap">
-									<input type="text" id="upw" name="upw" class="int" placeholder="비밀번호 입력 (8자이상)">
+									<input type="text" id="upw" name="pw" class="int" placeholder="비밀번호 입력 (8자이상)">
 									<span class="step_url"><span class="pw_lock"></span></span>
 								</span>
 								<span class="ps_box int_pass">
@@ -304,7 +309,8 @@
 									<label for="uname">이름<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box">
-									<input type="text" id="uname" name="uname" class="int">
+									<input type="text" id="uname" name="name" class="int"> 
+									<span><span class="name_cnt">0</span>/20</span>
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
 							</div>
@@ -321,6 +327,7 @@
 									<span class="nbsp"></span>
 									<span class="ps_box overlap">
 										<input type="text" class="int" id="email_url" placeholder="Email 선택" readonly="readonly">
+										<input type="hidden" name="email" id="emailAll">
 									</span>
 								</div>
 								<div class="email_box">
@@ -343,7 +350,7 @@
 									<label for="uphone">휴대전화<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box">
-									<input type="tel" id="uphone" name="uphone" class="int" placeholder="-없이 입력  예) 01012341234">
+									<input type="tel" id="uphone" name="phone" class="int" placeholder="-없이 입력  예) 01012341234">
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
 							</div>
@@ -354,15 +361,16 @@
 								<div class="addr_wrap">
 									<div class="postcode">
 										<span class="ps_box addr_poc overlap">
-											<input type="text" id="sample6_postcode" class="int addr_only" placeholder="우편번호" readonly value="12345">
+											<input type="text" id="sample6_postcode" name="postcode" class="int addr_only" placeholder="우편번호" readonly>
 										</span>
 										<input type="button" class="addr_poc_button" id="btn_post" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 									</div>
 									<span class="ps_box overlap">
-										<input type="text" id="sample6_address" class="int addr_only" placeholder="주소" readonly value="광주 춥구 춥동">
+										<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly>
 									</span>
 									<span class="ps_box">
-										<input type="text" id="sample6_detailAddress" class="int" placeholder="상세주소">
+										<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소">
+										<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 									</span>
 								</div>
 								<span class="join_err_msg">필수 정보입니다.</span>
@@ -374,8 +382,8 @@
 						</div>
 					</div>
 				</div>
-				
-			</form>
+			</form:form>
+			<!--</form>-->
 		</section>	
 		<footer>
 			<div id="footer">
@@ -414,7 +422,9 @@
 			}
 		});
 	});
+		
 	$(function(){
+		
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값
 		// default값 false
 		var pwFlag = false;
@@ -502,8 +512,9 @@
 		// 이름 유효성체크
 		$('#uname').keyup(function(){
 			var name = $(this).val().trim();
-			console.log(name); // 꼭 확인하고 넘어가기
-
+			// console.log(name); // 꼭 확인하고 넘어가기
+			//$('.name_cnt').text(name.length);
+			
 			var result = joinValidate.checkName(name);
 			if(result.code == 0){
 				checkArr[2] = true;
@@ -702,9 +713,16 @@
 			}
 			printCheckArr(checkArr);
 			if(invalidAll){
-				console.log(invalidAll);
-	
+				var id= $('#uemail').val();
+				var url= $('#email_url').val();
+				$('#emailAll').val(id+'@'+url);
+				
 				alert('회원가입성공');
+				// submit(): form태그 안에 있는 데이터들을 서버단으로 전송하세요
+				// action: 목적지(MemberController '/join')
+				// method: 방법( POST 숨겨서)
+				$('#frm_member').submit();
+				
 			} else{
 				console.log(invalidAll);
 				alert('값을 모두 입력해주세요.');
