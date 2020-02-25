@@ -1,6 +1,9 @@
 package com.ohyoyo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ohyoyo.domain.MemberDTO;
+import com.ohyoyo.service.mail.MailService;
 import com.ohyoyo.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +44,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	@Autowired
 	MemberService mService;
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	/*
 	 * SessionAttributes를 사용하기 위해서는 
 	 * 반드시 해당 변수를 생성하는 method가 controller에 있어야하고 
@@ -97,16 +109,25 @@ public class MemberController {
 	// 원래 8개만 왔다가 null값이 있으니까 저장소 가서 찾아봄 4개 값이 있음 
 	// 그래서 4개값을 넣어서 12개가 됨 but 해당 값이 Spring input태그로 되어있어야함 
 	@PostMapping("/join")
-	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus) {
+	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus, HttpServletRequest request) {
 		log.info(">>> MEMBER/JOIN POST DB에 회원정보 저장");
 		log.info(mDto.toString());
 		
-		// DB에 회원등록
+		log.info(mDto.getPw()); // 사용자가 입력한 값
+		
+		// 1. 사용자 암호 hash변환
+		String encPw = passwordEncoder.encode(mDto.getPw());
+		mDto.setPw(encPw);
+		log.info("hash: "+mDto.getPw()); // 사용자가 입력한 값
+		
+		// 2. DB에 회원등록
 		int result = mService.memInsert(mDto);
-		// 회원 등록 결과
+		// 3. 회원 등록 결과
 		if(result > 0) {
 			log.info(">>>>" + mDto.getId()+"님이 회원가입되었습니다");
 		}		
+		// 4. 회원가입 인증 메일 보내기
+		mailService.mailSendUser(mDto.getEmail(), mDto.getId(), request);
 		
 		// 자원반납하는 코드
 		// SessionAttributes를 사용할때 insert, update가 완료되고
@@ -114,7 +135,7 @@ public class MemberController {
 		// session에 담긴 값을 clear 해주어야한다
 		sessionStatus.setComplete();
 		
-		return "";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/constract")
@@ -129,7 +150,24 @@ public class MemberController {
 //		return "member/drop";
 //	}
 	
+	@GetMapping("/drop")
+	public String drop(Model model) {
+		
+		log.info(">>> MEMBER/DROP PAGE 출력");
+		return "member/drop";
+	}
 	
+	// 회원가입 후 email인증
+	@GetMapping("/keyauth")
+	public String keyAuth(String id, String key, RedirectAttributes rttr) {
+		mailService.keyAuth(id, key);
+		
+		// 인증후 메시지 출력을 위한 값 전달
+		rttr.addFlashAttribute("id",id);
+		rttr.addFlashAttribute("key","auth");
+		
+		return "redirect:/";
+	}
 	// 회원가입 ID 중복체크
 	@ResponseBody
 	@PostMapping(value="/idoverlap",produces="application/text; charset=utf-8")

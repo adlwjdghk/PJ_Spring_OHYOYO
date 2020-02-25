@@ -18,7 +18,6 @@
 		z-index: 999;
 		width: 100%;
 		background-color:white;
-		box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
 	}
 	div.header_content{
 		width: 1400px;
@@ -173,7 +172,7 @@
 	}
 
 	/* 모달 로그인 창 */
-	.modal_wrap{
+	.log_modal_wrap{
 		position: fixed;
 		z-index: 1000;
 		background-color: rgba(0,0,0,0.4);
@@ -185,7 +184,7 @@
 		align-items: center;
 		display: none;
 	}
-	.modal_content{
+	.log_modal_content{
 		box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
 		border-radius: 1px;
 		justify-content: center;
@@ -369,11 +368,45 @@
 		text-align: center;
 
 	}
+	.header_sidebar_top{
+		position: fixed;
+		right: 30px;
+		color: #595959;
+		width: 70px;
+		height: 70px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-size: 30px;
+		cursor: pointer;		
+	}
+	.header_sidebar_top > img{
+		transition: transform .3s;
+		display: block;
+	}
+	.header_sidebar_top:hover > img{
+		transform: scale(1.3);
+	}
+	.header_sidebar_top > span {
+		font-size: 15px;
+		font-weight: bold;
+	}
+	.header_sidb_top_btn{
+		bottom: 30%;
+		z-index: 99;
+		display: none;
+	}
 </style>
 </head>
 <body>
-	<div class="modal_wrap">
-		<div class="modal_content">
+	<div class="header_sidebar">
+		<div class="header_sidebar_top header_sidb_top_btn">
+			<img src="${path}/resources/img/icons8-chevron-up-48.png">
+			<span>top</span>
+		</div>
+	</div>
+	<div class="log_modal_wrap">
+		<div class="log_modal_content">
 			<div class="login_close"><button><i class="fas fa-times"></i></button></div>
 
 			<div class="login_box login_main">
@@ -419,14 +452,11 @@
 					<!-- <p class="down">로그인하면 ohyoyo의 모든 제품을 구매, 배송받을 수 있습니다.</p> -->
 				</form>
 			</div>
-
-
 			<div class="login_box login_signup_button">
 				<p class="signup">계정이 없으신가요?
 					<a href="${path}/member/constract">회원가입</a>
 				</p>
 			</div>
-				
 			
 		</div>
 	</div>
@@ -519,7 +549,22 @@
 	</header>
 </body>
 <script type="text/javascript">
-
+	$(document).ready(function(){
+		$(window).scroll(function(){ 
+			// 스크롤이 움직이면 (스크롤 감지)
+			if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80){
+				$('.header_wrap').fadeIn().css('box-shadow','0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1)');
+				$('.header_sidb_top_btn').fadeIn().css('display','flex');
+			} else {
+				$('.header_wrap').css('box-shadow','none');
+				$('.header_sidb_top_btn').fadeOut();
+			}
+		});
+		// top버튼 click하면 스르륵 올라가게 하는 것
+		$('.header_sidb_top_btn').click(function(){
+			$('html, body').animate({scrollTop : 0}, 800);
+		});
+	});
 	// 로그인 input(id, pw)에 focus되면 테두리색 변경
 	 $(document).on('focus','.input_wrap',function() {
 			// console.log('fosus 됨');
@@ -534,23 +579,22 @@
 	  	// alert('test');
 	  	// alert 이벤트로 click 이벤트가 동작하는지 확인하는 것 test를 alert창으로 보여야함
 	  
-	  	$('.modal_wrap').css('display','flex');
+	  	$('.log_modal_wrap').css('display','flex');
 	  	$('#login_id').focus();
 	 });	
 	
 	// MODAL창 X버튼을 클릭하면 Modal창 Close
 	$(document).on('click','.login_close', function() {
-		$('.modal_wrap').css('display','none');
+		$('.log_modal_wrap').css('display','none');
 		$('.frm_login')[0].reset();
 		// $('.login_input').val('');
 		$('.pw_eye').prev().attr('type','password');
 		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
 			   .css('color','#aaa');
 	});
-	
-	
+		
 	// LOGIN MODAL창 암호 보이기 or 숨기기
-	$(document).on('click','.pw_eye',function(){
+	$(document).on('click','.pws_eye',function(){
 		// alert('sns');
 		var code = $(this).prev().attr('type');
 		// alert(code); // 모름 input type을 가져와야함 
@@ -564,8 +608,7 @@
 			$(this).html('<i class="fas fa-eye-slash"></i>')
 				   .css('color','#aaa');
 				   // .html().css() 체이닝 기법
-		}
-			
+		}	
 	
 	})  ;
 	

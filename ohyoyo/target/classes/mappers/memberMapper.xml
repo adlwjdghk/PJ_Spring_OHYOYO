@@ -11,5 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO tbl_member(id, pw, name, phone, email, postcode, addr1, addr2, useon, primaryon, snson, emailon)
 		VALUES(#{id},#{pw},#{name},#{phone},#{email},#{postcode},#{addr1},#{addr2},#{useon},#{primaryon},#{snson},#{emailon})
 	</insert>
-	
+	<update id="getKey">
+		UPDATE tbl_member
+		SET useyn = #{param2}
+		WHERE id = #{param1} 
+	</update>
+	<update id="alterKey">
+		UPDATE tbl_member
+		SET useyn = 'y'
+		WHERE id = #{param1} AND useyn = #{param2}
+	</update>
 </mapper>

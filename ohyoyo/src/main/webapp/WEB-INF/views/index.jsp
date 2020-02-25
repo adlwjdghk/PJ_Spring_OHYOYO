@@ -14,7 +14,7 @@
 		@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 		#main_wrap{
 			width: 100%;
-			margin: 73px auto 0;
+			margin: 65px auto 0;
 			background-color: white;
 		}
 		#main_container{

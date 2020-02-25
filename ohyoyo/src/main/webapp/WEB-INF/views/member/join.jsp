@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/header.jsp" %> 
+<%@ include file="../include/modal.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -188,7 +189,7 @@
 		display: inline-block;
 	}
 	.addr_poc_button{
-		width: 110px;
+		width: 103px;
 		height: 51px;
 		font-size: 14px;
 		font-weight: 700;
@@ -204,7 +205,7 @@
 	.addr_poc_button:hover{
 		border: 1px solid #999;
 		right:1px;
-		bottom:1px;
+    	z-index: 10;
 	}
 	.postcode{
 		display: flex;
@@ -216,6 +217,14 @@
 	.bulr{
 		color: #8e8e8e;
 		font-size: 16px;
+	}
+	.ps_box_name{
+		position: relative;
+	}
+	.name_cnt_box{
+		position: absolute;
+		right: 12px;
+   		z-index: 10;
 	}
 	
 	/* Footer */
@@ -308,9 +317,9 @@
 								<h3 class="join_title">
 									<label for="uname">이름<span class="highlight">*</span></label>
 								</h3>
-								<span class="ps_box">
+								<span class="ps_box ps_box_name">
 									<input type="text" id="uname" name="name" class="int"> 
-									<span><span class="name_cnt">0</span>/20</span>
+									<span class="name_cnt_box"><span id="name_cnt">0</span>/20</span>
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
 							</div>
@@ -513,7 +522,7 @@
 		$('#uname').keyup(function(){
 			var name = $(this).val().trim();
 			// console.log(name); // 꼭 확인하고 넘어가기
-			//$('.name_cnt').text(name.length);
+			$('#name_cnt').text(name.length);
 			
 			var result = joinValidate.checkName(name);
 			if(result.code == 0){

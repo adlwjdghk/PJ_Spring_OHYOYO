@@ -14,10 +14,10 @@
 		overflow: auto;
 		width: 100%;
 		height: 100%;
+		/*display: none;*/
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/*display: none;*/
 	}
 	.modal_content{
 		box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
