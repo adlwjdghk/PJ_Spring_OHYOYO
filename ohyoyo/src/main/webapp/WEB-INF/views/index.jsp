@@ -189,6 +189,8 @@
 	</style>
 </head>
 <body>
+<!-- 만드는 위치가 달라짐  -->
+<%@ include file="include/modal.jsp" %> 
  <div id="main_wrap">
  	<div id="main_container">
  		<div class="main_contain">

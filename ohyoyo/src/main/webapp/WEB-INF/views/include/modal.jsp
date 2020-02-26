@@ -14,8 +14,7 @@
 		overflow: auto;
 		width: 100%;
 		height: 100%;
-		/*display: none;*/
-		display: flex;
+		display: none;
 		justify-content: center;
 		align-items: center;
 	}
@@ -29,8 +28,8 @@
 		position: relative;
 	}
 	.imp_ment{
-		padding: 50px 10px;
-		font-size: 17px;
+		padding: 55px 10px 40px;
+		font-size: 15px;
 		font-weight: bold;
 		text-align: center;
 	}
@@ -51,16 +50,16 @@
 		color: #F7B8B4;
 
 	}
-	.user{
+	.modal_msg_main{
 		font-size: 20px;
 	}
-	.det_button_wrap{
+	.modal_button_wrap{
 		margin: 0 10px;
 		padding: 0 0 30px;
 		/*border-top: 1px solid #d4d4d4;*/
 		text-align: center;
 	}
-	.det_button{
+	.modal_button{
 		border-radius: 4px;
 		border: 1px solid #d6d6d6;
 		text-align: center;
@@ -91,15 +90,23 @@
 		<div class="modal_content">
 			<div class="close"><button><i class="fas fa-times"></i></button></div>
 			<div class="imp_ment">
-				<span class="user"><span class="user_id"></span>&nbsp;회원님</span><br>
+				<div class="modal_msg_main">
+					<span id="modal_user_id"></span>
+					&nbsp;회원님
+					<br><br>회원가입을 축하드립니다.
+				</div>
 				<br>
-				<span>정말 탈퇴하시겠습니까?</span>
+				<br>
+				<div class="modal_msg_sub">
+					인증메일을 보냈습니다.
+					<br><br>인증하셔야만 사이트 활동이 가능합니다.
+				</div>
 			</div>
-				<div class="det_button_wrap">
-					<a href="#" class="det_button btn_default">
+				<div class="modal_button_wrap">
+					<a href="#" class="modal_button btn_default" id="modal_cancle_btn">
 						<span>탈퇴 취소</span>
 					</a>
-					<a href="#" class="det_button btn_agree">
+					<a href="#" class="modal_button btn_agree">
 						<span>확인</span>
 					</a>
 				</div>
@@ -109,6 +116,27 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+	$(function(){
+		var id='${id}';
+		var email='${email}';
+		var key='${key}';
+				
+		var join_main_txt = id+'회원님 이메일 인증되셨습니다.';
+		var join_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.';
+		var auth_main_txt = id+'회원님 이메일 인증되셨습니다.';
+		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.';
+		
+		if(key == 'join'){
+			$('#modal_user_id').text(id);
+			$('#modal_cancle_btn').css('display', 'none'); // 취소버튼제거
+			$('.modal_wrap').css('display', 'flex');
+		} else if(key == 'auth'){
+			$('.modal_msg_main').text(auth_main_txt);
+			$('.modal_msg_sub').text(auth_sub_txt);
+			$('#modal_cancle_btn').css('display', 'none');
+			$('.modal_wrap').css('display', 'flex');
+		}
+	});
 	$(document).on('click','.close', function() {
 		$('.modal_wrap').css('display','none');
 	});

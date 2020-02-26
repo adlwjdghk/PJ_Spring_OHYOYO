@@ -109,19 +109,23 @@ public class MemberController {
 	// 원래 8개만 왔다가 null값이 있으니까 저장소 가서 찾아봄 4개 값이 있음 
 	// 그래서 4개값을 넣어서 12개가 됨 but 해당 값이 Spring input태그로 되어있어야함 
 	@PostMapping("/join")
-	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus, HttpServletRequest request) {
+	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus, HttpServletRequest request, RedirectAttributes rttr) {
+		// View단에서 Controller단으로 이동을 잘 했는지 확인됨
 		log.info(">>> MEMBER/JOIN POST DB에 회원정보 저장");
+		
+		// View단에서 전송된 데이터가 잘 전달됐는지 확인
 		log.info(mDto.toString());
 		
 		log.info(mDto.getPw()); // 사용자가 입력한 값
 		
 		// 1. 사용자 암호 hash변환
 		String encPw = passwordEncoder.encode(mDto.getPw());
-		mDto.setPw(encPw);
-		log.info("hash: "+mDto.getPw()); // 사용자가 입력한 값
+		mDto.setPw(encPw); // 암호화된 pw를 DTO에 넣는 과정
+		log.info("hash: "+mDto.getPw()); // 사용자가 입력한 pw를 hash로 바꾼 값
 		
 		// 2. DB에 회원등록
-		int result = mService.memInsert(mDto);
+		// 객체생성을 하지않아도 사용가능 @Autowired로 의존성주입이 되어있음(타입으로함)
+		int result = mService.memInsert(mDto); 
 		// 3. 회원 등록 결과
 		if(result > 0) {
 			log.info(">>>>" + mDto.getId()+"님이 회원가입되었습니다");
@@ -135,6 +139,19 @@ public class MemberController {
 		// session에 담긴 값을 clear 해주어야한다
 		sessionStatus.setComplete();
 		
+		// 서버단,Controller단에서 View단으로 갈때 2가지 방식 
+		// forward 포워드방식 원페이지에 새페이지를 덮어쓰는 방식 , url주소 안 바뀜 데이터가 남아있음 
+		//  새로고침을 하면 윈페이지도 같이 새로고침됨 그래서 가입하기 버튼도 다시 눌림 
+		//  DB에 같은 정보를 또 넣게 되어서 에러남  DB 값이 바뀌는 작업일때는 리다이렉트해야함
+		// 	forward가 디폴트!
+		// sendredirct 샌드리다이렉트방식 페이지를 새로만들어서 보내는것, url주소 바뀜
+		// redirect:  이게 샌드리다이렉트방식보내는 것 
+		
+		// 회원가입 후 메시지 출력을 위한 값 전달 
+		rttr.addFlashAttribute("id", mDto.getId()); 
+		rttr.addFlashAttribute("email", mDto.getEmail());
+		rttr.addFlashAttribute("key", "join");
+				
 		return "redirect:/";
 	}
 	
@@ -144,11 +161,6 @@ public class MemberController {
 		log.info(">>> MEMBER/CONSTRACT PAGE 출력");
 		return "member/constract";
 	}
-//	@GetMapping("/drop")
-//	public String viewDrop(Model model) {
-//		log.info(">>> MEMBER/DROP PAGE 출력");
-//		return "member/drop";
-//	}
 	
 	@GetMapping("/drop")
 	public String drop(Model model) {
@@ -168,6 +180,7 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
 	// 회원가입 ID 중복체크
 	@ResponseBody
 	@PostMapping(value="/idoverlap",produces="application/text; charset=utf-8")
@@ -175,7 +188,7 @@ public class MemberController {
 		log.info(">> ID OVERLAP CHECK");
 		log.info(" ID : "+id);
 		int cnt = mService.idOverlap(id); 
-		log.info("cnt: " + cnt);
+
 		String flag = "1";
 		if(cnt == 0) {
 			flag = "0";

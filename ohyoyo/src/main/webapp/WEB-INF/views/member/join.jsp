@@ -226,6 +226,27 @@
 		right: 12px;
    		z-index: 10;
 	}
+	/* loadingbar */
+	#back{
+		position: fixed;
+		z-index: 1200;
+		background-color: rgba(0,0,0,0.4);
+		overflow: auto;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		display: none;
+		align-items: center;
+		justify-content: center;
+	}
+	.loading_img{
+		animation: ani_loading 1.5s infinite linear;
+	}
+	@keyframes ani_loading{
+		from{-webkit-transform: rotate(0deg);}
+		to{-webkit-transform: rotate(359deg);}
+	}
 	
 	/* Footer */
 	#footer{
@@ -430,6 +451,7 @@
 							   .focus();		
 			}
 		});
+		FunLoadingBarStart();
 	});
 		
 	$(function(){
@@ -722,6 +744,8 @@
 			}
 			printCheckArr(checkArr);
 			if(invalidAll){
+				FunLoadingBarStart(); // 로딩바생성
+				
 				var id= $('#uemail').val();
 				var url= $('#email_url').val();
 				$('#emailAll').val(id+'@'+url);
@@ -761,5 +785,22 @@
 			console.log(i+'번지 '+checkArr[i]);	
 		}
 	}
+	// 로딩바 출력
+	function FunLoadingBarStart(){
+		var loadingBarImage = ''; // 가운데 띄워줄 이미지
+		loadingBarImage += "<div id='back'>";
+		loadingBarImage += "<div id='loadingBar'>";
+		loadingBarImage += "<img src='${path}/resources/img/icons8-spinner-80.png' class='loading_img'>";
+		loadingBarImage += "</div></div>";
+		$('body').append(loadingBarImage);
+		$('#back').css('display', 'flex');
+		$('#loadingImg').show();
+	}
+	// 로딩바 제거 , 지금은 필요없음 나중에?
+	function FunLoadingBarEnd(){
+		$('#back, #loadingBar').hide();
+		$('#back, #loadingBar').remove();
+	}
+	
 </script>
 </html>
