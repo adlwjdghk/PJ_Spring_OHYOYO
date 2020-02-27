@@ -242,6 +242,8 @@
 	}
 	.loading_img{
 		animation: ani_loading 1.5s infinite linear;
+		font-size: 70px;
+		color: #f46665;
 	}
 	@keyframes ani_loading{
 		from{-webkit-transform: rotate(0deg);}
@@ -790,7 +792,7 @@
 		var loadingBarImage = ''; // 가운데 띄워줄 이미지
 		loadingBarImage += "<div id='back'>";
 		loadingBarImage += "<div id='loadingBar'>";
-		loadingBarImage += "<img src='${path}/resources/img/icons8-spinner-80.png' class='loading_img'>";
+		loadingBarImage += "<i class="fas fa-bone loading_img"></i>";
 		loadingBarImage += "</div></div>";
 		$('body').append(loadingBarImage);
 		$('#back').css('display', 'flex');

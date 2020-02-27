@@ -157,7 +157,7 @@
 		top: 53;
 		left: 0;
 		display: none;
-		z-index: 2000;
+		z-index: 1000;
 	}
 	.arrow{
 		position: absolute;
@@ -174,7 +174,7 @@
 	/* 모달 로그인 창 */
 	.log_modal_wrap{
 		position: fixed;
-		z-index: 1000;
+		z-index: 2000;
 		background-color: rgba(0,0,0,0.4);
 		overflow: auto;
 		width: 100%;
@@ -191,7 +191,6 @@
 		margin-top: 12px; 
 		max-width: 400px;
 		width: 100%;
-		height: 530px;
 		background-color: #fafafa;
 		color: #262626;
 		display: flex;
@@ -199,6 +198,13 @@
 		flex-direction: column;
 		position: relative;
 		vertical-align: baseline;
+	}
+	.login_err_msg{
+		text-align: center;
+	    color: red;
+	    font-size: 13px;
+	    margin: 20px 0 10px;
+	    visibility: hidden;
 	}
 	.login_box{
 		background-color: #fff;
@@ -212,7 +218,7 @@
 		background-position: -98px 0;
 		/*height: 51px;*/
 		width: 228px;
-		margin: 0 85.6px ;
+		margin: 30px 85.6px 0;
 	}
 	.form > h2{
 		font-weight: 600;
@@ -340,8 +346,8 @@
 	}
 	.login_close{
 		position: absolute;
-		top: -10px;
-		right: 7px;
+		top: 16px;
+    	right: 13px;
 	}
 	.login_close > button{
 		color: rgb(142,142,142);
@@ -368,6 +374,8 @@
 		text-align: center;
 
 	}
+	
+	/*top 버튼*/
 	.header_sidebar_top{
 		position: fixed;
 		right: 30px;
@@ -408,16 +416,15 @@
 	<div class="log_modal_wrap">
 		<div class="log_modal_content">
 			<div class="login_close"><button><i class="fas fa-times"></i></button></div>
-
 			<div class="login_box login_main">
 				<div><h1><a herf="${path}/"><img src="${path}/resources/img/logo/33333.png"></a></h1></div>
-
-				<form class="frm_login">
+				<div class="login_err_msg">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>
+				<form class="frm_login" onsubmit="return false;">
 					<!-- <h2>제품을 구매하시려면 로그인이 필요합니다.</h2> -->
 					
 
 					<div class="input_wrap">
-						<input type="email" id="login_id" class="login_input" placeholder="아이디" required>
+						<input type="text" id="login_id" class="login_input" placeholder="아이디" required>
 					</div>
 					<div class="input_wrap">
 						<input type="password" id="login_pw" class="login_input" placeholder="비밀번호" 
@@ -426,7 +433,7 @@
 					</div>
 					
 					<div id="login_another">
-						<button type="submit" class="button log_button">로그인</button>
+						<button type="submit" id="btn-login" class="button log_button">로그인</button>
 					</div>
 					<div class="pw_check_key"><p>비밀번호를 잊어버리셨나요?</p></div>
 					<div class="line_or">
@@ -541,8 +548,21 @@
 					<div>
 						<div class="header_content_member_cart"><a href="#"><i class="fas fa-shopping-bag"></i></a></div>
 					</div>
-					<div><button class="btn btn-basic login_open">로그인</button></div>
-					<div><button id="header_btn_join" class="btn btn-primary">가입하기</button></div>
+					<div class="header_content_member_btn">
+						<!-- choose if else if를 사용하고 싶을때 사용하는 태그, 이것 또는 저것 선택할때 사용하는 태그 -->
+						<!-- when == if \ otherwise == else if 라고 생각하면 됨 -->
+						<c:choose>
+							<c:when test="${empty sessionScope.userid}">
+								<div><button class="btn btn-basic login_open">로그인</button></div>
+								<div><button id="header_btn_join" class="btn btn-primary">가입하기</button></div>							
+							</c:when>
+							<c:otherwise>
+								<div><button class="btn btn-basic logout_open">로그아웃</button></div>
+							</c:otherwise>
+						</c:choose>
+						<!-- if는 단답형을 할때 사용  -->
+						<c:if test="${empty sessionScope.userid}"></c:if>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -591,6 +611,7 @@
 		$('.pw_eye').prev().attr('type','password');
 		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
 			   .css('color','#aaa');
+		$('.login_err_msg').css('visibility','hidden');
 	});
 		
 	// LOGIN MODAL창 암호 보이기 or 숨기기
@@ -609,9 +630,37 @@
 				   .css('color','#aaa');
 				   // .html().css() 체이닝 기법
 		}	
-	
 	})  ;
-	
+	// 로그인 버튼 클릭시 Ajax동작
+	$(document).on('click', '#btn-login',function(){
+		// id와 pw값 받아와서 null이면 작동x
+		var id = $('#login_id').val();
+		var pw = $('#login_pw').val();
+		
+		if(id != '' && pw != '' && id.length != 0 && pw.length != 0){ // id,pw null값체크
+			$.ajax({
+				url:'${path}/login/in',
+				type: 'POST',
+				data: 'id='+id+'&pw='+pw,
+				success: function(data){
+					console.log(data);
+					if(data == 0 || data == 3){
+						$('.login_err_msg').css('visibility','visible').text('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+					} else if(data == 1){
+						console.log('tjdrhd');
+						location.reload(); // 새로고침
+					} else if(data == 2){
+						$('.login_err_msg').css('visibility','visible').text('이메일인증을 해야만 로그인할 수 있습니다.');	
+					}
+				},
+				error: function(){
+					alert('System Error:/');
+				}
+			});
+		} 
+		
+		
+	});
 	// Header가입하기 버튼 클릭시 동의 페이지 이동
 	$(document).on('click','#header_btn_join',function(){
 		location.href="${path}/member/constract";

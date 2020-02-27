@@ -14,7 +14,8 @@
 		@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 		#main_wrap{
 			width: 100%;
-			margin: 65px auto 0;
+			margin: 0 auto;
+			padding-top: 65px;
 			background-color: white;
 		}
 		#main_container{
@@ -305,7 +306,7 @@
 	  var i;
 	  var slides = document.getElementsByClassName("mySlides");
 	  var dots = document.getElementsByClassName("img_nav");
-	   console.log(slides.length);
+	   /*  console.log(slides.length);*/
 	  if (n < 0) {slideIndex = slides.length}
 	  for (i = 0; i < slides.length; i++) {
 	      slides[i].style.display = "none";  
