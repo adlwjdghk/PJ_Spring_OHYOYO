@@ -68,6 +68,9 @@
 		background: #fff;
 		vertical-align: top;
 	}
+	.email_hidden_box{
+		display: none;
+	}
 	.int_pass{
 		padding-right: 40px;
 	}
@@ -138,10 +141,6 @@
 	.sel_box, .sel_box *{
 		cursor: pointer;
 	}
-	.selpuls{
-		background: #fff url('https://static.nid.naver.com/images/join/pc/sel_arr_2x.gif') 100% 50% no-repeat;
-		background-size: 20px 8px;
-	}
 	.choice{
 		font-size: 12px;
 		font-weight: 400;
@@ -161,20 +160,6 @@
 		border-radius: 4px;
 		border: none;
 		outline: none;
-	}
-	
-	.bir_wrap{
-		display: table;
-		width: 100%;
-	}
-	.bir_mm, .bir_dd{
-		padding-left: 10px;
-	}
-	.bir_yy, .bir_mm, .bir_dd{
-		display: table-cell;
-		table-layout: fixed;
-		width: 147px;
-		vertical-align: middle;
 	}
 	.email_box{
 		display: flex;
@@ -213,10 +198,6 @@
 	}
 	.highlight{
 		color: #f24443;			
-	}
-	.bulr{
-		color: #8e8e8e;
-		font-size: 16px;
 	}
 	.ps_box_name{
 		position: relative;
@@ -316,13 +297,13 @@
 									<label for="uid">아이디<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box int_id">
-									<input type="text" id="uid" name="id" class="int" placeholder="아이디 입력">
+									<input type="text" id="uid" name="id" class="int" placeholder="아이디 입력" value="${user.id}">
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
 							</div>
 							<div class="join_row">
 								<h3 class="join_title">
-									<label for="upw">비밀번호<span class="highlight"> *</span></label>
+									<label for="upw">비밀번호<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box int_pass overlap">
 									<input type="text" id="upw" name="pw" class="int" placeholder="비밀번호 입력 (8자이상)">
@@ -341,7 +322,7 @@
 									<label for="uname">이름<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box ps_box_name">
-									<input type="text" id="uname" name="name" class="int"> 
+									<input type="text" id="uname" name="name" class="int" value="${user.name}"> 
 									<span class="name_cnt_box"><span id="name_cnt">0</span>/20</span>
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
@@ -350,6 +331,9 @@
 								<h3 class="join_title">
 									<label for="uemail">이메일<span class="highlight">*</span></label>
 								</h3>
+								<span class="ps_box email_hidden_box">
+									<input type="text" class="int" name="email" id="emailAll" value="${user.email}">
+								</span>
 								<div class="email_box">
 									<span class="ps_box email_id overlap">
 										<input type="text" class="int" id="uemail" name="uemail" placeholder="ID">
@@ -359,7 +343,6 @@
 									<span class="nbsp"></span>
 									<span class="ps_box overlap">
 										<input type="text" class="int" id="email_url" placeholder="Email 선택" readonly="readonly">
-										<input type="hidden" name="email" id="emailAll">
 									</span>
 								</div>
 								<div class="email_box">
@@ -382,7 +365,7 @@
 									<label for="uphone">휴대전화<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box">
-									<input type="tel" id="uphone" name="phone" class="int" placeholder="-없이 입력  예) 01012341234">
+									<input type="tel" id="uphone" name="phone" class="int" placeholder="-없이 입력  예) 01012341234" value="${user.phone}">
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
 							</div>
@@ -393,15 +376,15 @@
 								<div class="addr_wrap">
 									<div class="postcode">
 										<span class="ps_box addr_poc overlap">
-											<input type="text" id="sample6_postcode" name="postcode" class="int addr_only" placeholder="우편번호" readonly>
+											<input type="password" id="sample6_postcode" name="postcode" class="int addr_only" placeholder="우편번호" readonly value="${user.postcode}">
 										</span>
 										<input type="button" class="addr_poc_button" id="btn_post" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 									</div>
 									<span class="ps_box overlap">
-										<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly>
+										<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly value="${user.addr1}">
 									</span>
 									<span class="ps_box">
-										<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소">
+										<input type="password" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소" value="${user.addr2}">
 										<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 									</span>
 								</div>
@@ -453,11 +436,25 @@
 							   .focus();		
 			}
 		});
-		FunLoadingBarStart();
 	});
 		
 	$(function(){
 		
+		alert('user: '+ '${user}');
+		
+		if('${user}' !=''){
+			// 회원정보수정 디자인 변경
+			//  버튼 텍스트가 수정하기
+			$('#btn_join').text('수정하기');
+			//  비밀번호, 비밀번호 재설정 제거
+			$('.join_row:eq(1)').css('display','none');
+			//  id에 readonly효과를 줘서 입력이 불가능 
+			// id=#id 를 제거해서 우리가 입력한 유효성체크동작 불가능
+			$('.int:eq(0)').attr('readonly', 'true').removeAttr('id');
+			$('.email_hidden_box').css('display','block');
+			$('.email_box').css('display','none');
+			
+		}
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값
 		// default값 false
 		var pwFlag = false;
@@ -561,17 +558,16 @@
 		     
 		// 이메일 유효성체크
 		// email id값을 입력하면 url도 확인해서 필수정보입니다 출력하는 함수
-
 		$('#uemail').keyup(function(){
 			var e_id = $(this).val().trim();
 			var url = $('#selmail').val().trim();
 
 			if(url == '' || url.length == 0){
 				var result = joinValidate.checkEmail(url);
-				ckDesign(result.code, result.desc, 5,3);
+				ckDesign(result.code, result.desc, 6,3);
 			} else if(e_id == '' || e_id.length == 0){
 				var result = joinValidate.checkEmail(url);
-				ckDesign(result.code, result.desc, 4,3);
+				ckDesign(result.code, result.desc, 5,3);
 			} else if(url == 'directVal'){
 				url = $('#email_url').val().trim();
 				var email = e_id +'@'+ url;
@@ -583,10 +579,10 @@
 					checkArr[3] = false;
 				}
 				// printCheckArr(checkArr);
-				ckDesign(result.code, result.desc, 4, 3);
 				ckDesign(result.code, result.desc, 5, 3);
+				ckDesign(result.code, result.desc, 6, 3);
 			} else {
-				$('.ps_box:eq(4)').css('border','1px solid #dadada');
+				$('.ps_box:eq(5)').css('border','1px solid #dadada');
 				var email = e_id +'@'+ url;
 				console.log(email);
 				var result = joinValidate.checkEmail(email);
@@ -597,7 +593,7 @@
 				}
 				// printCheckArr(checkArr);
 
-				ckDesign(result.code, result.desc, 4, 3);
+				ckDesign(result.code, result.desc, 5, 3);
 			}
 			
 		});
@@ -607,13 +603,13 @@
 			var url = $(this).val().trim();
 			if(url == '' || url.length == 0){
 				var result = joinValidate.checkEmail(url);
-				ckDesign(result.code, result.desc, 5,3);
+				ckDesign(result.code, result.desc, 6,3);
 			} else if(url == 'directVal'){
 				if(e_id == '' || e_id.length == 0){
 					var result = joinValidate.checkEmail(e_id);
-					ckDesign(result.code, result.desc, 4,3);
+					ckDesign(result.code, result.desc, 5,3);
 				} else {
-					$('.ps_box:eq(4)').css('border','1px solid #dadada');
+					$('.ps_box:eq(5)').css('border','1px solid #dadada');
 					url = $('#email_url').val().trim();
 					var email = e_id +'@'+ url;
 					console.log(email);
@@ -625,36 +621,12 @@
 					}
 					// printCheckArr(checkArr);
 
-					ckDesign(result.code, result.desc, 5, 3);
+					ckDesign(result.code, result.desc, 6, 3);
 				}
 			} else {
-				$('.ps_box:eq(4)').css('border','1px solid #dadada');
 				$('.ps_box:eq(5)').css('border','1px solid #dadada');
+				$('.ps_box:eq(6)').css('border','1px solid #dadada');
 				var email = e_id +'@'+ url;
-				var result = joinValidate.checkEmail(email);
-				if(result.code == 0){
-					checkArr[3] = true;
-				} else {
-					checkArr[3] = false;
-				}
-				// printCheckArr(checkArr);
-
-				ckDesign(result.code, result.desc, 4, 3);
-			}
-			
-		});
-		//
-		$('#email_url').keyup(function(){
-			var e_id = $('#uemail').val().trim();
-			var url = $(this).val().trim();
-
-			if(e_id == '' || e_id.length == 0){
-				var result = joinValidate.checkEmail(e_id);
-				ckDesign(result.code, result.desc, 4,3);
-			} else {
-				$('.ps_box:eq(4)').css('border','1px solid #dadada');
-				var email = e_id +'@'+ url;
-				console.log(email);
 				var result = joinValidate.checkEmail(email);
 				if(result.code == 0){
 					checkArr[3] = true;
@@ -666,6 +638,40 @@
 				ckDesign(result.code, result.desc, 5, 3);
 			}
 			
+		});
+		$('#email_url').keyup(function(){
+			var e_id = $('#uemail').val().trim();
+			var url = $(this).val().trim();
+
+			if(e_id == '' || e_id.length == 0){
+				var result = joinValidate.checkEmail(e_id);
+				ckDesign(result.code, result.desc, 5,3);
+			} else {
+				$('.ps_box:eq(5)').css('border','1px solid #dadada');
+				var email = e_id +'@'+ url;
+				console.log(email);
+				var result = joinValidate.checkEmail(email);
+				if(result.code == 0){
+					checkArr[3] = true;
+				} else {
+					checkArr[3] = false;
+				}
+				// printCheckArr(checkArr);
+
+				ckDesign(result.code, result.desc, 6, 3);
+			}
+			
+		});
+		// 회원정보수정의 이메일
+		$('#emailAll').keyup(function(){
+			var email= $.trim($(this).val());
+			var result = joinValidate.checkEmail(email);
+			if(result.code == 0){
+				checkArr[3] = true;
+			} else {
+				checkArr[3] = false;
+			}
+			ckDesign(result.code, result.desc, 4, 3);
 		});
 
 		// 전화번호 유효성체크
@@ -680,7 +686,7 @@
 				checkArr[4] = false;
 			}
 			printCheckArr(checkArr);
-			ckDesign(result.code, result.desc, 7, 4);
+			ckDesign(result.code, result.desc, 8, 4);
 		});
 
 		// 주소 이벤트
@@ -705,15 +711,15 @@
 			var result = joinValidate.checkAddr(addrDetail, addrPost);
 			if(result.code == 3){ // 우편번호&주소x
 				checkArr[5] = false;
-				ckDesign(result.code, result.desc, 8,5);
+				ckDesign(result.code, result.desc, 9,5);
 			} else if(result.code == 0){ // 성공
 				checkArr[5] = true;
-				ckDesign(result.code, result.desc, 8,5);
 				ckDesign(result.code, result.desc, 9,5);
 				ckDesign(result.code, result.desc, 10,5);
+				ckDesign(result.code, result.desc, 11,5);
 			} else { // 상세주소 통과x한 모든경우
 				checkArr[5] = false;
-				ckDesign(result.code, result.desc, 10,5);
+				ckDesign(result.code, result.desc, 11,5);
 			}
 			printCheckArr(checkArr);
 		});
@@ -792,7 +798,7 @@
 		var loadingBarImage = ''; // 가운데 띄워줄 이미지
 		loadingBarImage += "<div id='back'>";
 		loadingBarImage += "<div id='loadingBar'>";
-		loadingBarImage += "<i class="fas fa-bone loading_img"></i>";
+		loadingBarImage += "<i class='fas fa-bone loading_img'></i>";
 		loadingBarImage += "</div></div>";
 		$('body').append(loadingBarImage);
 		$('#back').css('display', 'flex');

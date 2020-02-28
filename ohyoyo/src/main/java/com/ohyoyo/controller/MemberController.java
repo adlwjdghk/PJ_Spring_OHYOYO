@@ -202,7 +202,7 @@ public class MemberController {
 	
 	// 회원정보수정
 	@GetMapping("/update")
-	public String memUpdate(HttpSession session) {
+	public String memUpdate(HttpSession session, Model model) {
 		log.info(">>> GET: MEMBER UPDATE PAGE");
 		
 		// 현재 로그인 상태 확인 
@@ -214,6 +214,11 @@ public class MemberController {
 		if(id == null) {
 			return "redirect:/";
 		}
+		
+		// 로그인된 유저의 정보를 GET
+		// 회원정보수정 페이지로 보내기
+		model.addAttribute("user", mService.userView(id));
+	
 		return "/member/join";
 	}
 }

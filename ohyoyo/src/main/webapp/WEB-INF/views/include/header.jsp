@@ -470,7 +470,7 @@
 		<div class="header_wrap">
 			<div class="header_content">
 				<div class="header_content_logo">
-					<a href="#">
+					<a href="${path}/">
 						<img class="header_content_logo_img" src="${path}/resources/img/logo/333333_final.png" alt="로고이미지">
 					</a>
 				</div>
@@ -557,7 +557,7 @@
 								<div><button id="header_btn_join" class="btn btn-primary">가입하기</button></div>							
 							</c:when>
 							<c:otherwise>
-								<div><span>${userid} 님</span></div>
+								<div><span>${name} 님</span></div>
 								<div><button id="header_btn_logout" class="btn btn-basic logout_open">로그아웃</button></div>
 							</c:otherwise>
 						</c:choose>

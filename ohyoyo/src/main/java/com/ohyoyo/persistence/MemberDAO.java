@@ -15,5 +15,6 @@ public interface MemberDAO {
 	// 회원가입 이메일인증후 useyn컬럼y로 값변경
 	public int alterKey(String id, String key);
 	
-	
+	// 1명의 회원정보
+	public MemberDTO userView(String id);
 }
