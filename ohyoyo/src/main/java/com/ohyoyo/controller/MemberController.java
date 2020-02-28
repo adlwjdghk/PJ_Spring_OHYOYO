@@ -1,6 +1,7 @@
 package com.ohyoyo.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -80,6 +81,8 @@ public class MemberController {
 		log.info(">>> MEMBER/JOIN GET PAGE 출력");
 		log.info(mDto.toString());
 //		model.addAttribute("flag", flag);
+		
+		// 비정상적인 접근일경우 약관동의페이지로 이동
 		if(!flag.equals("1")) {
 			return "member/constract";
 		}
@@ -195,5 +198,22 @@ public class MemberController {
 		}
 		
 		return flag;
+	}
+	
+	// 회원정보수정
+	@GetMapping("/update")
+	public String memUpdate(HttpSession session) {
+		log.info(">>> GET: MEMBER UPDATE PAGE");
+		
+		// 현재 로그인 상태 확인 
+		// session.getAttribute("userid"); session에 들어가면 타입이 가장상위인 object타입으로 바뀜
+		// 그래서 형변환을 해줘야함
+		String id = (String) session.getAttribute("userid");
+		
+		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+		if(id == null) {
+			return "redirect:/";
+		}
+		return "/member/join";
 	}
 }

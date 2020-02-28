@@ -1,5 +1,7 @@
 package com.ohyoyo.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,7 @@ public class IndexController {
 	IndexService iService; // == indexServiceImpl Beans; Spring이 이렇게 만들어주기 때문에 우리는 그냥 쓰기만 하면 됨
 	
 	@RequestMapping("/")
-	public String indexView(Model model) {
+	public String indexView(Model model, HttpSession session) {
 		log.info(">>> INDEX PAGE 출력");
 		
 		// view단에 출력할 데이터

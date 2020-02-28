@@ -64,6 +64,7 @@ public class LoginServiceImpl implements LoginService{
 				session.removeAttribute("name");
 				session.setAttribute("userid", loginDto.getId());
 				session.setAttribute("name", loginDto.getName());
+				
 			// id가 있는데 pw가 틀린 경우
 			} else {
 				result = 3;
@@ -74,8 +75,11 @@ public class LoginServiceImpl implements LoginService{
 	}
 
 	@Override
-	public void logout() {
-		
+	public void logout(HttpSession session) {
+		// 비즈니스로직: 로그아웃
+		// 저장되어있는 데이터 삭제
+		// 세션을 초기화
+		session.invalidate();
 	}
 	
 	

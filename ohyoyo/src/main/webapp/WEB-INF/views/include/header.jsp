@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="include.jsp" %> 
+<%@ include file="include.jsp" %>
 <!-- include.jsp를 실행시켜주는 곳 \ 그대로 가지고와서 사용하는 게 됨 -->
 <!-- <% %> : scriptlet 스크립트릿 : 자바코드를 쓸수있게 해주는 곳  
-	ex) <% int num = 4; %> -->
+    ex) <% int num = 4; %> --> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +88,7 @@
 		justify-content: space-between;
 		flex-direction: row; /* defalut(생략가능) */
 	}
-	.header_content_member > div{
+	.header_content_member div{
 		padding: 10px 0 10px 3px; 
 	}
 	.header_content_dropdown_group{
@@ -253,7 +253,7 @@
 		text-transform: uppercase;
 		display: inline-block;
 	}
-	.button{
+	.button_group{
 		
 		border: 0.5px solid #ffe6dc;
 		background-color: #ffe6dc;
@@ -293,7 +293,7 @@
 		border: 1px solid transparent;
 		background-color: #2e5393;
 	}
-	.button img{
+	.button_group img{
 		margin: 0;
 		width: 16px;
 		height: 16px;
@@ -319,7 +319,6 @@
 		flex: 1 0 auto; 
 		line-height: 18px;
 		outline: none;
-
 	}
 	.down{
 		color: #999;
@@ -371,8 +370,12 @@
 		height: 42px;
 		line-height: 42px;
 		width: 30px;
-		text-align: center;
-
+		text-align: center;	
+	}
+	.header_content_member_btn{
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	
 	/*top 버튼*/
@@ -420,9 +423,6 @@
 				<div><h1><a herf="${path}/"><img src="${path}/resources/img/logo/33333.png"></a></h1></div>
 				<div class="login_err_msg">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>
 				<form class="frm_login" onsubmit="return false;">
-					<!-- <h2>제품을 구매하시려면 로그인이 필요합니다.</h2> -->
-					
-
 					<div class="input_wrap">
 						<input type="text" id="login_id" class="login_input" placeholder="아이디" required>
 					</div>
@@ -433,7 +433,7 @@
 					</div>
 					
 					<div id="login_another">
-						<button type="submit" id="btn-login" class="button log_button">로그인</button>
+						<button type="submit" id="btn-login" class="button_group log_button">로그인</button>
 					</div>
 					<div class="pw_check_key"><p>비밀번호를 잊어버리셨나요?</p></div>
 					<div class="line_or">
@@ -442,21 +442,20 @@
 						<div class="line"></div>
 					</div>
 					<div id="login_another">
-						<button class="button gg_button">
+						<button class="button_group gg_button">
 							<img src="${path}/resources/img/google_logo_2_littledeep.png">
 							<span>&nbsp;google 로그인</span>
 						</button>
-						<button class="button nv_button">
+						<button class="button_group nv_button">
 							<img src="${path}/resources/img/icons8-n-100.png">
 							<span>&nbsp;naver 로그인</span>
 						</button>
-						<button class="button fb_button">
+						<button class="button_group fb_button">
 							<span>
 								<i class="fab fa-facebook-f"></i>&nbsp;&nbsp;facebook 로그인
 							</span>
 						</button>
 					</div>
-					<!-- <p class="down">로그인하면 ohyoyo의 모든 제품을 구매, 배송받을 수 있습니다.</p> -->
 				</form>
 			</div>
 			<div class="login_box login_signup_button">
@@ -539,7 +538,10 @@
 								<ul class="header_dropdown_menu">
 									<li><a href="#">주문내역</a></li>
 									<li><a href="#">Wish List</a></li>
-									<li><a href="#">회원정보수정</a></li>
+									<c:if test="${not empty userid}">
+										<li><a href="${path}/member/update">회원정보수정</a></li>
+										<li><a href="${path}/member/pwupdate">비밀번호수정</a></li>
+									</c:if>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>
@@ -549,19 +551,16 @@
 						<div class="header_content_member_cart"><a href="#"><i class="fas fa-shopping-bag"></i></a></div>
 					</div>
 					<div class="header_content_member_btn">
-						<!-- choose if else if를 사용하고 싶을때 사용하는 태그, 이것 또는 저것 선택할때 사용하는 태그 -->
-						<!-- when == if \ otherwise == else if 라고 생각하면 됨 -->
 						<c:choose>
-							<c:when test="${empty sessionScope.userid}">
-								<div><button class="btn btn-basic login_open">로그인</button></div>
+							<c:when test="${empty userid}">
+								<div><button id="header_btn_login" class="btn btn-basic login_open">로그인</button></div>
 								<div><button id="header_btn_join" class="btn btn-primary">가입하기</button></div>							
 							</c:when>
 							<c:otherwise>
-								<div><button class="btn btn-basic logout_open">로그아웃</button></div>
+								<div><span>${userid} 님</span></div>
+								<div><button id="header_btn_logout" class="btn btn-basic logout_open">로그아웃</button></div>
 							</c:otherwise>
 						</c:choose>
-						<!-- if는 단답형을 할때 사용  -->
-						<c:if test="${empty sessionScope.userid}"></c:if>
 					</div>
 				</div>
 			</div>
@@ -647,7 +646,6 @@
 					if(data == 0 || data == 3){
 						$('.login_err_msg').css('visibility','visible').text('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
 					} else if(data == 1){
-						console.log('tjdrhd');
 						location.reload(); // 새로고침
 					} else if(data == 2){
 						$('.login_err_msg').css('visibility','visible').text('이메일인증을 해야만 로그인할 수 있습니다.');	
@@ -661,6 +659,22 @@
 		
 		
 	});
+	
+	// 로그아웃 기능
+	$(document).on('click','#header_btn_logout',function(){
+		$.ajax({
+			url: '${path}/login/out',
+			type: 'POST',
+			success: function(){
+				console.log('Logout Success');
+				location.reload();
+			},
+			error: function(){
+				alert('System Error:/')
+			}
+		});
+	});
+	
 	// Header가입하기 버튼 클릭시 동의 페이지 이동
 	$(document).on('click','#header_btn_join',function(){
 		location.href="${path}/member/constract";
