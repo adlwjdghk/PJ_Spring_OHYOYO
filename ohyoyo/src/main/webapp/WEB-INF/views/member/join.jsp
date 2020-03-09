@@ -306,11 +306,11 @@
 									<label for="upw">비밀번호<span class="highlight">*</span></label>
 								</h3>
 								<span class="ps_box int_pass overlap">
-									<input type="text" id="upw" name="pw" class="int" placeholder="비밀번호 입력 (8자이상)">
+									<input type="password" id="upw" name="pw" class="int" placeholder="비밀번호 입력 (8자이상)">
 									<span class="step_url"><span class="pw_lock"></span></span>
 								</span>
 								<span class="ps_box int_pass">
-									<input type="text" id="urpw" name="urpw" class="int" placeholder="비밀번호 재확인">
+									<input type="password" id="urpw" name="urpw" class="int" placeholder="비밀번호 재확인">
 									<span class="step_url"><span class="repw_lock"></span></span>
 								</span>
 								<span class="join_err_msg">필수 정보입니다.</span>
@@ -812,11 +812,16 @@
 			if(invalidAll){
 				FunLoadingBarStart(); // 로딩바생성
 				
-				var id= $('#uemail').val();
-				var url= $('#email_url').val();
-				$('#emailAll').val(id+'@'+url);
+				var email = $('#emailAll').val();
 				
-				alert('회원가입성공');
+				if(email == '' || email.length == 0){
+					var id= $('#uemail').val();
+					var url= $('#email_url').val();
+					$('#emailAll').val(id+'@'+url);
+				}
+				
+				// alert('회원가입성공');
+				
 				// submit(): form태그 안에 있는 데이터들을 서버단으로 전송하세요
 				// action: 목적지(MemberController '/join')
 				// method: 방법( POST 숨겨서)

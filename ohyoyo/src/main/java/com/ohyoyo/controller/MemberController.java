@@ -221,4 +221,30 @@ public class MemberController {
 	
 		return "/member/join";
 	}
+	
+	@PostMapping("/update")
+	public String memUpdate(MemberDTO mDto, HttpSession session) {
+		log.info(">>> POST: MEMBER UPDATE ACTION");
+		log.info(mDto.toString());
+		
+		mService.memUpdate(mDto, session);
+		
+		return "redirect:/";
+	}
+	
+	// 비밀번호 변경
+	@GetMapping("/pwupdate")
+	public String memPwupdate(HttpSession session, Model model) {
+		log.info(">>> GET: MEMBER PASSWORD UPDATE PAGE");
+		
+		String id = (String) session.getAttribute("userid");
+		
+		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+		if(id == null) {
+			return "redirect:/";
+		}
+		
+	
+		return "/member/";
+	}
 }
