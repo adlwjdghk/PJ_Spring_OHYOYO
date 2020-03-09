@@ -140,5 +140,8 @@
 	$(document).on('click','.close', function() {
 		$('.modal_wrap').css('display','none');
 	});
+	$(document).on('click','.btn_agree', function() {
+		$('.modal_wrap').css('display','none');
+	});
 </script>
 </html>
