@@ -532,8 +532,12 @@
 			// console.log(rpw);
 
 			// 2. 유효성 체크하기
-			var result = joinValidate.checkPw(pw, rpw);
+			var result = joinValidate.checkPw('', pw, rpw);
+			// '' 비밀번호변경과 같이 validation.js를 사용하기위해
 			// console.log(result.code+","+result.desc);
+			
+			// 3. 체크결과에 따라 디자인 하기
+			ckDesign(result.code, result.desc, 1, 1);
 			
 			if(result.code == 0 || result.code == 10 || result.code == 6){
 				pwFlag = true;
@@ -543,13 +547,13 @@
 			if(result.code == 10){
 				checkArr[1] = true;
 				$('.ps_box:eq(2)').css('border','1px solid #dadada');
+				$('.join_err_msg:eq(1)').css('visibility','visible')
+				 					    .text('입력한 비밀번호가 일치합니다.')
+									    .css('color','#3885ca');
 			} else {
 				checkArr[1] = false;
 			}
 			// printCheckArr(checkArr);
-
-			// 3. 체크결과에 따라 디자인 하기
-			ckDesign(result.code, result.desc, 1, 1);
 		});
 
 		// 비밀번호 재확인 유효성 체크
@@ -560,9 +564,15 @@
 			var result = joinValidate.checkRpw(pw, rpw, pwFlag);
 			console.log(result.code+","+result.desc);
 
+			ckDesign(result.code, result.desc, 2, 1);
+			
 			if(result.code == 10){
 				checkArr[1] = true;
+				console.log(checkArr[1]);
 				$('.ps_box:eq(1)').css('border','1px solid #dadada');
+				$('.join_err_msg:eq(1)').css('visibility','visible')
+				 					    .text('입력한 비밀번호가 일치합니다.')
+									    .css('color','#3885ca');
 			} else if(result.code == 6){
 				checkArr[1] = false;
 				$('.ps_box:eq(1)').css('border','1px solid #dadada');
@@ -570,9 +580,6 @@
 				checkArr[1] = false;
 			}
 			// printCheckArr(checkArr);
-
-			ckDesign(result.code, result.desc, 2, 1);
-
 		});
 
 		// 이름 유효성체크
@@ -767,7 +774,6 @@
 			} else if(result.code == 0){ // 성공
 				checkArr[5] = true;
 				ckDesign(result.code, result.desc, 9,5);
-				ckDesign(result.code, result.desc, 10,5);
 				ckDesign(result.code, result.desc, 11,5);
 			} else { // 상세주소 통과x한 모든경우
 				checkArr[5] = false;

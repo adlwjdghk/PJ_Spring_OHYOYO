@@ -222,6 +222,7 @@ public class MemberController {
 		return "/member/join";
 	}
 	
+	// 수정한 회원정보 db에 저장하기
 	@PostMapping("/update")
 	public String memUpdate(MemberDTO mDto, HttpSession session) {
 		log.info(">>> POST: MEMBER UPDATE ACTION");
@@ -234,7 +235,7 @@ public class MemberController {
 	
 	// 비밀번호 변경
 	@GetMapping("/pwupdate")
-	public String memPwupdate(HttpSession session, Model model) {
+	public String pwUpdate(HttpSession session) {
 		log.info(">>> GET: MEMBER PASSWORD UPDATE PAGE");
 		
 		String id = (String) session.getAttribute("userid");
@@ -244,7 +245,34 @@ public class MemberController {
 			return "redirect:/";
 		}
 		
+		return "/member/pwupdate";
+	}
 	
-		return "/member/";
+	// 입력한 비밀번호 변경하러 보내기
+	@PostMapping("/pwupdate")
+	public String pwUpdate(MemberDTO mDto, HttpSession session) {
+		log.info(">>> POST: MEMBER PASSWORD UPDATE ACTION");
+		
+		String encPw = passwordEncoder.encode(mDto.getPw());
+		mDto.setPw(encPw); 
+		
+		String id = (String) session.getAttribute("userid");
+		mDto.setId(id);
+		log.info(mDto.toString());
+		
+		mService.pwUpdate(mDto);
+		
+		return "redirect:/";
+	}
+	
+	// 비밀번호 유효성체크: 기존에 db에 저장되잇는 정보와 동일한지 확인
+	@ResponseBody
+	@PostMapping("/pwcheck")
+	public Integer pwCheck(String pw, HttpSession session) {
+		log.info(">>> POST: PWCHECK(AJAX)");
+		
+		String id = (String) session.getAttribute("userid");
+		
+		return mService.pwCheck(id, pw);
 	}
 }

@@ -40,9 +40,13 @@ var joinValidate = {
 			code: 0,
 			desc: '사용가능한 비밀번호입니다.'
 		},
-		equal_success_pw :{
+		equal_success_pw : {
 			code: 10,
 			desc: '입력한 비밀번호가 일치합니다.'
+		},
+		success_nowpw : {
+			code: 100,
+			desc: '확인되었습니다.'
 		},
 		invalid_pw : {
 			code: 3,
@@ -151,7 +155,7 @@ var joinValidate = {
 				return this.resultCode.success_id;
 			}
 	},
-	checkPw : function(pw, rpw){
+	checkPw : function(nowpw, pw, rpw){
 		// 값이 있으면 true를 보냄 
 		var regEmpty = /\s/g;   // 공백문자
 		// 값이 있으면 false를 보냄 ^가 그걸 바꿈
@@ -160,17 +164,19 @@ var joinValidate = {
 
 		if(pw == '' || pw.length == 0){ // 1. 값이 있는지 체크
 			return this.resultCode.empty_val;
-		}else if(pw.match(regEmpty)){ // 2. 공백값이 있는지 체크
+		} else if(pw.match(regEmpty)){ // 2. 공백값이 있는지 체크
 			return this.resultCode.space_length_val;
 		} else if(/(\w)\1\1\1/.test(pw)){ // 3. 같은 값이 4번연속으로 사용했는지 체크
 			return this.resultCode.stream_pw;
 		} else if(regHangul.test(pw)){ // 4. 한글 사용 체크
 			return this.resultCode.hangul_pw;
-		} else if(!pw.match(regPw)) { // 5. 유효한 비밀번호 체크
+		} else if(!pw.match(regPw)) { // 5. 유효한 비밀번호 체크(정규식체크)
 			// ^가 있어서 !로 반대로 해줘야함
 			return this.resultCode.invalid_pw;	
 		// 값이 없는데 값이 같은지 다른지 체크하면 아직 재확인 pw를 적지않았는데도 두개가 같지않다고 나옴 
 		// 그래서 값이 있는지 없는지를 먼저 체크해야함
+		} else if (pw == nowpw) { // ++ 비밀번호변경시 현재pw와 수정pw 체크
+			return this.resultCode.equal_pw;
 		} else if(rpw != '' || rpw.length != 0){ // 6. 비밀번호 재확인 값이 있으면 실행
 			if(pw == rpw){
 				return this.resultCode.equal_success_pw;
@@ -253,10 +259,23 @@ var joinValidate = {
 			return this.resultCode.empty_detail;
 		} else if(!addrDetail.match(regAddr)){	// 3. 정규식 체크
 			return this.resultCode.invalid_addr;
-		} else{
+		} else {
 			return this.resultCode.success_addr;
 		}
  
+	},
+	checkNowpw : function(pw){
+		var regEmpty = /\s/g;   // 공백문자
+		
+		if(pw == '' || pw.length == 0){ // 1. 값이 있는지 체크
+			return this.resultCode.empty_val;
+		} else if(pw.match(regEmpty)){ // 2. 공백값이 있는지 체크
+			return this.resultCode.space_length_val;
+		} else if(pwCheck(pw)){ // 3. 현재비밀번호와 동일한지 체크
+			return this.resultCode.other_pw;
+		} else { // 4. 유효성체크 통과!
+			return this.resultCode.success_nowpw;
+		}
 	}
 	
 }
@@ -279,6 +298,28 @@ function idCheck(id){
 		},
 		error: function(){
 			alert(' System ERROR :( ');
+		}
+	});
+	return return_val;
+}
+
+function pwCheck(pw){
+	var return_val = true;
+	
+	$.ajax({
+		type: 'POST',
+		url: 'pwcheck?pw='+pw,
+		async: false, // return값을 사용하기위해서 작성 , 동기방식으로 바꾸기 위해
+		success: function(data){
+			// console.log(data);
+			if(data == 1){ // 성공 : if문을 타지않게 만들기
+				return_val = false;
+			} else if(data == 0){ // 실패 : if문을 타게 만들기
+				return_val = true;
+			}
+		},
+		error: function(){
+			alert('System ERROR :(');
 		}
 	});
 	return return_val;

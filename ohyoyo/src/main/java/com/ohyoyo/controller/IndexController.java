@@ -40,6 +40,12 @@ public class IndexController {
 		// 신상품 4건을 출력하는 비즈니스로직을 처리하는 서비스단으로 이동
 		model.addAttribute("NewPdt", iService.newPdtList());
 		
+		// ** 개발종료시 삭제할것! 강제로 로그인하게 만들기 (관리자 자동로그인)
+		session.removeAttribute("userid");
+		session.removeAttribute("name");
+		session.setAttribute("userid", "as12123");
+		session.setAttribute("name", "히히히");
+		
 		// 3. 출력할 화면을 결정
 		return "index";
 	}

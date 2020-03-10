@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ohyoyo.domain.MemberDTO;
@@ -15,6 +16,9 @@ public class MemberServiceImpl implements MemberService{
 	private SqlSession sqlSession;
 	
 	private MemberDAO mDao;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public void newMemberDAO() {
@@ -44,6 +48,21 @@ public class MemberServiceImpl implements MemberService{
 			session.removeAttribute("name");
 			session.setAttribute("name", mDto.getName());
 		}
+	}
+
+	@Override
+	public int pwCheck(String id, String pw) {
+		String encpw = mDao.pwCheck(id);
+		int result = 0;
+		if(passwordEncoder.matches(pw, encpw)) {
+			result = 1;
+		} 
+		return result;
+	}
+
+	@Override
+	public void pwUpdate(MemberDTO mDto) {
+		mDao.pwUpdate(mDto);
 	}
 	
 	
