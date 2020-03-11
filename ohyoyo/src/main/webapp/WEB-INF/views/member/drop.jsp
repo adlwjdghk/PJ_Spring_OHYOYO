@@ -107,7 +107,12 @@
 		margin-bottom: 5px;
 		text-align: center;
 	}
-
+	.imp_savings span{
+		font-size: 18px;
+	}
+	.imp_idpw{
+		margin-bottom: 5px;
+	}
 	.user_pw{
 		outline: none;
 		border: none;
@@ -189,16 +194,16 @@
 						<p>탈퇴된 오요요 회원 정보와 서비스 이용기록 등은 복구할 수 없으니 <span class="highlight">신중하게 선택하시길 바랍니다.</span></p>
 						<div class="important">
 							<div class="imp_box imp_savings">
-								" <span class="user_id"></span>님의 현재 적립금은 <span id="savings"></span>원 입니다. "<br>
+								<span class="user_id">${userid}</span>님의 현재 적립금은 <span id="savings"></span>원 입니다.<br>
 								<p class="highlight">적립금 또한 복구되지 않습니다.</p>
 							</div>
-							<div class="imp_box imp_id">
+							<div class="imp_box imp_idpw">
 								<label for="pw">
 									<span class="id_pw">아이디</span>
-									<span class="user_id"></span>
+									<span class="user_id">${userid}</span>
 								</label>
 							</div>
-							<div class="imp_box imp_pw">
+							<div class="imp_box imp_idpw">
 								<label for="pw">
 									<span class="id_pw">비밀번호</span>
 								</label> 

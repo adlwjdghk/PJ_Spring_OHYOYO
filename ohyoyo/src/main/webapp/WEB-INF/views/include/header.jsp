@@ -91,6 +91,9 @@
 	.header_content_member div{
 		padding: 10px 0 10px 3px; 
 	}
+	.header_content_member div > span{
+		padding-right: 7px; 
+	}
 	.header_content_dropdown_group{
 		position: relative;
 	}
@@ -306,7 +309,7 @@
 		margin: 0 40px 10px;
 		position: relative;
 	}
-	input{
+	.input{
 		display: flex;
 		flex-direction: row;
 		border: 1px solid #efefef;
@@ -325,7 +328,7 @@
 		margin: 10px 60px;
 		text-align: center;
 	}
-	input:hover{
+	.input:hover{
 		border: 1px solid #999;
 	}
 	.login_signup_button{
@@ -424,10 +427,10 @@
 				<div class="login_err_msg">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>
 				<form class="frm_login" onsubmit="return false;">
 					<div class="input_wrap">
-						<input type="text" id="login_id" class="login_input" placeholder="아이디" required>
+						<input type="text" id="login_id" class="login_input input" placeholder="아이디" required>
 					</div>
 					<div class="input_wrap">
-						<input type="password" id="login_pw" class="login_input" placeholder="비밀번호" 
+						<input type="password" id="login_pw" class="login_input input" placeholder="비밀번호" 
 						required minlength="6" maxlength="18">
 						<span class="pw_eye"><i class="fas fa-eye-slash"></i></span>
 					</div>
@@ -524,7 +527,7 @@
 				<div class="header_content_search">
 					<form name="frm_search" action="" method="GET">
 						<div class="header_content_search_group">
-							<input type="text" placeholder="SEARCH" name="keyword" class="header_content_search_input">
+							<input type="text" placeholder="SEARCH" name="keyword" class="header_content_search_input input">
 							<button type="button" class="header_content_search_btn"><i class="fas fa-search"></i></button>
 						</div>
 					</form>
@@ -536,12 +539,11 @@
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
+									<c:if test="${not empty userid}">
+										<li><a href="${path}/member/mypage">My Page</a></li>
+									</c:if>
 									<li><a href="#">주문내역</a></li>
 									<li><a href="#">Wish List</a></li>
-									<c:if test="${not empty userid}">
-										<li><a href="${path}/member/update">회원정보수정</a></li>
-										<li><a href="${path}/member/pwupdate">비밀번호수정</a></li>
-									</c:if>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>

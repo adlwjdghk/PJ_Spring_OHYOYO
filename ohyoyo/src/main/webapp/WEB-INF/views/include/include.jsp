@@ -11,3 +11,5 @@
 <script src="https://kit.fontawesome.com/e2a7455480.js" crossorigin="anonymous"></script>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- favicon -->
+<link rel="icon" type="image/png" sizes="16x16" href="${path}/resources/img/favicon-16x16.png">

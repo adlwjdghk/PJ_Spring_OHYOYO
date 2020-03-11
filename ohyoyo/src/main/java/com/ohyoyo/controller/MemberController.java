@@ -160,15 +160,16 @@ public class MemberController {
 	
 	@GetMapping("/constract")
 	public String viewConstract(Model model) {
-		
 		log.info(">>> MEMBER/CONSTRACT PAGE 출력");
 		return "member/constract";
 	}
 	
 	@GetMapping("/drop")
-	public String drop(Model model) {
-		
+	public String drop(Model model, HttpSession session) {
 		log.info(">>> MEMBER/DROP PAGE 출력");
+		String id = (String) session.getAttribute("userid");
+		model.addAttribute("userid", id);
+		
 		return "member/drop";
 	}
 	
@@ -198,6 +199,15 @@ public class MemberController {
 		}
 		
 		return flag;
+	}
+	// mypage
+	@GetMapping("/mypage")
+	public String mypage(HttpSession session, Model model) {
+		log.info(">>> GET: MYPAGE PAGE");
+		String id = (String) session.getAttribute("userid");
+		model.addAttribute("userid",id);
+		
+		return "/member/mypage";
 	}
 	
 	// 회원정보수정
@@ -275,4 +285,5 @@ public class MemberController {
 		
 		return mService.pwCheck(id, pw);
 	}
+	
 }

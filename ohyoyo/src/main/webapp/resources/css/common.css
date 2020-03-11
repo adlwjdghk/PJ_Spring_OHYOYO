@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap');
 /* 공통사항 */
 * {box-sizing: border-box;}
-body, ul, h1, h2, h3, h4, h5, h6 {
+body, ul, h1, h2, h3, h4, h5, h6, p{
 		margin: 0; padding: 0;
 }
 body{
