@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
 	.modal_wrap{
+		top: 0;
 		position: fixed;
 		z-index: 1000;
 		background-color: rgba(0,0,0,0.4);
@@ -52,6 +53,7 @@
 	}
 	.modal_msg_main{
 		font-size: 20px;
+		padding-bottom: 30px;
 	}
 	.modal_button_wrap{
 		margin: 0 10px;
@@ -92,21 +94,20 @@
 			<div class="imp_ment">
 				<div class="modal_msg_main">
 					<span id="modal_user_id"></span>
-					&nbsp;회원님
-					<br><br>회원가입을 축하드립니다.
+					<br><br>
+					<span id="modal_msg_main1"></span>
 				</div>
-				<br>
-				<br>
 				<div class="modal_msg_sub">
-					인증메일을 보냈습니다.
-					<br><br>인증하셔야만 사이트 활동이 가능합니다.
+					<span id="modal_msg_sub1"></span>
+					<br><br>
+					<span id="modal_msg_sub2"></span>
 				</div>
 			</div>
 				<div class="modal_button_wrap">
 					<a href="#" class="modal_button btn_default" id="modal_cancle_btn">
-						<span>탈퇴 취소</span>
+						<span>취소</span>
 					</a>
-					<a href="#" class="modal_button btn_agree">
+					<a href="#" class="modal_button btn_agree" id="modal_yes_btn">
 						<span>확인</span>
 					</a>
 				</div>
@@ -121,27 +122,54 @@
 		var email='${email}';
 		var key='${key}';
 				
-		var join_main_txt = id+'회원님 이메일 인증되셨습니다.';
-		var join_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.';
-		var auth_main_txt = id+'회원님 이메일 인증되셨습니다.';
-		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.';
-		
+		var main_user = id+'${userid}님'; 
+		var join_main_txt = '회원가입을 축하드립니다.';
+		var join_sub_txt1 = '인증메일을 보냈습니다.';
+		var join_sub_txt2 = '인증하셔야만 사이트 활동이 가능합니다.';
+		var auth_main_txt = '이메일 인증되셨습니다.';
+		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다 :)';
+		var drop_main_txt = '정말 탈퇴하시겠습니까?';	
+		var drop_sub_txt = '정보는 복구되지않습니다.';	
+		var dropResult_main_txt = id+'님 탈퇴되셨습니다.';	
+		var dropResult_sub_txt = '그동안 OHYOYO를 이용해주셔서 감사합니다.';	
+	
 		if(key == 'join'){
-			$('#modal_user_id').text(id);
-			$('#modal_cancle_btn').css('display', 'none'); // 취소버튼제거
+			$('#modal_user_id').text(main_user);
+			$('#modal_msg_main1').text(join_main_txt);
+			$('#modal_msg_sub1').text(join_sub_txt1);
+			$('#modal_msg_sub2').text(join_sub_txt2);
+			$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
+			$('#modal_cancle_btn').text('확인');
 			$('.modal_wrap').css('display', 'flex');
 		} else if(key == 'auth'){
-			$('.modal_msg_main').text(auth_main_txt);
-			$('.modal_msg_sub').text(auth_sub_txt);
-			$('#modal_cancle_btn').css('display', 'none');
+			$('#modal_user_id').text(main_user);
+			$('#modal_msg_main1').text(auth_main_txt);
+			$('#modal_msg_sub1').text(auth_sub_txt);
+			$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
+			$('#modal_cancle_btn').text('확인');
+			$('.modal_wrap').css('display', 'flex');
+		} else if(key == 'drop'){
+			$('#modal_user_id').text(main_user);
+			$('#modal_msg_main1').text(drop_main_txt);
+			$('#modal_msg_sub1').text(drop_sub_txt);
+		} else if(key == 'dropResult'){
+			$('#modal_msg_main1').text(dropResult_main_txt);
+			$('#modal_msg_sub1').text(dropResult_sub_txt);
+			$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
+			$('#modal_cancle_btn').text('확인');
 			$('.modal_wrap').css('display', 'flex');
 		}
+		
+		$('.close').on('click',function(){
+			$('.modal_wrap').css('display','none');
+		});
+		$('#modal_cancle_btn').on('click',function(){
+			$('.modal_wrap').css('display','none');
+		});
+		$('#modal_yes_btn').on('click',function(){
+			location.href='${path}/member/dropAction';
+		});
 	});
-	$(document).on('click','.close', function() {
-		$('.modal_wrap').css('display','none');
-	});
-	$(document).on('click','.btn_agree', function() {
-		$('.modal_wrap').css('display','none');
-	});
+
 </script>
 </html>

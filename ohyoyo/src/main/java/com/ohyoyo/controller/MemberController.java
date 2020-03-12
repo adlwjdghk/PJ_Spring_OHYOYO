@@ -164,15 +164,6 @@ public class MemberController {
 		return "member/constract";
 	}
 	
-	@GetMapping("/drop")
-	public String drop(Model model, HttpSession session) {
-		log.info(">>> MEMBER/DROP PAGE 출력");
-		String id = (String) session.getAttribute("userid");
-		model.addAttribute("userid", id);
-		
-		return "member/drop";
-	}
-	
 	// 회원가입 후 email인증
 	@GetMapping("/keyauth")
 	public String keyAuth(String id, String key, RedirectAttributes rttr) {
@@ -200,13 +191,16 @@ public class MemberController {
 		
 		return flag;
 	}
-	// mypage
+	// 마이페이지
 	@GetMapping("/mypage")
-	public String mypage(HttpSession session, Model model) {
+	public String mypage(HttpSession session) {
 		log.info(">>> GET: MYPAGE PAGE");
 		String id = (String) session.getAttribute("userid");
-		model.addAttribute("userid",id);
 		
+		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+		if(id == null) {
+			return "redirect:/";
+		}
 		return "/member/mypage";
 	}
 	
@@ -284,6 +278,35 @@ public class MemberController {
 		String id = (String) session.getAttribute("userid");
 		
 		return mService.pwCheck(id, pw);
+	}
+	
+	// 회원탈퇴
+	@GetMapping("/drop")
+	public String drop(Model model, HttpSession session) {
+		log.info(">>> MEMBER/DROP PAGE 출력");
+		String id = (String) session.getAttribute("userid");
+		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+		if(id == null) {
+			return "redirect:/";
+		}
+
+		model.addAttribute("key", "drop");
+		
+		return "member/drop";
+	}
+	
+	// 회원탈퇴 : DB에 저장
+	@GetMapping("/dropAction")
+	public String dropAction(HttpSession session, RedirectAttributes rttr) {
+		log.info("*********** GET: DROP UPDATE ");
+		String id = (String) session.getAttribute("userid");
+		
+		rttr.addFlashAttribute("id", id);
+		rttr.addFlashAttribute("key", "dropResult");
+		
+		mService.memDrop(session, id);
+		
+		return "redirect:/";
 	}
 	
 }

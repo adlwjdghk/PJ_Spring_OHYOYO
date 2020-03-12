@@ -773,7 +773,6 @@
 				ckDesign(result.code, result.desc, 9,5);
 			} else if(result.code == 0){ // 성공
 				checkArr[5] = true;
-				ckDesign(result.code, result.desc, 9,5);
 				ckDesign(result.code, result.desc, 11,5);
 			} else { // 상세주소 통과x한 모든경우
 				checkArr[5] = false;
@@ -796,10 +795,10 @@
 				}
 			}
 			if(checkAll){
-				$('.btn_type').addClass('btn_agree');
+				$('.btn_type').addClass('btn-agree');
 				$('.btn_type').css('cursor','pointer');
 			} else{
-				$('.btn_type').removeClass('btn_agree');
+				$('.btn_type').removeClass('btn-agree');
 				$('.btn_type').css('cursor','no-drop');
 			}
 		}

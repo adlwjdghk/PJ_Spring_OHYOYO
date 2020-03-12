@@ -1,5 +1,7 @@
 package com.ohyoyo.persistence;
 
+import javax.servlet.http.HttpSession;
+
 import com.ohyoyo.domain.MemberDTO;
 
 public interface MemberDAO {
@@ -26,4 +28,7 @@ public interface MemberDAO {
 	
 	// 비밀번호 수정: 실제 DB에 update
 	public void pwUpdate(MemberDTO mDto);
+	
+	// 회원탈퇴 : useyn = n
+	public int memDrop(String id);
 }

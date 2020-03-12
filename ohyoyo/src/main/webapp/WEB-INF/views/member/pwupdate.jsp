@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="../include/include.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,27 +9,11 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 <script src="https://kit.fontawesome.com/e2a7455480.js" crossorigin="anonymous"></script>
 <style type="text/css">
-	* {
-		box-sizing: border-box;
-		font-family: Dotum, 돋움, Helvetica, sans-serif;
-	}
-	body, h1, h2, h3, h4, h5, h5, ul, p{
-		margin: 0;	padding: 0;
-	}
-	body { 
-		background-color: #f9f9f9; 
-		font-size: 12px;
-	}
-	ul{ list-style: none; }
-	a{
-		text-decoration: none;
-		color: inherit;
-	}
 
 	/* Header */
 	.wrap{
 		width: 768px;
-		margin: 0 auto;
+		margin: 60px auto;
 	}
 	.header{
 		padding: 62px 0 0;

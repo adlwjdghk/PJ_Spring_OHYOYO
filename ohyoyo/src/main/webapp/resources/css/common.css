@@ -60,12 +60,12 @@ button.btn-basic:hover{
 	color: #171616;
 	border-color: #171616;
 }
-button.btn_agree{
+button.btn-agree{
 	color: white;
 	background-color: #f7b8b4;
 	font-weight: bold;
 }
-button.btn_agree:hover{
+button.btn-agree:hover{
 	color: white;
 	background-color: #f46665;
 	font-weight: bold;

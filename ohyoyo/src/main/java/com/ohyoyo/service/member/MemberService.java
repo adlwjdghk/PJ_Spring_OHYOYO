@@ -24,4 +24,7 @@ public interface MemberService {
 	// 비밀번호 수정: 실제 DB에 update
 	public void pwUpdate(MemberDTO mDto);
 	
+	// 회원탈퇴 : useyn = n 
+	public void memDrop(HttpSession session, String id);
+	
 }

@@ -49,11 +49,18 @@
 		width: 600px;
 	}
 	.mp_m_content_bar{
+		position: relative;
 		width: 170px;
 		height: 170px;
 		float: left;
 		overflow: hidden;
-		margin-right: 60px;
+		margin: 0 30px 0;
+		border: 3px solid;
+    	border-radius: 100px;
+    	text-align: center;
+   		line-height: 165px;
+    	font-size: 50px;
+    	color: #777;
 	}
 	.mp_main_massage{
 		display: inline-block;
@@ -165,10 +172,12 @@
 			<div class="mypage_main">
 				<div class="mypage_box mp_main_wrap">
 					<div class="mp_main_content">
-						<div class="mp_m_content_bar"></div>
+						<div class="mp_m_content_bar">
+							<span>1%</span>
+						</div>
 						<div class="mp_main_massage">
 							<p class="msg_userid"><strong>
-								<span class="user_id">${userid}</span>님 반갑습니다.
+								<span class="user_id">${name}</span>님 반갑습니다.
 							</strong></p>
 							<p class="msg_grade"><strong>
 								회원님의 적립금은 <span class="user_grade"></span>원 입니다.

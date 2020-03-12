@@ -44,4 +44,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			pw = #{pw}
 		WHERE id = #{id}
 	</update>
+	<update id="memDrop">
+		UPDATE tbl_member SET 
+			useyn = 'd' 
+		WHERE id = #{id}
+	</update>
 </mapper>

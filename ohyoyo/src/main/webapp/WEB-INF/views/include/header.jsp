@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ohyoyo</title>
+<title>ohyoyo 오요요</title>
 <link rel="stylesheet"  type="text/css" href="${path}/resources/css/common.css">
 <!-- ${path}/resources 로 경로타게 할수있음 -->
 <style type="text/css">
@@ -176,6 +176,7 @@
 
 	/* 모달 로그인 창 */
 	.log_modal_wrap{
+		top: 0;
 		position: fixed;
 		z-index: 2000;
 		background-color: rgba(0,0,0,0.4);
@@ -434,7 +435,6 @@
 						required minlength="6" maxlength="18">
 						<span class="pw_eye"><i class="fas fa-eye-slash"></i></span>
 					</div>
-					
 					<div id="login_another">
 						<button type="submit" id="btn-login" class="button_group log_button">로그인</button>
 					</div>
@@ -466,7 +466,6 @@
 					<a href="${path}/member/constract">회원가입</a>
 				</p>
 			</div>
-			
 		</div>
 	</div>
 	<header>
@@ -477,13 +476,10 @@
 						<img class="header_content_logo_img" src="${path}/resources/img/logo/333333_final.png" alt="로고이미지">
 					</a>
 				</div>
-				
 				<div class="header_content_nav">
-					
 					<div class="header_content_dropdown_group">
 							<a href="#" class="magicline">Best</a>		
 					</div>
-
 					<div class="header_content_dropdown_wrap">
 						<div class="header_content_dropdown_group">
 							<a href="#" class="magicline">Food</a>
@@ -539,11 +535,11 @@
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
-									<c:if test="${not empty userid}">
-										<li><a href="${path}/member/mypage">My Page</a></li>
-									</c:if>
+									<!-- <c:if test="${not empty userid}">
+									</c:if> -->
 									<li><a href="#">주문내역</a></li>
 									<li><a href="#">Wish List</a></li>
+									<li><a href="${path}/member/mypage">마이페이지</a></li>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>
