@@ -192,7 +192,7 @@
 									<input type="password" class="user_pw" id="pw" name="pw" placeholder="&nbsp;비밀번호">
 								</span>
 							</div>
-							<span class="error_next_box">&nbsp;탈퇴하기 위해선 비밀번호가 필요합니다 :(</span>
+							<span class="error_next_box">탈퇴하기 위해선 비밀번호가 필요합니다 :(</span>
 						</div>
 					</div>
 				</div>

@@ -451,7 +451,7 @@
 		// 유효성체크 모두 통과 or 불통여부를 알려주는 변수 최종결정권자
 		var checkAll = true;
 		
-		alert('user: '+ '${user}');
+		//alert('user: '+ '${user}');
 		
 		if('${user}' !=''){
 			// 회원정보수정 디자인 변경

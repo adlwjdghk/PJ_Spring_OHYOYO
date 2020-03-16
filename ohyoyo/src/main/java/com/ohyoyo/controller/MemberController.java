@@ -193,15 +193,15 @@ public class MemberController {
 	}
 	// 마이페이지
 	@GetMapping("/mypage")
-	public String mypage(HttpSession session) {
+	public String mypage() {
 		log.info(">>> GET: MYPAGE PAGE");
-		String id = (String) session.getAttribute("userid");
-		
-		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
-		if(id == null) {
-			return "redirect:/";
-		}
-		return "/member/mypage";
+//		String id = (String) session.getAttribute("userid");
+//		
+//		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+//		if(id == null) {
+//			return "redirect:/";
+//		}
+		return "member/mypage";
 	}
 	
 	// 회원정보수정
@@ -213,11 +213,6 @@ public class MemberController {
 		// session.getAttribute("userid"); session에 들어가면 타입이 가장상위인 object타입으로 바뀜
 		// 그래서 형변환을 해줘야함
 		String id = (String) session.getAttribute("userid");
-		
-		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
-		if(id == null) {
-			return "redirect:/";
-		}
 		
 		// 로그인된 유저의 정보를 GET
 		// 회원정보수정 페이지로 보내기
@@ -239,15 +234,14 @@ public class MemberController {
 	
 	// 비밀번호 변경
 	@GetMapping("/pwupdate")
-	public String pwUpdate(HttpSession session) {
-		log.info(">>> GET: MEMBER PASSWORD UPDATE PAGE");
-		
-		String id = (String) session.getAttribute("userid");
-		
-		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
-		if(id == null) {
-			return "redirect:/";
-		}
+	public String pwUpdate() {
+		log.info(">>> GET: MEMBER PASSWORD UPDATE PAGE");		
+//		String id = (String) session.getAttribute("userid");
+//		
+//		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+//		if(id == null) {
+//			return "redirect:/";
+//		}
 		
 		return "/member/pwupdate";
 	}
@@ -282,13 +276,13 @@ public class MemberController {
 	
 	// 회원탈퇴
 	@GetMapping("/drop")
-	public String drop(Model model, HttpSession session) {
+	public String drop(Model model) {
 		log.info(">>> MEMBER/DROP PAGE 출력");
-		String id = (String) session.getAttribute("userid");
-		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
-		if(id == null) {
-			return "redirect:/";
-		}
+//		String id = (String) session.getAttribute("userid");
+//		// 로그인이 안되있으면 비정상적인 접근으로 간주하여 인텍스페이지로 이동!
+//		if(id == null) {
+//			return "redirect:/";
+//		}
 
 		model.addAttribute("key", "drop");
 		

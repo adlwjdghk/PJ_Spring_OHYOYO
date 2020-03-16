@@ -567,6 +567,13 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var message = '${message}';
+		if(message == 'nologin'){
+			$('.log_modal_wrap').css('display', 'flex');
+			$('#login_id').focus();
+			$('.login_err_msg').css('visibility','visible')
+							.text('로그인이 필요한 기능입니다.')
+		}
 		$(window).scroll(function(){ 
 			// 스크롤이 움직이면 (스크롤 감지)
 			if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80){

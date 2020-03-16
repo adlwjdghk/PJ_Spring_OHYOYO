@@ -43,4 +43,17 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!-- Add Interceptor Beans -->
+	<beans:bean id="loginInterceptor" class="com.ohyoyo.interceptor.LoginInterceptor"></beans:bean>
+	
+	<!-- URL Mapping for Interceptor call -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/update"/>
+			<mapping path="/member/pwupdate"/>
+			<mapping path="/member/drop"/>
+			<mapping path="/member/mypage"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 </beans:beans>
