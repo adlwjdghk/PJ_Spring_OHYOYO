@@ -519,6 +519,9 @@
 							</div>
 						</div>
 					</div>
+					<div class="header_content_dropdown_group">
+							<a href="${path}/board/list" class="magicline">Board</a>		
+					</div>
 				</div>
 				<div class="header_content_search">
 					<form name="frm_search" action="" method="GET">

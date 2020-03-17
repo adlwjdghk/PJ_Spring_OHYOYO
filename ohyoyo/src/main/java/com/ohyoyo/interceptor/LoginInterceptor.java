@@ -34,6 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
 			fMap.put("message", "nologin");
 			
+			// URL로 바로 접근한 경우 (referer이 없는 경우) 인덱스페이지로 
 			if(referer == null) {
 				referer = "http://localhost:8081/ohyoyo/";
 			} 

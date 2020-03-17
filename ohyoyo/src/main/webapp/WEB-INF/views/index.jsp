@@ -288,6 +288,7 @@
  		</div>
  	</div>
  </div>
+<%@ include file="include/footer.jsp" %> 
 </body>
 <script type="text/javascript">
 	var slideIndex = 0;

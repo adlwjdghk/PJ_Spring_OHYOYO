@@ -146,48 +146,6 @@
 		color: #f24443;			
 	}
 
-	/* Footer */
-	#footer{
-    	padding: 30px 0 15px 0;
-    }
-    #footer > ul {
-    	margin: 0 auto 9px;
-    	text-align: center;
-    }
-    #footer * {
-    	font-size: 12px;
-    	line-height: normal;
-    	list-style: none;
-    	color: #333;
-    }
-    #footer > ul > li {
-    	display: inline;
-    	padding: 0 5px 0 7px;
-    	border-left: 1px solid #dadada;
-    }
-    #footer > ul > li a:hover {
-    	color: #f46665; 
-    	text-decoration: underline;
-    }
-    #footer ul li:first-child {
-    	border-left: 0px!important;
-    }
-    #addr_logo{
-    	width: 63px;
-    	height: 11px;
-    }
-    #address{
-    	margin: 0 auto;
-    	text-align: center;
-    }
-    #address span{
-    	font-size: bold;
-    	font: 9px verdana;
-    }
-    #address a:hover{
-    	color: #f46665;
-    	text-decoration: underline;
-    }
 </style>
 </head>
 <body>
@@ -240,24 +198,8 @@
 				</div>
 			</form:form>
 		</section>	
-		<footer>
-			<div id="footer">
-				<ul>
-					<li><a href="#">이용약관</a></li>
-					<li><strong><a href="#">개인정보처리방침</a></strong></li>
-					<li><a href="#">책임의 한계와 법적고지</a></li>
-					<li><a href="#">회원정보 고객센터</a></li>
-				</ul>
-				<div id="address">
-					<span>Copyright</span>
-					<span>ⓒ</span>
-					<span><strong><a href="#">OHYOYO Corp.</a></strong></span>
-					<span>All Right Reserved.</span>
-				</div>
-
-			</div>
-		</footer>
 	</div>
+<%@ include file="../include/footer.jsp" %> 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="${path}/resources/js/validation.js"></script>
