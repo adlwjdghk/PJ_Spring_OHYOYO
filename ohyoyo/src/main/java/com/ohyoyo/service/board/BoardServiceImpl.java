@@ -1,6 +1,8 @@
 package com.ohyoyo.service.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,17 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDTO> selectList() {
-		List<BoardDTO> list = bDao.selectList(); 
-		for (BoardDTO productDTO : list) {
-			log.info(productDTO.toString());
-		} // 확인용
+	public List<BoardDTO> selectList(int start, int end) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("start",start);
+		map.put("end",end);
 		
-		return bDao.selectList();
+		return bDao.selectList(map);
+	}
+
+	@Override
+	public int countArticle() {
+		return bDao.countArticle();
 	}
 
 }
