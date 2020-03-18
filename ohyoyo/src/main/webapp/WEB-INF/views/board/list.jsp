@@ -128,6 +128,8 @@
 	.board_col{
 		border-top: 2px solid #000;
 		font-size: 15px;
+		padding: 0 2px 0 5px;
+		background-color: #fff;
 	}
 	.board_col > thead > tr > th{
 		padding: 15px 0;
@@ -146,13 +148,13 @@
 	.bd_table_content{
 		padding-right: 15px !important;
 	}
-	.bd_table_content > span:first-of-type{
+	.bd_table_new{
 		display: inline-block;
 		margin-left: 3px;
 		width: 24px;
 		height: 14px;
 		line-height: 11px;
-		color: red;
+		color: tomato;
 		font-size: 12px;
 		font-weight: bold;
 		vertical-align: middle;
@@ -181,15 +183,17 @@
 	}
 	.bd_btn_write{
 		line-height: 29px;
-  			float: right;
+  		float: right;
 	}
 	.bd_icon{
 		float: right;
-
+		padding-right: 10px;
 	}
 </style>
 </head>
 <body>
+	<jsp:useBean id="now" class="java.util.Date"/>
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 	<div id="board_wrap">
 		<div class="board_container">
 			<div class="board_title">
@@ -243,30 +247,32 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td class="bd_table_content">
-								<a href="#">배송비 할인됩니다.</a>
-								<span>New</span>
-								<span class="bd_icon"><i class="fas fa-paperclip"></i></span>
-							</td>
-							<td>운영자</td>
-							<td>2020-03-17</td>
-							<td>50</td>
-							<td>100</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td class="bd_table_content">
-								<a href="#">배송비 할인된다는거 진짜인가요?</a>
-								<span>New</span>
-								<span class="bd_icon"><i class="fas fa-paperclip"></i></span>
-							</td>
-							<td>운영자</td>
-							<td>2020-03-17</td>
-							<td>50</td>
-							<td>1</td>
-						</tr>
+						<c:forEach items="${map.list}" var="list">
+							<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
+							<tr>
+								<td>${list.bno}</td>
+								<td class="bd_table_content">
+									<a href="#">${list.title}</a>
+									<c:if test="${today == regdate}">
+										<span class="bd_table_new">New</span>
+									</c:if>
+									<span class="bd_icon"><i class="fas fa-paperclip"></i></span>
+								</td>
+								<td>${list.name}</td>
+								<td>
+									<c:choose>
+										<c:when test="${today == regdate}">
+											<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss"/>									
+										</c:when>
+										<c:otherwise>
+											<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd"/>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${list.viewcnt}</td>
+								<td>${list.replycnt}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<div class="board_page">

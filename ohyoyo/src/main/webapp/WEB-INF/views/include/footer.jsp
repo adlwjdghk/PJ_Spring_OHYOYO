@@ -28,7 +28,8 @@
 	.footer_banner_img{
 		width: 1900px;
 		height: 400px;
-		background: url(${path}/resources/img/puppies-2243686_1920.jpg) no-repeat -1px -335px;
+		background: url(${path}/resources/img/grass-3210111_1920.jpg) no-repeat -1px 0px;
+		background-attachment: fixed;
 	}
 	.footer_banner_text{
 		position: absolute;
@@ -86,7 +87,7 @@
 	<div id="footer">
 		<div class="footer_banner_wrap">
 			<div class="footer_banner">
-				<a href="#">
+				<a href="${path}/">
 					<img class="footer_banner_img" >
 					<div class="footer_banner_text">ohyoyo</div>
 				</a>

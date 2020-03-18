@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohyoyo.persistence.BoardDAO">
+	<select id="selectList" resultType="BoardDTO">
+		SELECT bno, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, show 
+		FROM tbl_board b, tbl_member m
+		WHERE b.writer = m.id AND b.show = 'y'
+		ORDER BY bno DESC
+	</select>
+</mapper>

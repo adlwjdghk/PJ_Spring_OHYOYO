@@ -6,5 +6,6 @@
 	<typeAliases>
 		<typeAlias type="com.ohyoyo.domain.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="com.ohyoyo.domain.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.ohyoyo.domain.BoardDTO" alias="BoardDTO"/>
     </typeAliases>
 </configuration>
