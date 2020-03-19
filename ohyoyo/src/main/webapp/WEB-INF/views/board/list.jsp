@@ -39,7 +39,6 @@
 		height: 100px;
 		margin: 0 auto;
 		font-size: 60px;
-		font-family: 'Nanum Gothic Coding', monospace;
 		text-align: center;
 	}
 	.board_content{}
@@ -78,16 +77,14 @@
 		display: inline-block;
 		height: 51px;
 		line-height: 51px;
-		border-bottom: 1px solid #000;
 		margin-right: 10px;
+		color: #757575;
 	}
 	.bd_search_sort span{
 		padding-right: 5px;
-   		border-right: 1px solid #ddd;
    		cursor: pointer;
-	}
-	.bd_search_sort span:hover{
-		font-weight: bold;
+   		display: inline-block;
+   		width: 47px;
 	}
 	.bd_search_sort span:last-child{
 		border: none;
@@ -199,7 +196,13 @@
 	#check_color{
 		font-size: 16px;
 		font-weight: bold;
-		color: #f7b8b4;
+		color: tomato;
+		line-height: 19px;
+	}
+	.sort_color{
+		font-weight: bold;
+		font-size: 15px;
+		color: tomato;
 	}
 </style>
 </head>
@@ -215,28 +218,29 @@
 			</div>
 			<div class="board_content">
 				<div class="board_menu">
-					<a href="#"><i class="fas fa-question-circle"></i>FAQ</a>
+					<a href="#"><i class="far fa-question-circle"></i>FAQ</a>
+					<a href="#"><i class="far fa-comment-dots"></i>1:1문의</a>
+					<a href="${path}/board/list?type=free"><i class="far fa-user-circle"></i>회원게시판</a>
 					<a href="#"><i class="fas fa-exclamation-circle"></i>공지사항</a>
-					<a href="#"><i class="fas fa-user-circle"></i>회원혜택안내</a>
-					<a href="#"><i class="fas fa-comment-dots"></i>1:1문의</a>
 				</div>
 				<div class="board_search">
-					<form method="" action="">
+					<form method="GET" action="${path}/board/list">
 						<div class="bd_search_sort">
-							<span><a href="#">최신순</a></span>
-							<span><a href="#">조회순</a></span>
-							<span><a href="#">댓글순</a></span>
-							<span><a href="#">추천순</a></span>	
+							<span><a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new">최신순</a></span>
+							<span><a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt">조회순</a></span>
+							<span><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></span>
+							<span><a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a></span>	
 						</div>
-						<select class="bd_search_select bd_ps_box">
-							<option>제목</option>
-							<option>내용</option>
+						<select class="bd_search_select bd_ps_box" name="search_option">
+							<option value="all">통합검색</option>
+							<option value="title">제목</option>
+							<option value="content">내용</option>
 						</select>
 						<span class="bd_ps_box">
-							<input type="text" name="" class="bd_int">
+							<input type="text" name="keyword" class="bd_int" placeholder="검색어를 입력해주세요">
 						</span>
 						<span class="bd_btn_box">
-							<button type="button" class="bd_btn">검색</button>
+							<button type="submit" class="bd_btn">검색</button>
 						</span>
 					</form>
 				</div>	
@@ -299,7 +303,7 @@
 						<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
 						<c:choose>
 							<c:when test="${num == map.pager.curPage}">
-								<li><a href="${path}/board/list?curPage=${num}" id="check_color">${num}</a></li>
+								<li><a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="check_color">${num}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}">${num}</a></li>
@@ -321,4 +325,24 @@
 	</div>
 <%@ include file="../include/footer.jsp" %> 
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var sort_option = '${map.sort_option}';
+		var type = '${map.type}'
+		
+		if(sort_option == 'new'){
+			$('#sort_new').addClass('sort_color');
+		} else if(sort_option == 'cnt'){
+			$('#sort_cnt').addClass('sort_color');
+		} else if(sort_option == 'reply'){
+			$('#sort_reply').addClass('sort_color');
+		} else if(sort_option == 'good'){
+			$('#sort_good').addClass('sort_color');
+		}
+		
+		if(type == 'free'){
+			$('.board_menu > a:nth-child(3)').css('color','#757575');
+		}
+	});
+</script>
 </html>

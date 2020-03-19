@@ -29,7 +29,6 @@
 		/*background: url('../../img/logo_onlyy.png') -100px -100px;*/
 		margin: 0 auto;
 		font-size: 60px;
-		font-family: 'Nanum Gothic Coding', monospace;
 		text-align: center;
 	}
 	

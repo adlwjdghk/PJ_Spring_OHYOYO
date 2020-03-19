@@ -13,5 +13,5 @@ public interface BoardDAO {
 	public List<BoardDTO> selectList(@Param("map") Map<String, Object> map);
 		
 	// 게시글 갯수계산
-	public int countArticle();
+	public int countArticle(@Param("map") Map<String, Object> map);
 }

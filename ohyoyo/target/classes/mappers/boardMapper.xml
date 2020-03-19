@@ -7,8 +7,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="paging_header"/>
 		SELECT bno, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, show 
 		FROM tbl_board b, tbl_member m
-		WHERE b.writer = m.id AND b.show = 'y'
-		ORDER BY bno DESC
+		<include refid="seach"/>
+		<if test="map.sort_option == 'new'">
+			ORDER BY bno DESC
+		</if>
+		<if test="map.sort_option == 'cnt'">
+			ORDER BY b.viewcnt DESC
+		</if>
+		<if test="map.sort_option == 'reply'">
+			ORDER BY b.replycnt DESC
+		</if>
+		<if test="map.sort_option == 'good'">
+			ORDER BY b.goodcnt DESC
+		</if>
 		<include refid="paging_footer"/>
 	</select>
 	<sql id="paging_header">
@@ -24,7 +35,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countArticle" resultType="Integer">
 		SELECT COUNT(*) 
 		FROM tbl_board b, tbl_member m
-		WHERE b.writer = m.id AND b.show = 'y'
-		ORDER BY bno DESC
+		<include refid="seach"/>
 	</select>
+	<sql id="seach">
+		 <choose>
+	 		<when test="map.search_option != 'all'">
+	 			WHERE b.writer = m.id 
+			  		AND b.show = 'y' 
+			  		AND ${map.search_option} LIKE #{map.keyword}
+	 		</when>
+	 		<otherwise>
+	 			WHERE b.writer = m.id 
+			  		AND b.show = 'y' 
+			  		AND (title LIKE #{map.keyword}
+			  		  	 OR content LIKE #{map.keyword}
+			  			 OR name LIKE #{map.keyword})
+	 		</otherwise>
+	 	</choose>
+	</sql>
 </mapper>

@@ -1,12 +1,12 @@
 /* 구글 웹폰트 */
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Sans+KR&display=swap');
 /* 공통사항 */
 * {box-sizing: border-box;}
 body, ul, h1, h2, h3, h4, h5, h6, p{
 		margin: 0; padding: 0;
 }
 body{
-	font-family: 'Nanum Gothic Coding', monospace, sans-serif;
+	font-family: 'Noto Sans KR', vandana, sans-serif;
 	background-color: #f9f9f9;
 	margin: 0;
 	padding: 0;
