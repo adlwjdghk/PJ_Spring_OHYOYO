@@ -42,7 +42,9 @@ public class BoardController {
 		HashMap<String, Object> map = new HashMap<>(); //List는 new안하는 이유는?
 		map.put("list", list);
 		map.put("count", count);
+		map.put("pager", pager);
 		
+		log.info(pager.toString());
 		model.addAttribute("map", map);
 	
 		return "board/list";

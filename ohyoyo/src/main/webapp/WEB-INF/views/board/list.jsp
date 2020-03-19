@@ -53,19 +53,25 @@
 	.board_menu > a{
 		float: left;
 	    display: block;
-	    width: 50%;
+	    width: 25%;
 	    height: 80px;
 	    line-height: 80px;
 	    border-right: solid 1px #ddd;
 	    border-bottom: solid 1px #ddd;
-	    color: #757575;
-	    font-size: 16px;
+	    color: #dadada;
+	    font-size: 23px;
 	    text-align: center;
+	    font-weight: bold;
+	}
+	.board_menu a i{
+		font-size: 30px;
+		vertical-align: middle;
+		padding-right: 10px;
 	}
 	.board_search{
 		margin: 0 0 60px;
 		padding: 40px;
-		background: #f7f7f7;
+		background: #ffe6dc;
 		text-align: center;
 	}
 	.bd_search_sort{
@@ -120,10 +126,11 @@
 		height: 51px;
 		padding: 12px 16px;
 		outline: none;
-		background: #111;
+		background: #f7b8b4;
 		color: white;
 		border: none;
 		text-align: center;
+		font-size: 15px;
 	}
 	.board_col{
 		border-top: 2px solid #000;
@@ -189,6 +196,11 @@
 		float: right;
 		padding-right: 10px;
 	}
+	#check_color{
+		font-size: 16px;
+		font-weight: bold;
+		color: #f7b8b4;
+	}
 </style>
 </head>
 <body>
@@ -203,8 +215,10 @@
 			</div>
 			<div class="board_content">
 				<div class="board_menu">
-					<a href="#">공지사항</a>
-					<a href="#">자유게시판</a>
+					<a href="#"><i class="fas fa-question-circle"></i>FAQ</a>
+					<a href="#"><i class="fas fa-exclamation-circle"></i>공지사항</a>
+					<a href="#"><i class="fas fa-user-circle"></i>회원혜택안내</a>
+					<a href="#"><i class="fas fa-comment-dots"></i>1:1문의</a>
 				</div>
 				<div class="board_search">
 					<form method="" action="">
@@ -277,9 +291,26 @@
 				</table>
 				<div class="board_page">
 					<ul>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
+						<c:if test="${map.pager.curBlock > 1}">
+							<li><a href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="page_left"><i class="fas fa-chevron-left"></i></a></li>
+							<li><a href="${path}/board/list?curPage=1&sort_option=${map.sort_option}&keyword=${map.keyword}">1</a></li>
+							<li>...</li>
+						</c:if>
+						<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
+						<c:choose>
+							<c:when test="${num == map.pager.curPage}">
+								<li><a href="${path}/board/list?curPage=${num}" id="check_color">${num}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}">${num}</a></li>
+							</c:otherwise>
+						</c:choose>
+						</c:forEach>
+						<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+							<li>...</li>
+							<li><a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword=${map.keyword}">${map.pager.totPage}</a></li>
+							<li><a href="${path}/board/list?curPage=${map.pager.blockEnd+1}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="page_right"><i class="fas fa-chevron-right"></i></a></li>
+						</c:if>
 					</ul>
 					<div class="bd_btn bd_btn_write">
 						<a href="#">글쓰기</a>

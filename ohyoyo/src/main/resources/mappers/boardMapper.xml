@@ -11,12 +11,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY bno DESC
 		<include refid="paging_footer"/>
 	</select>
-	<select id="countArticle" resultType="Integer">
-		SELECT COUNT(*) 
-		FROM tbl_board b, tbl_member m
-		WHERE b.writer = m.id AND b.show = 'y'
-		ORDER BY bno DESC
-	</select>
 	<sql id="paging_header">
 		SELECT *
 		FROM (
@@ -27,4 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) A
 		) WHERE rnum BETWEEN #{map.start} AND #{map.end}
 	</sql>
+	<select id="countArticle" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM tbl_board b, tbl_member m
+		WHERE b.writer = m.id AND b.show = 'y'
+		ORDER BY bno DESC
+	</select>
 </mapper>

@@ -27,6 +27,14 @@ public class Pager {
 		setBlockRange(); // 블록의 시작, 끝 번호 계산
 	}	
 	
+	@Override
+	public String toString() {
+		return "Pager [curPage=" + curPage + ", prevPage=" + prevPage + ", nextPage=" + nextPage + ", totPage="
+				+ totPage + ", totBlock=" + totBlock + ", curBlock=" + curBlock + ", prevBlock=" + prevBlock
+				+ ", nextBlock=" + nextBlock + ", pageBegin=" + pageBegin + ", pageEnd=" + pageEnd + ", blockBegin="
+				+ blockBegin + ", blockEnd=" + blockEnd + "]";
+	}
+
 	// where rn between #{start} and #{end}에 입력될 값
 	public void setPageRange() {
 		// 시작번호 = (현재페이지-1 )x페이지당 게시물수 +1
