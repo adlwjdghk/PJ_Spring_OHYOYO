@@ -8,6 +8,9 @@
 <title>ohyoyo board</title>
 <link rel="stylesheet"  type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
+	body{
+		background-color: #fff !important;
+	}
 	#board_wrap{
 		position: relative;
 		width: 100%;
@@ -25,13 +28,6 @@
 		text-align: center;
 		margin: 60px 0 40px;
 		line-height: 280%;
-	}
-	.board_title h2{
-		font-size: 23px;
-		font-weight: bold;
-	}
-	.ohyoyo_board{
-		font-size: 2em;
 	}
 	.o_board{
 		display: block;
@@ -68,7 +64,7 @@
 		padding-right: 10px;
 	}
 	.board_search{
-		margin: 0 0 60px;
+		margin: 0 0 45px;
 		padding: 40px;
 		background: #ffe6dc;
 		text-align: center;
@@ -128,6 +124,7 @@
 		border: none;
 		text-align: center;
 		font-size: 15px;
+		cursor: pointer;
 	}
 	.board_col{
 		border-top: 2px solid #000;
@@ -204,6 +201,28 @@
 		font-size: 15px;
 		color: tomato;
 	}
+	.bd_search_cnt{
+		margin-bottom: 16px;
+   	    padding-left: 10px;
+   	    height: 23px;
+	}
+	.bd_search_cnt > span{
+		vertical-align: text-bottom;
+	}
+	.bd_search_clear{
+		display: inline-block;
+		background-color: #f46665;
+		color: white;
+		padding: 1px 7px;
+    	margin-left: 5px;
+	}
+	.bd_search_clear i{
+		margin-right: 2px;
+	}
+	.board_highlight{
+		background-color: #f7b8b4;
+    	border-bottom: 2px solid #f59791;
+	}
 </style>
 </head>
 <body>
@@ -231,19 +250,23 @@
 							<span><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></span>
 							<span><a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a></span>	
 						</div>
-						<select class="bd_search_select bd_ps_box" name="search_option">
-							<option value="all">통합검색</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-						</select>
 						<span class="bd_ps_box">
-							<input type="text" name="keyword" class="bd_int" placeholder="검색어를 입력해주세요">
+							<input type="hidden" name="sort_option" value="${map.sort_option}">
+							<input type="text" name="keyword" class="bd_int" placeholder="검색어를 입력해주세요" value="${map.keyword}">
 						</span>
 						<span class="bd_btn_box">
 							<button type="submit" class="bd_btn">검색</button>
 						</span>
 					</form>
 				</div>	
+				<div class="bd_search_cnt">
+					<c:if test="${!empty map.keyword}">
+						<span>총 <span class="sort_color">${map.count}</span>건의 글이 있습니다.</span>
+						<div class="bd_search_clear">
+							<a href="${path}/board/list"><i class="fas fa-times-circle"></i>clear</a>
+						</div>
+					</c:if>
+				</div>
 				<table class="board_col"
 				>
 					<colgroup>
@@ -330,15 +353,7 @@
 		var sort_option = '${map.sort_option}';
 		var type = '${map.type}'
 		
-		if(sort_option == 'new'){
-			$('#sort_new').addClass('sort_color');
-		} else if(sort_option == 'cnt'){
-			$('#sort_cnt').addClass('sort_color');
-		} else if(sort_option == 'reply'){
-			$('#sort_reply').addClass('sort_color');
-		} else if(sort_option == 'good'){
-			$('#sort_good').addClass('sort_color');
-		}
+		$('#sort_'+sort_option).addClass('sort_color');
 		
 		if(type == 'free'){
 			$('.board_menu > a:nth-child(3)').css('color','#757575');

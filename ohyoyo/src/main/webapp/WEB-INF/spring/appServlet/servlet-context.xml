@@ -46,7 +46,7 @@
 	<!-- Add Interceptor Beans -->
 	<beans:bean id="loginInterceptor" class="com.ohyoyo.interceptor.LoginInterceptor"></beans:bean>
 	
-	<!-- URL Mapping for Interceptor call -->
+	<!-- URL Mapping for Interceptor call 인터셉터 설정 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/update"/>

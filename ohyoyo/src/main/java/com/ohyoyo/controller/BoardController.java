@@ -43,6 +43,25 @@ public class BoardController {
 		int end = pager.getPageEnd();
 		
 		List<BoardDTO> list = bService.selectList(sort_option, search_option, keyword, start, end);
+		
+		if(keyword != "" && keyword != null) {
+			for (BoardDTO boardDTO : list) {
+				String highStart = "<span class='board_highlight'>";
+				String highEnd = "</span>";
+				
+				String title = boardDTO.getTitle();
+				String newTitle = title.replaceAll(keyword, highStart+keyword+highEnd);
+				boardDTO.setTitle(newTitle);
+				String name = boardDTO.getName();
+				String newName = name.replaceAll(keyword, highStart+keyword+highEnd);
+				boardDTO.setName(newName);
+//				String content = boardDTO.getContent();
+//				String newContent = content.replaceAll(keyword, highStart+keyword+highEnd);
+//				boardDTO.setContent(newContent);;
+			}
+		}
+		
+		
 		// 왜 HashMap을 사용하는지?
 		// 나중에 데이터 보낼께 많아지면 hashmap으로 한꺼번에 받아서 보내는게 편해서
 		HashMap<String, Object> map = new HashMap<>(); //List는 new안하는 이유는?
@@ -54,7 +73,6 @@ public class BoardController {
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		
-		log.info(pager.toString());
 		model.addAttribute("map", map);
 	
 		return "board/list";
