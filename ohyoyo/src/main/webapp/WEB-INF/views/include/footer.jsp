@@ -19,7 +19,7 @@
 		position: relative;
 		width: 1260px;
 		margin: 0 auto;
-		padding: 60px 0;
+		padding: 50px 0;
 		color: #404041;
 	}
 	.footer_banner a{

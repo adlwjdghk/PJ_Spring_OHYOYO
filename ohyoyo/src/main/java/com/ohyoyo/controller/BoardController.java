@@ -55,9 +55,6 @@ public class BoardController {
 				String name = boardDTO.getName();
 				String newName = name.replaceAll(keyword, highStart+keyword+highEnd);
 				boardDTO.setName(newName);
-//				String content = boardDTO.getContent();
-//				String newContent = content.replaceAll(keyword, highStart+keyword+highEnd);
-//				boardDTO.setContent(newContent);;
 			}
 		}
 		
@@ -76,6 +73,16 @@ public class BoardController {
 		model.addAttribute("map", map);
 	
 		return "board/list";
+	}
+	
+	@GetMapping("/view")
+	public String view(int bno, Model model) {
+		log.info(">>>>>>>> GET: BOARD VIEW");
+		
+		BoardDTO bDto= bService.selectView(bno);
+		
+		model.addAttribute("one",bDto);
+		return "board/view";
 	}
 
 }

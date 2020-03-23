@@ -50,7 +50,7 @@
 	    display: block;
 	    width: 25%;
 	    height: 80px;
-	    line-height: 80px;
+	    line-height: 75px;
 	    border-right: solid 1px #ddd;
 	    border-bottom: solid 1px #ddd;
 	    color: #dadada;
@@ -60,7 +60,7 @@
 	}
 	.board_menu a i{
 		font-size: 30px;
-		vertical-align: middle;
+		vertical-align: text-bottom;
 		padding-right: 10px;
 	}
 	.board_search{
@@ -122,6 +122,7 @@
 		background: #f7b8b4;
 		color: white;
 		border: none;
+		border-radius: 2px;
 		text-align: center;
 		font-size: 15px;
 		cursor: pointer;
@@ -204,7 +205,7 @@
 	.bd_search_cnt{
 		margin-bottom: 16px;
    	    padding-left: 10px;
-   	    height: 23px;
+   	    height: 24px;
 	}
 	.bd_search_cnt > span{
 		vertical-align: text-bottom;
@@ -213,7 +214,7 @@
 		display: inline-block;
 		background-color: #f46665;
 		color: white;
-		padding: 1px 7px;
+		padding: 1px 7px 2px;
     	margin-left: 5px;
 	}
 	.bd_search_clear i{
@@ -247,8 +248,8 @@
 						<div class="bd_search_sort">
 							<span><a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new">최신순</a></span>
 							<span><a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt">조회순</a></span>
-							<span><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></span>
 							<span><a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a></span>	
+							<span><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></span>
 						</div>
 						<span class="bd_ps_box">
 							<input type="hidden" name="sort_option" value="${map.sort_option}">
@@ -283,17 +284,27 @@
 							<th scope="col">제목</th>
 							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
-							<th scope="col">조회수</th>
-							<th scope="col">댓글</th>
+							<th scope="col">조회</th>
+							<th scope="col">추천</th>
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${empty map.list}">
+							<tr>
+								<td></td>
+								<td class="bd_table_content">글이 없습니다.</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</c:if>
 						<c:forEach items="${map.list}" var="list">
 							<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 							<tr>
 								<td>${list.bno}</td>
 								<td class="bd_table_content">
-									<a href="#">${list.title}</a>
+									<a href="${path}/board/view?bno=${list.bno}">${list.title}</a>
 									<c:if test="${today == regdate}">
 										<span class="bd_table_new">New</span>
 									</c:if>

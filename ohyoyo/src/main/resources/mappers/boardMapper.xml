@@ -53,4 +53,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		</otherwise>
 	 	</choose>
 	</sql>
+	<select id="selectView" resultType="BoardDTO">
+		SELECT b.*, m.name 
+		FROM tbl_board b, tbl_member m
+		WHERE b.writer = m.id AND bno = #{bno}
+	</select>
 </mapper>

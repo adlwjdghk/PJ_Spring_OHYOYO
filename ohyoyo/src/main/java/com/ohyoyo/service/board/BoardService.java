@@ -10,4 +10,7 @@ public interface BoardService {
 	
 	// 게시글 갯수계산
 	public int countArticle(String search_option, String keyword);
+	
+	// 상세게시글
+	public BoardDTO selectView(int bno);
 }
