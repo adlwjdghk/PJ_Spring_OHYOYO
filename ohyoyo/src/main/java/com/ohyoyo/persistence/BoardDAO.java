@@ -20,4 +20,7 @@ public interface BoardDAO {
 	
 	// 조회수 +1 증가
 	public void increaseViewCnt(@Param("bno") int bno);
+	
+	// 게시글 삭제 -> update show = n 으로 바꾸기
+	public void deleteBoard(@Param("bno") int bno);
 }

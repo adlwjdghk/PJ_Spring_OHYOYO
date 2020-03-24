@@ -91,7 +91,16 @@ public class BoardController {
 		BoardDTO bDto= bService.selectView(bno);
 		
 		model.addAttribute("one",bDto);
+		model.addAttribute("key","dropBoard");
+		
 		return "board/view";
 	}
-
+	
+	@GetMapping("/delete")
+	public String delete(int bno) {
+		log.info(">>>>>>>> GET: BOARD DELETE ACTION");
+		bService.deleteBoard(bno);
+		
+		return "redirect:/board/list";
+	}
 }

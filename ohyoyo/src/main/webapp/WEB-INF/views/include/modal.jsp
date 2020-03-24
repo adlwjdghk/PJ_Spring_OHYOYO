@@ -95,7 +95,7 @@
 				<div class="modal_msg_main">
 					<span id="modal_user_id"></span>
 					<br><br>
-					<span id="modal_msg_main1"></span>
+					<span id="modal_msg_main1"><p><span></span></p></span>
 				</div>
 				<div class="modal_msg_sub">
 					<span id="modal_msg_sub1"></span>
@@ -131,9 +131,11 @@
 		var drop_main_txt = '정말 탈퇴하시겠습니까?';	
 		var drop_sub_txt = '정보는 복구되지않습니다.';	
 		var dropResult_main_txt = id+'님 탈퇴되셨습니다.';	
-		var dropResult_sub_txt = '그동안 OHYOYO를 이용해주셔서 감사합니다.';	
-	
-		if(key == 'join'){
+		var dropResult_sub_txt = '그동안 OHYOYO를 이용해주셔서 감사합니다.';
+		
+		var dropBoard_main_txt = "정말 게시글을 삭제하시겠습니까?";
+		var dropBoardNo_main_txt = "댓글이 있는 게시글은 삭제할 수 없습니다.";
+		if(key == 'join'){ // 회원가입 성공, 이메일인증
 			$('#modal_user_id').text(main_user);
 			$('#modal_msg_main1').text(join_main_txt);
 			$('#modal_msg_sub1').text(join_sub_txt1);
@@ -141,23 +143,33 @@
 			$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
 			$('#modal_cancle_btn').text('확인');
 			$('.modal_wrap').css('display', 'flex');
-		} else if(key == 'auth'){
+		} else if(key == 'auth'){ // 이메일 인증 o
 			$('#modal_user_id').text(main_user);
 			$('#modal_msg_main1').text(auth_main_txt);
 			$('#modal_msg_sub1').text(auth_sub_txt);
 			$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
 			$('#modal_cancle_btn').text('확인');
 			$('.modal_wrap').css('display', 'flex');
-		} else if(key == 'drop'){
+		} else if(key == 'drop'){ // 회원탈퇴 ?
 			$('#modal_user_id').text(main_user);
 			$('#modal_msg_main1').text(drop_main_txt);
 			$('#modal_msg_sub1').text(drop_sub_txt);
-		} else if(key == 'dropResult'){
+		} else if(key == 'dropResult'){ // 회원탈퇴 o
 			$('#modal_msg_main1').text(dropResult_main_txt);
 			$('#modal_msg_sub1').text(dropResult_sub_txt);
 			$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
 			$('#modal_cancle_btn').text('확인');
 			$('.modal_wrap').css('display', 'flex');
+		} else if(key == 'dropBoard'){ // 게시글 삭제?
+			if('${one.replycnt}' == 0 ){ // 댓글이 없는 경우
+				$('#modal_msg_main1').text(dropBoard_main_txt);
+				$('.modal_msg_sub').css('display','none');
+			} else { // 댓글이 있는 경우
+				$('#modal_msg_main1').text(dropBoardNo_main_txt);
+				$('#modal_yes_btn').css('display', 'none'); // 확인버튼제거
+				$('#modal_cancle_btn').text('확인');
+				$('.modal_msg_sub').css('display','none');
+			}
 		}
 		
 		$('.close').on('click',function(){
@@ -167,7 +179,9 @@
 			$('.modal_wrap').css('display','none');
 		});
 		$('#modal_yes_btn').on('click',function(){
-			location.href='${path}/member/dropAction';
+			if(key == 'dropResult'){
+				location.href='${path}/member/dropAction';			
+			}
 		});
 	});
 
