@@ -58,4 +58,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM tbl_board b, tbl_member m
 		WHERE b.writer = m.id AND bno = #{bno}
 	</select>
+	<update id="increaseViewCnt">
+		UPDATE tbl_board
+		SET viewcnt = viewcnt + 1
+		WHERE bno = #{bno}
+	</update>
 </mapper>

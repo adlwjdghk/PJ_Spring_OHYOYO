@@ -2,6 +2,8 @@ package com.ohyoyo.service.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.ohyoyo.domain.BoardDTO;
 
 public interface BoardService {
@@ -13,4 +15,7 @@ public interface BoardService {
 	
 	// 상세게시글
 	public BoardDTO selectView(int bno);
+	
+	// 조회수 +1 증가
+	public void increaseViewCnt(HttpSession session, int bno);
 }

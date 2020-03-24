@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +57,34 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public BoardDTO selectView(int bno) {
 		return bDao.selectView(bno);
+	}
+
+	@Override
+	public void increaseViewCnt(HttpSession session, int bno) {
+		// current_time 현재시간
+		// update_time_bno 조회수 +1한 시간
+		// current_time - update_time_bno = 조회수+1 증가후 지난시간
+		// current_time은 그때그때 가져오면 됨 
+		// update_time_bno은 session에 저장해놓아햐함
+		long update_time = 0; // 조회수 +1증가한 시간
+		
+		if(session.getAttribute("update_time_"+bno) != null) {
+			// 최근에 조회수를 올린 시간
+			update_time = (long)session.getAttribute("update_time_"+bno);
+		}
+		
+		// 현재시간
+		long current_time = System.currentTimeMillis();
+		// currentTimeMillis(); 날짜를 숫자로 변환 (초단위로 바꿔줌)
+		
+		// 일정시간이 경과한후 조회수 증가처리
+		if(current_time - update_time > 5000) {
+			// DB에 조회수 +1 증가
+			bDao.increaseViewCnt(bno);
+			// 조회수올린시간저장
+			session.setAttribute("update_time_"+bno, current_time);
+		}
+		
 	}
 
 }

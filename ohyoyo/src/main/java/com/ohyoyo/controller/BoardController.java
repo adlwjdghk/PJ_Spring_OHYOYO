@@ -3,6 +3,8 @@ package com.ohyoyo.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,9 +79,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/view/{bno}")
-	public String view(@PathVariable(value="bno") int bno, Model model) {
+	public String view(@PathVariable(value="bno") int bno,
+					   HttpSession session,
+					   Model model) {
 		log.info(">>>>>>>> GET: BOARD VIEW");
 		
+		// 1. 해당 bno의 조회수 +1 증가
+		bService.increaseViewCnt(session, bno);
+		
+		// 2. DB에서 해당 bno 정보를 get해서 View단으로 전송
 		BoardDTO bDto= bService.selectView(bno);
 		
 		model.addAttribute("one",bDto);

@@ -17,4 +17,7 @@ public interface BoardDAO {
 	
 	// 상세게시글
 	public BoardDTO selectView(int bno);
+	
+	// 조회수 +1 증가
+	public void increaseViewCnt(@Param("bno") int bno);
 }
