@@ -242,7 +242,7 @@
 				</div>
 				<div class="board_view_btnWrap">
 					<div class="bd_btn">
-						<a href="#">목록</a>
+						<a href="${header.referer}">목록</a>
 						<a href="#">답변</a>
 					</div>
 					<c:if test="${userid == one.writer}">
