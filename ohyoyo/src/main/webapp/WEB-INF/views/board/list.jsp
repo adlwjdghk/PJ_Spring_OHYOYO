@@ -304,7 +304,7 @@
 							<tr>
 								<td>${list.bno}</td>
 								<td class="bd_table_content">
-									<a href="${path}/board/view?bno=${list.bno}">${list.title}</a>
+									<a href="${path}/board/view/${list.bno}">${list.title}</a>
 									<c:if test="${today == regdate}">
 										<span class="bd_table_new">New</span>
 									</c:if>

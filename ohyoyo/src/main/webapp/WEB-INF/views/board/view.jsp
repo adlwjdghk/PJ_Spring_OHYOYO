@@ -116,10 +116,13 @@
 	} 
 	.board_view_btnWrap{
 		padding: 25px 0 20px;
-		text-align: right;
 	}
 	.bd_btn:first-child{
-		float: left;
+		text-align: left;
+    	display: inline-block;
+	}
+	.btn_wrap2{
+		float: right;
 	}
 	.bd_btn a{
 		padding: 12px 16px;
@@ -241,10 +244,12 @@
 						<a href="#">목록</a>
 						<a href="#">답변</a>
 					</div>
-					<div class="bd_btn">
-						<a href="#">수정</a>
-						<a href="#">삭제</a>
-					</div>
+					<c:if test="${userid == one.writer}">
+						<div class="bd_btn btn_wrap2">
+							<a href="#">수정</a>
+							<a href="#">삭제</a>
+						</div>
+					</c:if>
 				</div>
 			</div>
 			<div class="board_reply">
