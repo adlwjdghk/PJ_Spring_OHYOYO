@@ -253,58 +253,39 @@
 					</c:if>
 				</div>
 			</div>
-			<div class="board_reply">
-				<div class="bd_reply_title">댓글&nbsp;<span>${one.replycnt}</span></div>
-				<div class="reply_text">
-					<div class="reply_txt_user">haha</div>
-					<div class="reply_txt_detail">
-						<span>2020-03-20</span>
-						<span>신고</span>
-					</div>
-					<div class="reply_txt_content">오오오 무슨말인지 모르겠네요</div>
-				</div>
-				<div class="reply_text rereply_text">
-					<div class="reply_txt_user">haha</div>
-					<div class="reply_txt_detail">
-						<span>2020-03-20</span>
-						<span>신고</span>
-					</div>
-					<div class="reply_txt_content">오오오 무슨말인지 모르겠네요</div>
-				</div>
-				<div class="reply_text">
-					<div class="reply_txt_user">haha</div>
-					<div class="reply_txt_detail">
-						<span>2020-03-20</span>
-						<span>신고</span>
-					</div>
-					<div class="reply_txt_content">오오오 무슨말인지 모르겠네요</div>
-				</div>
-				<div class="reply_text">
-					<div class="reply_txt_user">haha</div>
-					<div class="reply_txt_detail">
-						<span>2020-03-20</span>
-						<span>신고</span>
-					</div>
-					<div class="reply_txt_content">오오오 무슨말인지 모르겠네요</div>
-				</div>
-				<div class="bd_reply_text_box">
-					<textarea placeholder="댓글을 입력하세요."></textarea>
-					<div class=" bd_btn reply_btn"><a href="#">등록</a></div>
-				</div>
-			</div>
+			<!-- 댓글창 -->
+			<div id="listReply"></div>
 		</div>
 	</div>
 <%@ include file="../include/footer.jsp" %> 
 </body>
 <script type="text/javascript">
-	//  삭제버튼클릭시 모달창 open
-	$('.delete_btn').click(function(){
-		$('.modal_wrap').css('display', 'flex');
-	});
 	
-	// 삭제알림 모달창에서 확인버튼  click -> 게시글 삭제
-	$('#modal_yes_btn').click(function(){
-		location.href='${path}/board/delete?bno=${one.bno}';
+	$(function(){
+		// 댓글 출력
+		listReply();
+		
+		//  삭제버튼클릭시 모달창 open
+		$('.delete_btn').click(function(){
+			$('.modal_wrap').css('display', 'flex');
+		});
+		
+		// 삭제알림 모달창에서 확인버튼  click -> 게시글 삭제
+		$('#modal_yes_btn').click(function(){
+			location.href='${path}/board/delete?bno=${one.bno}';
+		});
 	});
+	// 댓글목록 출력 함수
+	// 댓글이 바뀔때마다 출력시켜야 하므로
+	function listReply(){
+		$.ajax({
+			type: 'get',
+			url: '${path}/reply/list?bno=${one.bno}',
+			success: function(result){
+				// result : responseText 응답텍스트 (html)
+				$('#listReply').html(result);
+			}
+		});
+	}
 </script>
 </html>
