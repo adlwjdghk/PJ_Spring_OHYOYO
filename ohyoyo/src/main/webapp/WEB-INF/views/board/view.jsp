@@ -153,6 +153,9 @@
 		justify-content: space-around;
 		align-items: center;
 	}
+	.reply_nologin_txt{
+		justify-content: center;
+	}
 	textarea{
 		overflow: hidden;
 		line-height: 44px;
@@ -207,6 +210,11 @@
 	}
 	.reply_txt_detail span:last-child{
 		color: #f46665;
+	}
+	#reply_login:hover{
+		color : #f46665;
+		text-decoration: underline;
+		cursor: pointer;
 	}
 </style>
 </head>
