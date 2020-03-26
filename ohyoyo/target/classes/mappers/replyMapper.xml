@@ -5,7 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ohyoyo.persistence.ReplyDAO">
 	<select id="list" resultType="ReplyDTO">
 		SELECT r.*, m.name 
-		FROM tbl_reply r, tbl_member m
-		WHERE r.writer = m.id AND bno = #{bno}
+		  FROM tbl_reply r, tbl_member m
+		 WHERE r.writer = m.id AND bno = #{bno}
 	</select>
+	<insert id="insert">
+		INSERT INTO tbl_reply(rno, type, writer, content, bno)
+		VALUES(seq_reply.NEXTVAL, #{type}, #{writer}, #{content}, #{bno})
+	</insert>
 </mapper>

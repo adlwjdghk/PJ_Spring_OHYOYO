@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ohyoyo.domain.ReplyDTO;
 import com.ohyoyo.service.reply.ReplyService;
@@ -25,13 +27,17 @@ public class ReplyController {
 		log.info(">>>>>>>> GET: REPLY LIST");
 		log.info("**************bno"+bno);
 		
-		List<ReplyDTO> list = rService.list(bno);
-		for (ReplyDTO replyDTO : list) {
-			log.info(replyDTO.toString());
-		}
-		
 		model.addAttribute("list", rService.list(bno));
 		
 		return "/board/commentlist";
+	}
+	
+	@ResponseBody
+	@PostMapping("/insert")
+	public void insert(ReplyDTO rDto) {
+		log.info(">>>>> POST: REPLY INSERT");
+		log.info(rDto.toString());
+		
+		rService.insert(rDto);
 	}
 }

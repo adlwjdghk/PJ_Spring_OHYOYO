@@ -23,4 +23,7 @@ public interface BoardDAO {
 	
 	// 게시글 삭제 -> update show = n 으로 바꾸기
 	public void deleteBoard(int bno);
+	
+	// 댓글 등록시 replycnt +1
+	public void replyCntUpdate(int bno);
 }

@@ -142,11 +142,26 @@
 	}
 	.bd_reply_title{
 		margin: 5px 0 10px;
-		padding-top: 14px;
+		padding-top: 8px;
 		padding-left: 3px;
-  			border-top: 1px solid #dadada;
+  		border-top: 1px solid #dadada;
+  		display: flex;
+  		align-items: center;
+  		justify-content: space-between;
+	}
+	.bd_reply_title > span{
+    	color: #999;
+    	font-size: 13px;
+    	cursor: pointer;
+    	border: 1px solid #dadada;
+    	border-radius: 5px;
+    	padding: 2px 5px;
+	}
+	.bd_reply_title > span > i{
+		margin-right: 2px;
 	}
 	.bd_reply_text_box{
+		margin-top: 10px;
 		padding: 10px 10px 10px 20px;
 		border: 1px solid #dadada;
 		display: flex;
@@ -157,17 +172,17 @@
 		justify-content: center;
 	}
 	textarea{
-		overflow: hidden;
-		line-height: 44px;
 		height: 80px;	
 		width: 90%;
 		resize: none;
 		outline: none;
    		border: none;
    		font-size: 14px;
+   		line-height: 20px;
+    	letter-spacing: 1px;
 	}
 	.reply_btn > a{
-		padding: 33px 33px;
+		padding: 29px 33px;
 	}
 	.reply_text{
 		position: relative;
@@ -216,6 +231,15 @@
 		text-decoration: underline;
 		cursor: pointer;
 	}
+	.board_err_msg{
+		color: #f24443;
+		text-align: left;
+		margin: 3px 0 0 12px;
+		visibility: hidden;
+	}
+	.displayNone{
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -245,7 +269,9 @@
 					<div>${one.content}</div>
 				</div>
 				<div class="board_view_detail">
-					<div class="basic_div_color bounce"><i class="far fa-thumbs-up"></i>추천</div>
+					<div class="basic_div_color displayNone">댓글<span>1</span></div>
+					<div class="basic_div_color">첨부</div>
+					<div class="basic_div_color"><i class="far fa-thumbs-up"></i>추천</div>
 					<div class="highlight_div_color"><i class="fas fa-ban"></i>신고</div>
 				</div>
 				<div class="board_view_btnWrap">
@@ -272,7 +298,7 @@
 	$(function(){
 		// 댓글 출력
 		listReply();
-		
+
 		//  삭제버튼클릭시 모달창 open
 		$('.delete_btn').click(function(){
 			$('.modal_wrap').css('display', 'flex');
@@ -283,17 +309,46 @@
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 	});
+	
+	$(document).on('click', '.reply_btn', function(){
+		var reply_txt = $('.reply_textarea').val().trim();
+		// alert(reply_txt);
+		
+		if(reply_txt == '' || reply_txt.length == 0){
+			$('.reply_textarea').focus();
+			$('.board_err_msg').css('visibility','visible');
+			return false;
+		}
+		
+		$('.reply_bno').val('${one.bno}');
+		$('.reply_type').val('${one.type}');
+		$('.reply_writer').val('${userid}');
+		
+		$.ajax({
+			url: '${path}/reply/insert',
+			type: 'POST',
+			data: $('.frm_reply').serialize(),
+			success: function(){
+				listReply();
+			}
+		});
+	});
+	
 	// 댓글목록 출력 함수
 	// 댓글이 바뀔때마다 출력시켜야 하므로
 	function listReply(){
 		$.ajax({
 			type: 'get',
 			url: '${path}/reply/list?bno=${one.bno}',
+			async: false,
 			success: function(result){
 				// result : responseText 응답텍스트 (html)
 				$('#listReply').html(result);
 			}
 		});
+		
+		// 게시글의 댓글수 수정
+		$('.basic_div_color > span').text($('.replyListCnt').val());
 	}
 </script>
 </html>

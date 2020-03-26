@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ohyoyo.persistence.BoardDAO">
 	<select id="selectList" resultType="BoardDTO">
 		<include refid="paging_header"/>
-		SELECT bno, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, show 
+		SELECT bno, type, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, show 
 		FROM tbl_board b, tbl_member m
 		<include refid="seach"/>
 		<if test="map.sort_option == 'new'">
@@ -67,5 +67,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE tbl_board
 		SET show = 'n'
 		WHERE bno = #{bno}
+	</update>
+	<update id="replyCntUpdate">
+		UPDATE tbl_board
+		   SET replycnt = replycnt + 1
+		 WHERE bno = #{bno}
 	</update>
 </mapper>
