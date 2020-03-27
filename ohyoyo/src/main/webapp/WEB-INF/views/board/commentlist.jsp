@@ -21,6 +21,9 @@
 				var="regdate" />
 			<div class="reply_text">
 				<div class="reply_txt_user">${rlist.name}</div>
+					<c:if test="${userid == rlist.writer}">
+						<span class="reply_delete" data_num="${rlist.rno}">삭제</span>
+					</c:if>
 				<div class="reply_txt_detail">
 					<c:choose>
 						<c:when test="${today == regdate}">

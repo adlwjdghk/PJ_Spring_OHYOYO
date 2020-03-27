@@ -172,6 +172,7 @@
 		justify-content: center;
 	}
 	textarea{
+		overflow: hidden;
 		height: 80px;	
 		width: 90%;
 		resize: none;
@@ -183,6 +184,7 @@
 	}
 	.reply_btn > a{
 		padding: 29px 33px;
+		cursor: pointer;
 	}
 	.reply_text{
 		position: relative;
@@ -225,6 +227,15 @@
 	}
 	.reply_txt_detail span:last-child{
 		color: #f46665;
+		cursor: pointer;
+	}
+	.reply_delete{
+		color: #8e8e8e;
+		font-size: 12px;
+		cursor: pointer;
+		border: 1px solid #dadada;
+		padding: 2px 4px 2px 2px;
+		margin-left: 5px;
 	}
 	#reply_login:hover{
 		color : #f46665;
@@ -238,7 +249,7 @@
 		visibility: hidden;
 	}
 	.displayNone{
-		display: none;
+		/*display: none;/*  */
 	}
 </style>
 </head>
@@ -328,6 +339,23 @@
 			url: '${path}/reply/insert',
 			type: 'POST',
 			data: $('.frm_reply').serialize(),
+			success: function(){
+				listReply();
+			}
+		});
+	});
+	$(document).on('click', '.reply_delete', function(){
+		listReply();
+	});
+	
+	$(document).on('click', '.reply_delete', function(){
+		var rno = $(this).attr('data_num');
+		var bno = ${one.bno};
+		
+		$.ajax({
+			url: '${path}/reply/delete',
+			type: 'POST',
+			data: {'rno': rno, 'bno': bno},
 			success: function(){
 				listReply();
 			}

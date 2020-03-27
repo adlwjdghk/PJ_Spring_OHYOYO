@@ -70,7 +70,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<update id="replyCntUpdate">
 		UPDATE tbl_board
-		   SET replycnt = replycnt + 1
-		 WHERE bno = #{bno}
+		<if test="map.cnt == 'plus'">
+		   SET replycnt = replycnt +1
+		</if>
+		<if test="map.cnt == 'minus'">
+		   SET replycnt = replycnt -1
+		</if>
+		 WHERE bno = #{map.bno}
 	</update>
 </mapper>

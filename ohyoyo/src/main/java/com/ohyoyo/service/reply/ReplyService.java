@@ -11,4 +11,7 @@ public interface ReplyService {
 	
 	// 댓글 DB에 저장
 	public void insert(ReplyDTO rDto);
+	
+	// 댓글 삭제
+	public void delete(int rno, int bno);
 }

@@ -1,6 +1,8 @@
 package com.ohyoyo.service.reply;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,24 @@ public class ReplyServiceImpl implements ReplyService{
 		// 1. 댓글 등록
 		rDao.insert(rDto);
 		log.info("****************insert set");
+		
 		// 2. 댓글 등록수 +1
-		bDao.replyCntUpdate(rDto.getBno());
+		Map<String, Object> map = new HashMap<>();
+		map.put("cnt","plus");
+		map.put("bno",rDto.getBno());
+		bDao.replyCntUpdate(map);
+	}
+	@Override
+	public void delete(int rno, int bno) {
+		// 1. 댓글 등록
+		rDao.delete(rno);
+		
+		// 2. 댓글 등록수 -1
+		Map<String, Object> map = new HashMap<>();
+		map.put("cnt","minus");
+		map.put("bno",bno);
+		
+		bDao.replyCntUpdate(map);
 	}
 
 }

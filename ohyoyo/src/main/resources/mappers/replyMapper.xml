@@ -7,9 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT r.*, m.name 
 		  FROM tbl_reply r, tbl_member m
 		 WHERE r.writer = m.id AND bno = #{bno}
+		 ORDER BY rno ASC
 	</select>
 	<insert id="insert">
 		INSERT INTO tbl_reply(rno, type, writer, content, bno)
 		VALUES(seq_reply.NEXTVAL, #{type}, #{writer}, #{content}, #{bno})
 	</insert>
+	<delete id="delete">
+		DELETE FROM tbl_reply
+		WHERE rno = #{rno}
+	</delete>
 </mapper>
