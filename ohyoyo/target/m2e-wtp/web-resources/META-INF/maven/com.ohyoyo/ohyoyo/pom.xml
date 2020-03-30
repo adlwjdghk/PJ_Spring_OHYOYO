@@ -105,12 +105,12 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 				
-				
-
-				
-				
-				
-				
+		<!-- AOP 관련 라이브러리 -->			
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${org.aspectj-version}</version>
+		</dependency>
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ohyoyo.domain.ReplyDTO;
 import com.ohyoyo.persistence.BoardDAO;
@@ -36,7 +37,7 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<ReplyDTO> list(int bno) {
 		return rDao.list(bno);
 	}
-
+	@Transactional
 	@Override
 	public void insert(ReplyDTO rDto) {
 		//  비즈니스로직 
@@ -51,6 +52,7 @@ public class ReplyServiceImpl implements ReplyService{
 		map.put("bno",rDto.getBno());
 		bDao.replyCntUpdate(map);
 	}
+	@Transactional
 	@Override
 	public void delete(int rno, int bno) {
 		// 1. 댓글 등록

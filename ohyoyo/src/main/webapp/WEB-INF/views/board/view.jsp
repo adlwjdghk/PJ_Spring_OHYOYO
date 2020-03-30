@@ -230,12 +230,15 @@
 		cursor: pointer;
 	}
 	.reply_delete{
-		color: #8e8e8e;
-		font-size: 12px;
-		cursor: pointer;
 		border: 1px solid #dadada;
 		padding: 2px 4px 2px 2px;
 		margin-left: 5px;
+		color: #8e8e8e;
+		font-size: 12px;
+		cursor: pointer;
+	}
+	#reply_login{
+		text-decoration: underline #888;
 	}
 	#reply_login:hover{
 		color : #f46665;
@@ -321,10 +324,13 @@
 		});
 	});
 	
+	// 1. 사용자가 댓글을 입력하고 댓글등록버튼을 클릭
 	$(document).on('click', '.reply_btn', function(){
+		// 2. reply_txt라고 변수에 사용자가 입력한 댓글내용을 받는것
 		var reply_txt = $('.reply_textarea').val().trim();
 		// alert(reply_txt);
 		
+		// 3. 조건문
 		if(reply_txt == '' || reply_txt.length == 0){
 			$('.reply_textarea').focus();
 			$('.board_err_msg').css('visibility','visible');
@@ -334,6 +340,8 @@
 		$('.reply_bno').val('${one.bno}');
 		$('.reply_type').val('${one.type}');
 		$('.reply_writer').val('${userid}');
+		var one = 10
+		var two = 20
 		
 		$.ajax({
 			url: '${path}/reply/insert',
