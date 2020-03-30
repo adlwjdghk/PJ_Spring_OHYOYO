@@ -262,7 +262,7 @@
 		<div class="board_container">
 			<div class="board_title">
 				<h1 class="ohyoyo_board">
-					<a href="#" class="o_board">회원게시판</a>
+					<a href="${path}/board/list?type=free" class="o_board">회원게시판</a>
 				</h1>
 			</div>
 			<div class="board_view">
@@ -295,7 +295,7 @@
 					</div>
 					<c:if test="${userid == one.writer}">
 						<div class="bd_btn btn_wrap2">
-							<a href="#">수정</a>
+							<a href="${path}/board/register">수정</a>
 							<a href="#" class="delete_btn">삭제</a>
 						</div>
 					</c:if>

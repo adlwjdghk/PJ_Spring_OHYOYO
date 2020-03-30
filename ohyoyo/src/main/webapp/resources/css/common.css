@@ -29,6 +29,9 @@ button{
 form{
 	margin: 0;
 }
+input, textarea{
+	outline: none;
+}
 /* 글자색, 배경색 */
 .f-color1{color:#595959;}
 .f-color2{color:#798F8C;}

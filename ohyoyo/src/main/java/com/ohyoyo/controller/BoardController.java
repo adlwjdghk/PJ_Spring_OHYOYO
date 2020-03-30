@@ -103,4 +103,8 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	@GetMapping("/register")
+	public String register() {
+		return "/board/register";
+	}
 }

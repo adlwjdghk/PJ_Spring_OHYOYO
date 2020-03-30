@@ -351,7 +351,7 @@
 						</c:if>
 					</ul>
 					<div class="bd_btn bd_btn_write">
-						<a href="#">글쓰기</a>
+						<a href="${path}/board/register">글쓰기</a>
 					</div>
 				</div>
 			</div>
