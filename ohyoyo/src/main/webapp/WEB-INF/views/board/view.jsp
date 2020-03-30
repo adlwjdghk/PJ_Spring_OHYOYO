@@ -310,6 +310,9 @@
 <script type="text/javascript">
 	
 	$(function(){
+		// 자바스트립트 내장함수 : setInterval(이걸 실행하라, 이시간에 한번씩 )
+		setInterval(refreshReply, 180000);
+		
 		// 댓글 출력
 		listReply();
 
@@ -352,7 +355,7 @@
 			}
 		});
 	});
-	$(document).on('click', '.reply_delete', function(){
+	$(document).on('click', '.reply_refresh_btn', function(){
 		listReply();
 	});
 	
@@ -385,6 +388,10 @@
 		
 		// 게시글의 댓글수 수정
 		$('.basic_div_color > span').text($('.replyListCnt').val());
+	}
+	
+	function refreshReply(){
+		listReply();
 	}
 </script>
 </html>
