@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/header.jsp" %> 
 <!DOCTYPE html>
 <html>
@@ -89,6 +90,7 @@
 	.set_info_text{
 		flex-direction: column;
 		align-items: baseline;
+		width: auto;
 	}
 	.flex{
 		display: flex;
@@ -137,55 +139,86 @@
 					<a href="${path}/board/list?type=free" class="o_board">회원게시판</a>
 				</h1>
 			</div>
-			<div class="board_set_wrap">
-				<div class="board_set">
-					<div class="flex">
-						<div class="board_set_info set_info_front">
-							<label for="type">
-								종류 : 
-							</label>
-							<div class="board_set_input">
-								<span class="">
-									<select id="type" class="sel">
-										<option value="faq">FAQ</option>
-										<option value="qna">1:1문의</option>
-										<option value="free">회원게시판</option>
-										<option value="notice">공지사항</option>
-									</select>
-								</span>
+			<div>
+				<form:form id="frm_board">
+					<div class="board_set_wrap">
+						<div class="board_set">
+							<div class="flex">
+								<div class="board_set_info set_info_front">
+									<label for="type">
+										종류 : 
+									</label>
+									<div class="board_set_input">
+										<span class="">
+											<select id="type" class="sel" name="type">
+												<option value="faq">FAQ</option>
+												<option value="qna">1:1문의</option>
+												<option value="free">회원게시판</option>
+												<option value="notice">공지사항</option>
+											</select>
+										</span>
+									</div>
+								</div>
+								<div class="board_set_info set_info_behind">
+									<label for="set_writer">
+										작성자 : 
+									</label>
+									<span id="set_writer" class="board_set_input">${name}</span>
+									<input type="hidden"  value="${userid}" name="writer">
+								</div>
+								
+							</div>
+							<div class="board_set_info">
+								<label for="set_title">
+									제목 : 
+								</label>
+								<input type="text" id="set_title" class="board_set_input" name="title">
+							</div>
+							<div class="board_set_info set_info_text">
+								<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+								<textarea name="ir1" id="ir1" style="min-width:870px;" name="content"></textarea>
+							</div>
+							<div class="board_set_info set_info_text">
+								<div class="set_file">
+									<i class="fas fa-paperclip">&nbsp;첨부파일을 드래그 해주세요.</i>
+									
+								</div>
 							</div>
 						</div>
-						<div class="board_set_info set_info_behind">
-							<label for="set_writer">
-								작성자 : 
-							</label>
-							<input type="text" id="set_writer" class="board_set_input" readonly>
-						</div>
-						
 					</div>
-					<div class="board_set_info">
-						<label for="set_title">
-							제목 : 
-						</label>
-						<input type="text" id="set_title" class="board_set_input">
+					<div class="set_btn">
+						<button type="button" class="cancel_btn">취소</button>
+						<button type="button">등록</button>
 					</div>
-					<div class="board_set_info set_info_text">
-						<textarea></textarea>
-					</div>
-					<div class="board_set_info set_info_text">
-						<div class="set_file">
-							<i class="fas fa-paperclip">&nbsp;첨부파일을 드래그 해주세요.</i>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="set_btn">
-				<a href="#">취소</a>
-				<a href="#">등록</a>
+				</form:form>
 			</div>
 		</div>
 	</div>
 <%@ include file="../include/footer.jsp" %> 
 </body>
+<script type="text/javascript">
+	$(function(){
+		
+	});
+	$(document).on('click','.cancel_btn',function(){
+		var referer ='${header.referer}';
+		var index = referer.indexOf("/board/list");
+		alert(index);
+		if(index != -1){
+			alert('success');
+			location.href = '${header.referer}';
+		} else{
+			location.href = '${path}/board/list';
+		}
+ 	});
+</script>
+<script type="text/javascript">
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+	 oAppRef: oEditors,
+	 elPlaceHolder: "ir1",
+	 sSkinURI: "${path}/resources/smarteditor/SmartEditor2Skin.html",
+	 fCreator: "createSEditor2"
+	});
+</script>
 </html>
