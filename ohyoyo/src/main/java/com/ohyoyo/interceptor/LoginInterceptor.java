@@ -23,21 +23,41 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		// Session 객체생성
 		HttpSession session = request.getSession();
 		
+		// referer 뒤로가기 누른거라 생각하면 됨
+		String referer = request.getHeader("referer");
+		log.info("****** 이전 URL :" + referer);
+		
 		// Login NO
 		if(session.getAttribute("userid") == null) {
-			log.info("****** NOLOGIN..");
-			// referer 뒤로가기 누른거라 생각하면 됨
-			String referer = request.getHeader("referer");
-			log.info("****** 이전 URL :" + referer);
+			log.info("****** NOLOGIN..");			
 			
-			// response.sendRedirect(referer+"?message=nologin");
-			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
-			fMap.put("message", "nologin");
+			String uri = request.getRequestURI();
+			log.info("*******uri*****"+uri);
+			
 			
 			// URL로 바로 접근한 경우 (referer이 없는 경우) 인덱스페이지로 
 			if(referer == null) {
 				referer = "http://localhost:8081/ohyoyo/";
-			} 
+			} else {
+				// 게시글 등록, 수정 로그인이 필요한 view단
+				int index = referer.lastIndexOf("/");
+				int len = referer.length();
+				log.info("************index*************"+index);
+				log.info("***********length**************"+len);
+				String mapWord = referer.substring(index, len);
+				log.info("****************update url*****"+mapWord);
+				log.info("****************url*****"+referer);
+				
+				if(mapWord.equals("/write")) {
+					response.sendRedirect(request.getContextPath()+"/board/list");
+					return false;
+				}
+			}
+			// response.sendRedirect(referer+"?message=nologin");
+			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
+			fMap.put("message", "nologin");
+			fMap.put("uri", uri);
+			
 			RequestContextUtils.saveOutputFlashMap(referer, request, response);
 			response.sendRedirect(referer);
 			

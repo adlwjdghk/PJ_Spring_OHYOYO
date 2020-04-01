@@ -569,6 +569,7 @@
 	</header>
 </body>
 <script type="text/javascript">
+	var uri = '${uri}';
 	$(document).ready(function(){
 		var message = '${message}';
 		if(message == 'nologin'){
@@ -619,10 +620,11 @@
 		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
 			   .css('color','#aaa');
 		$('.login_err_msg').css('visibility','hidden');
+		uri = '';
 	});
 		
 	// LOGIN MODAL창 암호 보이기 or 숨기기
-	$(document).on('click','.pws_eye',function(){
+	$(document).on('click','.pw_eye',function(){
 		// alert('sns');
 		var code = $(this).prev().attr('type');
 		// alert(code); // 모름 input type을 가져와야함 
@@ -654,7 +656,12 @@
 					if(data == 0 || data == 3){
 						$('.login_err_msg').css('visibility','visible').text('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
 					} else if(data == 1){
-						location.reload(); // 새로고침
+						alert(uri);
+						if(uri == ''){
+							location.reload(); // 로그인 성공 후 새로고침
+						} else {
+							location.href = uri;
+						}
 					} else if(data == 2){
 						$('.login_err_msg').css('visibility','visible').text('이메일인증을 해야만 로그인할 수 있습니다.');	
 					}
