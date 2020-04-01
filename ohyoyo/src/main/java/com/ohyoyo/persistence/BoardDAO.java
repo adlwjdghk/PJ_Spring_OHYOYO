@@ -26,5 +26,8 @@ public interface BoardDAO {
 	
 	// 댓글 등록시 replycnt +-1
 	public void replyCntUpdate(@Param("map") Map<String, Object> map);
+	
+	// 게시글 등록
+	public void writer(BoardDTO bDto);
 
 }

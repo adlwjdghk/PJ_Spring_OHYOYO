@@ -78,4 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		 WHERE bno = #{map.bno}
 	</update>
+ 	<insert id="writer">
+		INSERT INTO tbl_board(bno, type, title, content, writer)
+		VALUES(seq_board.NEXTVAL,#{type},#{title},#{content},#{writer})
+	</insert>
 </mapper>

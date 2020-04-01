@@ -117,7 +117,6 @@
 	.bd_btn{
 		width: 110px;
 		height: 51px;
-		padding: 12px 16px;
 		outline: none;
 		background: #f7b8b4;
 		color: white;
@@ -184,8 +183,11 @@
 		vertical-align: top;
 	}
 	.bd_btn_write{
-		line-height: 29px;
+		line-height: 50px;
   		float: right;
+	}
+	.bd_btn_write a{
+		padding: 15px 34px;
 	}
 	.bd_icon{
 		float: right;
@@ -351,7 +353,7 @@
 						</c:if>
 					</ul>
 					<div class="bd_btn bd_btn_write">
-						<a href="${path}/board/register">글쓰기</a>
+						<a href="${path}/board/write">글쓰기</a>
 					</div>
 				</div>
 			</div>

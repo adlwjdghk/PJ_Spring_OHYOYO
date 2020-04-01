@@ -92,7 +92,7 @@
 		align-items: baseline;
 		width: auto;
 	}
-	.flex{
+	.board_flexBox{
 		display: flex;
 	}
 	.set_info_front{
@@ -104,6 +104,10 @@
 	}
 	.set_info_front div,.set_info_behind input{
 		width: 65%;
+	} 
+	#set_title{
+		font-size: 17px;
+		margin: 10px 0 5px;
 	}
 	.set_file{
 		border: 1px dashed #dadada;
@@ -129,6 +133,13 @@
 		font-size: 15px;
 		border-radius: 2px;
 	}
+	.err_msg_register{
+		display: none;
+		width: 100%;
+		margin-top: 10px;
+		color: tomato;
+		text-align: right;
+	}
 </style>	
 </head>
 <body>
@@ -143,23 +154,23 @@
 				<form:form id="frm_board">
 					<div class="board_set_wrap">
 						<div class="board_set">
-							<div class="flex">
-								<div class="board_set_info set_info_front">
+							<div class="board_flexBox">
+								<div class="board_set_info flex_info set_info_front">
 									<label for="type">
 										종류 : 
 									</label>
 									<div class="board_set_input">
 										<span class="">
 											<select id="type" class="sel" name="type">
+												<option value="free">회원게시판</option>
 												<option value="faq">FAQ</option>
 												<option value="qna">1:1문의</option>
-												<option value="free">회원게시판</option>
 												<option value="notice">공지사항</option>
 											</select>
 										</span>
 									</div>
 								</div>
-								<div class="board_set_info set_info_behind">
+								<div class="board_set_info flex_info set_info_behind">
 									<label for="set_writer">
 										작성자 : 
 									</label>
@@ -169,14 +180,11 @@
 								
 							</div>
 							<div class="board_set_info">
-								<label for="set_title">
-									제목 : 
-								</label>
-								<input type="text" id="set_title" class="board_set_input" name="title">
+								<input type="text" id="set_title" class="board_set_input" name="title" placeholder="제목을 입력하세요.">
 							</div>
 							<div class="board_set_info set_info_text">
 								<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-								<textarea name="ir1" id="ir1" style="min-width:870px;" name="content"></textarea>
+								<textarea id="ir1" style="min-width:870px;" name="content"></textarea>
 							</div>
 							<div class="board_set_info set_info_text">
 								<div class="set_file">
@@ -186,9 +194,10 @@
 							</div>
 						</div>
 					</div>
+					<div class="err_msg_register">제목을 입력해주세요</div>
 					<div class="set_btn">
 						<button type="button" class="cancel_btn">취소</button>
-						<button type="button">등록</button>
+						<button type="button" class="register_btn">등록</button>
 					</div>
 				</form:form>
 			</div>
@@ -203,14 +212,25 @@
 	$(document).on('click','.cancel_btn',function(){
 		var referer ='${header.referer}';
 		var index = referer.indexOf("/board/list");
-		alert(index);
+
 		if(index != -1){
-			alert('success');
 			location.href = '${header.referer}';
 		} else{
 			location.href = '${path}/board/list';
 		}
  	});
+	
+	$(document).on('click','.register_btn',function(){
+		var title = $('#set_title').val();
+		if(title == ''& title.length == 0){
+			$('.err_msg_register').css('display','block');
+			return false;
+		} else{
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			alert(document.getElementById("ir1").value);
+			$('#frm_board').submit();
+		}
+	});
 </script>
 <script type="text/javascript">
 	var oEditors = [];

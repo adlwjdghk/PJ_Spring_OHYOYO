@@ -290,12 +290,12 @@
 				</div>
 				<div class="board_view_btnWrap">
 					<div class="bd_btn">
-						<a href="${header.referer}">목록</a>
+						<a href="${header.referer}" class="list_btn">목록</a>
 						<a href="#">답변</a>
 					</div>
 					<c:if test="${userid == one.writer}">
 						<div class="bd_btn btn_wrap2">
-							<a href="${path}/board/register">수정</a>
+							<a href="${path}/board/write">수정</a>
 							<a href="#" class="delete_btn">삭제</a>
 						</div>
 					</c:if>
@@ -373,6 +373,14 @@
 		});
 	});
 	
+	// 목록 클릭시 비정상 정상 확인해서 보내기
+	$(document).on('click','.list_btn',function(){
+		var referer = '${header.referer}';
+		var index = referer.indexOf('/board/list');
+		if(index == -1){
+			$('.list_btn').attr('href','${path}/board/list');
+		} 
+	});
 	// 댓글목록 출력 함수
 	// 댓글이 바뀔때마다 출력시켜야 하므로
 	function listReply(){

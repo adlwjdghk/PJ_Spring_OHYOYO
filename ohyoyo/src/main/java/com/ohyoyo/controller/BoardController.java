@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -103,8 +104,19 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
-	@GetMapping("/register")
-	public String register() {
+	
+	@GetMapping("/write")
+	public String write() {
+		log.info(">>>>>>>> GET: BOARD WRITE ACTION");
 		return "/board/register";
+	}
+	
+	@PostMapping("/write")
+	public String write(BoardDTO bDto) {
+		log.info(">>>>>>>> POST: BOARD WRITE ACTION");
+		log.info("****************"+bDto.toString());
+		
+		bService.writer(bDto);
+		return "redirect:/board/list";
 	}
 }

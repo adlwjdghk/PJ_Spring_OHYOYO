@@ -87,4 +87,10 @@ public class BoardServiceImpl implements BoardService{
 		bDao.deleteBoard(bno);
 	}
 
+	@Override
+	public void writer(BoardDTO bDto) {
+		bDao.writer(bDto);
+		
+	}
+
 }
