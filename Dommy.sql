@@ -127,44 +127,29 @@ CREATE TABLE tbl_board (
     regdate DATE DEFAULT SYSDATE,
     updatedate DATE DEFAULT SYSDATE,
     show CHAR(1) DEFAULT 'y',
-    ref NUMBER NOT NULL,
-    re_step NUMBER NOT NULL,
-    re_level NUMBER NOT NULL
+    ref NUMBER DEFAULT 1,
+    re_step NUMBER DEFAULT 1,
+    re_level NUMBER DEFAULT 1
 );
 -- 게시판 테이블 PK Key추가
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board
 PRIMARY KEY(bno);
 
 -- 게시글 15건 생성
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글111','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글2','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글3','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글44','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글5','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글66','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글777','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글8','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글99','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글10','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글11111','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글1121','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글1311','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글1141','테스트야아아','haha',1,1,0);
-INSERT INTO tbl_board(bno, type, title, content, writer, ref, re_step, re_level)
-VALUES(seq_board.NEXTVAL, 'free', '테스크게시글1151','테스트야아아','haha',1,1,0);
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게시글111','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '123','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '45','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '4534','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크54게시글111','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '657','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게76867시글111','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '7878','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', 'tyu657','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', 'fghfgh','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게hjhj시글111','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게fghty시글111','테스트야아아','as12345');
 
-SELECT * FROM tbl_board;
+COMMIT;
+
+SELECT * FROM tbl_board
+ORDER BY bno DESC;
