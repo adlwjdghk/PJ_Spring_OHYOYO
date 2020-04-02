@@ -105,18 +105,46 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	// 게시글 등록
 	@GetMapping("/write")
 	public String write() {
 		log.info(">>>>>>>> GET: BOARD WRITE ACTION");
 		return "/board/register";
 	}
 	
+	// 게시글 등록 후 서버보내기
 	@PostMapping("/write")
 	public String write(BoardDTO bDto) {
-		log.info(">>>>>>>> POST: BOARD WRITE ACTION");
 		log.info("****************"+bDto.toString());
 		
 		bService.writer(bDto);
 		return "redirect:/board/list";
+	}
+	
+	// 게시글 수정 페이지
+	@GetMapping("/update")
+	public String update(int bno, Model model) {
+		log.info(">>>>>>>> GET: BOARD UPDATE ACTION");
+		log.info("***********bno***"+bno);
+		
+		// 수정을 원하는 게시글의 정보를 1줄 원함
+		// 비즈니스 로직을 보고 활용할수 있는 게 있으면 활용하기
+		bService.selectView(bno);
+		
+		model.addAttribute("one",bService.selectView(bno));
+
+		return "/board/register";
+	}
+	
+	// 게시글 수정후 서버보내기
+	@PostMapping("/update")
+	public String update(BoardDTO bDto, Model model) {
+		log.info(">>>>>>>> POST: BOARD UPDATE ACTION");
+		log.info("****************"+bDto.toString());
+		
+		bService.update(bDto);
+		
+		model.addAttribute("two","1");
+		return "redirect:/board/view/"+bDto.getBno();
 	}
 }

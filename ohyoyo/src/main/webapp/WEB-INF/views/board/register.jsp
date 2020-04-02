@@ -44,7 +44,7 @@
 		border-bottom: 1px solid #ddd; 
 	}
 	.board_set{
-		width: 900px;
+		width: 950px;
 		margin: auto;
 	}
 	.board_set_info{
@@ -65,7 +65,7 @@
 		outline: none;
 		display: block;
 		position: relative;
-		padding-left: 25px;
+		padding: 0 25px;
 		line-height: 30px;
 		border: none;
 		font-size: 15px;
@@ -95,35 +95,40 @@
 	.board_flexBox{
 		display: flex;
 	}
+	.flex_info{
+		border: 1px solid #dadada;
+	}
 	.set_info_front{
-		justify-content: space-between;
+		justify-content: center;
 	}
 	.set_info_behind{
 		justify-content: flex-start;
+		width: auto;
 		margin: 0 0 17px 20px;
+		padding: 0;
 	}
-	.set_info_front div,.set_info_behind input{
-		width: 65%;
+	.set_info_behind span{
+		width: 15%;
 	} 
 	#set_title{
-		font-size: 17px;
-		margin: 10px 0 5px;
+		font-size: 28px;
+		margin: 22px 0 5px;
 	}
 	.set_file{
 		border: 1px dashed #dadada;
 		width: 100%;
-		height: 100px;
+		height: 150px;
 		text-align: center;
 	}
 	.set_file i{
-		line-height: 95px;	
+		line-height: 140px;	
 	}
 	.set_btn{
 		margin-top: 18px;
 		display: flex;
 		justify-content: space-between;
 	}
-	.set_btn a{
+	.set_btn button{
 		padding: 17px 30px;
 		outline: none;
 		background: #f7b8b4;
@@ -156,13 +161,10 @@
 						<div class="board_set">
 							<div class="board_flexBox">
 								<div class="board_set_info flex_info set_info_front">
-									<label for="type">
-										종류 : 
-									</label>
 									<div class="board_set_input">
 										<span class="">
-											<select id="type" class="sel" name="type">
-												<option value="free">회원게시판</option>
+											<select id="board_type" class="sel" name="type">
+												<option value="free" selected>회원게시판</option>
 												<option value="faq">FAQ</option>
 												<option value="qna">1:1문의</option>
 												<option value="notice">공지사항</option>
@@ -171,20 +173,17 @@
 									</div>
 								</div>
 								<div class="board_set_info flex_info set_info_behind">
-									<label for="set_writer">
-										작성자 : 
-									</label>
 									<span id="set_writer" class="board_set_input">${name}</span>
 									<input type="hidden"  value="${userid}" name="writer">
 								</div>
 								
 							</div>
 							<div class="board_set_info">
-								<input type="text" id="set_title" class="board_set_input" name="title" placeholder="제목을 입력하세요.">
+								<input type="text" id="set_title" class="board_set_input" name="title" placeholder="제목을 입력하세요." value="${one.title}">
 							</div>
 							<div class="board_set_info set_info_text">
 								<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-								<textarea id="ir1" style="min-width:870px;" name="content"></textarea>
+								<textarea id="ir1" style="width: 100%; min-width:870px;" name="content">${one.content}</textarea>
 							</div>
 							<div class="board_set_info set_info_text">
 								<div class="set_file">
@@ -207,16 +206,38 @@
 </body>
 <script type="text/javascript">
 	$(function(){
+		// register ==> 게시글 등록과 게시글 수정
+		// 등록과 수정을 선택하게 만드는 것 
+		// one에 값이 있으면 수정페이지 로딩!
+		if('${one}' != ''){
+			console.log('none');
+			// 수정페이지로 디자인 변경
+			$('.register_btn').text('수정');
+			// select Box 값으로 selected
+			// $('#board_type').val(1).attr('selected','selected') index값으로 선택할수있으나 확인이 어려움
+			$('#board_type').val('${one.type}').attr('selected','selected');
+			
+		}
 		
 	});
 	$(document).on('click','.cancel_btn',function(){
 		var referer ='${header.referer}';
-		var index = referer.indexOf("/board/list");
-
-		if(index != -1){
-			location.href = '${header.referer}';
+		var insertIndex = referer.indexOf('/board/list');
+		var updateIndex = referer.indexOf('/board/view/${one.bno}');
+		
+		alert(insertIndex+', '+updateIndex);
+		if('${one}' == ''){
+	        if(insertIndex != -1){
+	            location.href = '${header.referer}';
+	        } else{
+	        	location.href = '${path}/board/list';
+	        }
 		} else{
-			location.href = '${path}/board/list';
+			if(updateIndex != -1){
+	            location.href = '${header.referer}';
+	        } else{
+	        	location.href = '${path}/board/view/${one.bno}';
+	        }
 		}
  	});
 	

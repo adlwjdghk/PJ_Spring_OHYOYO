@@ -51,10 +51,18 @@
 		line-height: 37px;
 	}
 	.view_info_user{
+		display: flex;
+		align-items: center;
+		padding-left: 5px;
    		padding-bottom: 15px;
    		border-bottom: 1px solid #dadada;
 	}
-	.view_info_user span:last-child{
+	.view_info_date{
+		display: flex;
+		flex-direction: column;
+		margin-left: 18px;
+	}
+	.view_info_date span{
 		color: #595959;
 		font-size: 15px;
 	}
@@ -252,7 +260,7 @@
 		visibility: hidden;
 	}
 	.displayNone{
-		/*display: none;/*  */
+		display: none;
 	}
 </style>
 </head>
@@ -270,8 +278,13 @@
 					<div class="view_info_title">${one.title}</div>
 					<div class="view_info1">
 						<div class="view_info_user">
-							<span><strong>${one.name}</strong></span>
-							<span><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+							<span>${one.name}</span>
+							<div class="view_info_date">
+								<span><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;작성</span>
+								<c:if test="${one.regdate != one.updatedate}">
+									<span><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;수정</span>
+								</c:if>
+							</div>	
 						</div>
 					</div>
 					<div class="view_info2">
@@ -295,7 +308,7 @@
 					</div>
 					<c:if test="${userid == one.writer}">
 						<div class="bd_btn btn_wrap2">
-							<a href="${path}/board/write">수정</a>
+							<a href="${path}/board/update?bno=${one.bno}">수정</a>
 							<a href="#" class="delete_btn">삭제</a>
 						</div>
 					</c:if>
