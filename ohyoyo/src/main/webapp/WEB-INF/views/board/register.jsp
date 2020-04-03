@@ -216,28 +216,19 @@
 			// select Box 값으로 selected
 			// $('#board_type').val(1).attr('selected','selected') index값으로 선택할수있으나 확인이 어려움
 			$('#board_type').val('${one.type}').attr('selected','selected');
-			
 		}
-		
 	});
+	
 	$(document).on('click','.cancel_btn',function(){
 		var referer ='${header.referer}';
-		var insertIndex = referer.indexOf('/board/list');
-		var updateIndex = referer.indexOf('/board/view/${one.bno}');
+		var index = referer.indexOf('/board/list');
 		
-		alert(insertIndex+', '+updateIndex);
-		if('${one}' == ''){
-	        if(insertIndex != -1){
-	            location.href = '${header.referer}';
-	        } else{
-	        	location.href = '${path}/board/list';
-	        }
-		} else{
-			if(updateIndex != -1){
-	            location.href = '${header.referer}';
-	        } else{
-	        	location.href = '${path}/board/view/${one.bno}';
-	        }
+		if(index != -1){ // list에서 왔을때 
+            location.href = '${header.referer}';
+		} else if('${one}' != ''){	// view에서 왔을때
+            location.href = '${header.referer}';
+		} else{ // 외부에서 왔을때 
+        	location.href = '${path}/board/list';
 		}
  	});
 	

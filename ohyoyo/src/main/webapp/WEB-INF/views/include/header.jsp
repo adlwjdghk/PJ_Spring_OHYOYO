@@ -656,7 +656,6 @@
 					if(data == 0 || data == 3){
 						$('.login_err_msg').css('visibility','visible').text('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
 					} else if(data == 1){
-						alert(uri);
 						if(uri == ''){
 							location.reload(); // 로그인 성공 후 새로고침
 						} else {

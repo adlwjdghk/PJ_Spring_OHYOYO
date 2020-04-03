@@ -22,36 +22,48 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		// Session 객체생성
 		HttpSession session = request.getSession();
-		
-		// referer 뒤로가기 누른거라 생각하면 됨
+		// referer 뒤로가기 누른거라 생각하면 됨\ 이동하기전 이전 page url
 		String referer = request.getHeader("referer");
 		log.info("****** 이전 URL :" + referer);
 		
-		// Login NO
-		if(session.getAttribute("userid") == null) {
-			log.info("****** NOLOGIN..");			
-			
-			String uri = request.getRequestURI();
-			log.info("*******uri*****"+uri);
-			
-			
-			// URL로 바로 접근한 경우 (referer이 없는 경우) 인덱스페이지로 
-			if(referer == null) {
-				referer = "http://localhost:8081/ohyoyo/";
+		// 이동하려고 했던 page url
+		String uri = request.getRequestURI();
+		String ctx = request.getContextPath();
+		String nextUrl = uri.substring(ctx.length());
+		String prevUrl = "";
+		String finalUrl = "http://localhost:8081/ohyoyo/";
+		
+		// 비정상적인 접근을 막는 기능!
+		if(referer == null) {
+			log.info("!!WARNING*********: 비정상적인 접근 ");
+			response.sendRedirect(finalUrl);
+			return false;
+		} else {
+			int indexQuery = referer.indexOf("?");
+			if(indexQuery == -1) {
+				prevUrl = referer.substring(finalUrl.length()-1);
 			} else {
-				// 게시글 등록, 수정 로그인이 필요한 view단
-				int index = referer.lastIndexOf("/");
-				int len = referer.length();
-				log.info("************index*************"+index);
-				log.info("***********length**************"+len);
-				String mapWord = referer.substring(index, len);
-				log.info("****************update url*****"+mapWord);
-				log.info("****************url*****"+referer);
-				
-				if(mapWord.equals("/write")) {
-					response.sendRedirect(request.getContextPath()+"/board/list");
+				prevUrl = referer.substring(finalUrl.length()-1, indexQuery);
+			}
+			log.info("PREV URL ********"+prevUrl);
+			log.info("NEXT URL ********"+nextUrl);
+			
+			if(nextUrl.equals("/board/update")|| nextUrl.equals("/board/delete")) {
+				log.info(""+prevUrl.indexOf("board/view"));
+				if(prevUrl.indexOf("board/view") == -1) {
+					log.info("!!WARNING*********: 비정상적인 접근 ");
+					response.sendRedirect(finalUrl);
 					return false;
 				}
+			}
+		}	
+		
+		// Login NO 정상적인 접근인 경우 실행
+		if(session.getAttribute("userid") == null) {
+			if(prevUrl.equals(nextUrl)) {
+				log.info("prevUrl == nextUrl");
+				response.sendRedirect(finalUrl);
+				return false;
 			}
 			// response.sendRedirect(referer+"?message=nologin");
 			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
