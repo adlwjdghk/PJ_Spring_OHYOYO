@@ -27,8 +27,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		log.info("****** 이전 URL :" + referer);
 		
 		// 이동하려고 했던 page url
+		// 중간에 채온거라서 이동하려던 page를 알수있음 
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
+		// context root가 짤려서 url만 남음
 		String nextUrl = uri.substring(ctx.length());
 		String prevUrl = "";
 		String finalUrl = "http://localhost:8081/ohyoyo/";
@@ -38,6 +40,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info("!!WARNING*********: 비정상적인 접근 ");
 			response.sendRedirect(finalUrl);
 			return false;
+			
+		// 뭔가를 클릭해서 온 친구
 		} else {
 			int indexQuery = referer.indexOf("?");
 			if(indexQuery == -1) {
@@ -48,12 +52,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info("PREV URL ********"+prevUrl);
 			log.info("NEXT URL ********"+nextUrl);
 			
-			if(nextUrl.equals("/board/update")|| nextUrl.equals("/board/delete")) {
+			// 너가 하려는 게 수정또는 삭제?
+			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) {
 				log.info(""+prevUrl.indexOf("board/view"));
-				if(prevUrl.indexOf("board/view") == -1) {
-					log.info("!!WARNING*********: 비정상적인 접근 ");
-					response.sendRedirect(finalUrl);
-					return false;
+				// update -> update 즉, 수정을 하려고 할때 비정상적인 접근이라고 생각 못하게 하려고 
+				if(request.getParameter("title") == null) {
+					// 전페이지가 상세게시글이 아닐 경우
+					if(prevUrl.indexOf("board/view") == -1) {
+						log.info("!!WARNING*********: 비정상적인 접근 ");
+						response.sendRedirect(finalUrl);
+						return false;
+					}
 				}
 			}
 		}	

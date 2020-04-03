@@ -66,6 +66,9 @@
 		color: #595959;
 		font-size: 15px;
 	}
+	.view_info_date span:last-child{
+		
+	}
 	.view_info1{
 		display: flex;
 		justify-content: flex-end;
