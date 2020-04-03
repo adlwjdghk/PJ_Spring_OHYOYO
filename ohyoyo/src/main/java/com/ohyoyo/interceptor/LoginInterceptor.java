@@ -55,7 +55,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			// 너가 하려는 게 수정또는 삭제?
 			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) {
 				log.info(""+prevUrl.indexOf("board/view"));
-				// update -> update 즉, 수정을 하려고 할때 비정상적인 접근이라고 생각 못하게 하려고 
+				// update -> update 즉, 수정을 하려고 할때 비정상적인 접근이라고 생각 못하게 하려고
+				// view에서 update로 갈때는 title이 없음(페이지만 띄우기 때문에)
 				if(request.getParameter("title") == null) {
 					// 전페이지가 상세게시글이 아닐 경우
 					if(prevUrl.indexOf("board/view") == -1) {

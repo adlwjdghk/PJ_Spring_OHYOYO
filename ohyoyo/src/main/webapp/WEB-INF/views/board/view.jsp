@@ -66,8 +66,8 @@
 		color: #595959;
 		font-size: 15px;
 	}
-	.view_info_date span:last-child{
-		
+	.updatedate{
+		text-decoration: underline #999;
 	}
 	.view_info1{
 		display: flex;
@@ -285,7 +285,7 @@
 							<div class="view_info_date">
 								<span><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;작성</span>
 								<c:if test="${one.regdate != one.updatedate}">
-									<span><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;수정</span>
+									<span class="updatedate"><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;수정</span>
 								</c:if>
 							</div>	
 						</div>

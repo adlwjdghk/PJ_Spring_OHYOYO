@@ -137,6 +137,7 @@
 		text-align: center;
 		font-size: 15px;
 		border-radius: 2px;
+		cursor: pointer;
 	}
 	.err_msg_register{
 		display: none;
@@ -238,8 +239,8 @@
 			$('.err_msg_register').css('display','block');
 			return false;
 		} else{
+			// textarea의 값을 가져오는 것
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-			alert(document.getElementById("ir1").value);
 			$('#frm_board').submit();
 		}
 	});
