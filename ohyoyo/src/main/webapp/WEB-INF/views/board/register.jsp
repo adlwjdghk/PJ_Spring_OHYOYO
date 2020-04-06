@@ -184,7 +184,7 @@
 							</div>
 							<div class="board_set_info set_info_text">
 								<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-								<textarea id="ir1" style="width: 100%; min-width:870px;" name="content">${one.content}</textarea>
+								<textarea id="ir1" style="width: 100%; min-width:870px;" name="view_content">${one.view_content}</textarea>
 							</div>
 							<div class="board_set_info set_info_text">
 								<div class="set_file">
@@ -240,7 +240,17 @@
 			return false;
 		} else{
 			// textarea의 값을 가져오는 것
+			// 스마트 에디터의 값을 textarea에 입력
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			var view_content = $('#ir1').val();
+			// 정규식을 통해 HTML태그를 제거후 순수 text만 추출
+			var search_content = view_content.replace(/(<([^>]+)>)/ig,"").replace("&nbsp;","");
+			console.log("searchsearchsearch: "+search_content);
+			
+			// form태그에 넣어주는데 맨 마지막에 넣어줌 등록버튼을 눌렀을떄 생기고 값을 넣어줌
+			$('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
+			$('#search_content').val(search_content);
+			
 			$('#frm_board').submit();
 		}
 	});

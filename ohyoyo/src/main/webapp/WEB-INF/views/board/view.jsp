@@ -296,7 +296,7 @@
 					</div>
 				</div>
 				<div class="board_view_content">
-					<div>${one.content}</div>
+					<div>${one.view_content}</div>
 				</div>
 				<div class="board_view_detail">
 					<div class="basic_div_color displayNone">댓글<span>1</span></div>

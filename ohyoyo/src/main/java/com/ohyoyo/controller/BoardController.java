@@ -115,11 +115,11 @@ public class BoardController {
 	// 게시글 등록 후 서버보내기
 	@PostMapping("/write")
 	public String write(BoardDTO bDto) {
-		log.info("****************"+bDto.toString());
+		log.info(">>>>>>>> POST: BOARD WRITE ACTION");
+		log.info("^^^^^^^^^^^^^^^^^"+bDto.toString());
 		
 		bService.writer(bDto);
 		
-		log.info("^^^^^^^^^^^^^^^^^"+bDto.getBno());
 		return "redirect:/board/view/"+bDto.getBno();
 	}
 	

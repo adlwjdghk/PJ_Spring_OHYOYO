@@ -90,7 +90,6 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void writer(BoardDTO bDto) {
 		bDao.writer(bDto);
-		
 	}
 
 	@Override

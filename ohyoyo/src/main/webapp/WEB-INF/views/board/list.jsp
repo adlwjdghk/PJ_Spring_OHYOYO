@@ -66,7 +66,7 @@
 	.board_search{
 		margin: 0 0 45px;
 		padding: 40px;
-		background: #ffe6dc;
+		background: #fff6f3;
 		text-align: center;
 	}
 	.bd_search_sort{
@@ -258,7 +258,7 @@
 							<input type="text" name="keyword" class="bd_int" placeholder="검색어를 입력해주세요" value="${map.keyword}">
 						</span>
 						<span class="bd_btn_box">
-							<button type="submit" class="bd_btn">검색</button>
+							<button type="submit" class="bd_btn">SEARCH</button>
 						</span>
 					</form>
 				</div>	
