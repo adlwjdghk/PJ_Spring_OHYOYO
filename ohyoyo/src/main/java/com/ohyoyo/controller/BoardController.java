@@ -118,7 +118,9 @@ public class BoardController {
 		log.info("****************"+bDto.toString());
 		
 		bService.writer(bDto);
-		return "redirect:/board/list";
+		
+		log.info("^^^^^^^^^^^^^^^^^"+bDto.getBno());
+		return "redirect:/board/view/"+bDto.getBno();
 	}
 	
 	// 게시글 수정 페이지
