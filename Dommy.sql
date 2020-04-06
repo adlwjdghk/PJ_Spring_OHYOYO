@@ -119,7 +119,8 @@ CREATE TABLE tbl_board (
     bno number(10, 0),
     type CHAR(4) NOT NULL,
     title VARCHAR2(200) NOT NULL,
-    content VARCHAR2(4000) NOT NULL,
+    view_content VARCHAR2(4000) NOT NULL,
+    search_content VARCHAR2(4000) NOT NULL,
     writer VARCHAR2(50) NOT NULL,
     viewcnt NUMBER DEFAULT 0,
     replycnt NUMBER DEFAULT 0,
@@ -136,18 +137,15 @@ ALTER TABLE tbl_board ADD CONSTRAINT pk_board
 PRIMARY KEY(bno);
 
 -- 게시글 15건 생성
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게시글111','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '123','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '45','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '4534','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크54게시글111','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '657','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게76867시글111','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '7878','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', 'tyu657','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', 'fghfgh','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게hjhj시글111','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게fghty시글111','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '123테스크게시1','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크dfdsf게시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게45시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테657스크게시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', 'fg테스ytju크게시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스87크게시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스56크게시글111','테스트야아아','테스트야아아','as12345');
+INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '356fg테스크게시글111','테스트야아아','테스트야아아','as12345');
 
 COMMIT;
 
