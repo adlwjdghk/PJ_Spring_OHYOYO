@@ -130,7 +130,7 @@ CREATE TABLE tbl_board (
     show CHAR(1) DEFAULT 'y',
     ref NUMBER DEFAULT 1,
     re_step NUMBER DEFAULT 1,
-    re_level NUMBER DEFAULT 1
+    re_level NUMBER DEFAULT 0
 );
 -- 게시판 테이블 PK Key추가
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board
