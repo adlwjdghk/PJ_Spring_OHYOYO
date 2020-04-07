@@ -32,5 +32,11 @@ public interface BoardDAO {
 	
 	// 게시글 수정
 	public void update(BoardDTO bDto);
+	
+	// 계층형 답글 만들때 필요한 re_step 수정
+	public void updateStep(BoardDTO bDto);
+	
+	// 게시글 답글 등록
+	public void answer(BoardDTO bDto);
 
 }

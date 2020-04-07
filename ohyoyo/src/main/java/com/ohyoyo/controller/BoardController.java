@@ -131,10 +131,11 @@ public class BoardController {
 		
 		// 수정을 원하는 게시글의 정보를 1줄 원함
 		// 비즈니스 로직을 보고 활용할수 있는 게 있으면 활용하기
-		bService.selectView(bno);
+		// bService.selectView(bno);
 		
 		model.addAttribute("one",bService.selectView(bno));
-
+		model.addAttribute("flag","update");
+		
 		return "/board/register";
 	}
 	
@@ -147,6 +148,48 @@ public class BoardController {
 		bService.update(bDto);
 		
 		model.addAttribute("two","1");
+		return "redirect:/board/view/"+bDto.getBno();
+	}
+	
+	// 계층형 답글 만들기
+	@GetMapping("/answer")
+	public String answer(BoardDTO bDto, Model model) {
+		log.info(">>>>>>>> GET: BOARD ANSWER VIEW PAGE");
+		bDto = bService.selectView(bDto.getBno());
+		String newContent = "<br><br>"
+				+ "<p style='font-size:16px;'>========== Original Message ==========</p>"
+				+ bDto.getView_content();
+		
+		bDto.setView_content(newContent);
+		
+		model.addAttribute("one", bDto);
+		model.addAttribute("flag","answer");
+		
+		return "board/register";
+	}
+	
+	// 답글 서버로
+	@PostMapping("/answer")
+	public String answer(BoardDTO bDto) {
+		log.info(">>>>>>>> GET: BOARD ANSWER ACTION");
+		// bDto에는 답글을 저장하려는 정보 (메인 게시글 bno, title, content, writer...)
+		log.info(bDto.toString());
+		// prevDto에는 메인 게시글의 정보가 담겨있음 (All , ref, re_level, re_step)
+		BoardDTO prevDto = bService.selectView(bDto.getBno());
+		log.info(prevDto.toString());
+		
+		// 현재 bDto 정보 (메인 게시글 bno, All, 메인게시글 ref re_level re_step)
+		bDto.setRef(prevDto.getRef());
+		bDto.setRe_level(prevDto.getRe_level());
+		bDto.setRe_step(prevDto.getRe_step());
+		
+		// ref, re_step, re_level
+		// ref 메인게시글 그대로
+		// re_step 메인게시글 re_step +1
+		// re_level 메인게시글 re_level+1 인데 그전에 re_level보다 큰 애들 모두 +1
+		
+		bService.answer(bDto);
+		
 		return "redirect:/board/view/"+bDto.getBno();
 	}
 }

@@ -307,7 +307,7 @@
 				<div class="board_view_btnWrap">
 					<div class="bd_btn">
 						<a href="${header.referer}" class="list_btn">목록</a>
-						<a href="#">답변</a>
+						<a href="${path}/board/answer?bno=${one.bno}">답글</a>
 					</div>
 					<c:if test="${userid == one.writer}">
 						<div class="bd_btn btn_wrap2">

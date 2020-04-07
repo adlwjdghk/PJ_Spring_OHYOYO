@@ -27,4 +27,7 @@ public interface BoardService {
 	
 	// 게시글 수정
 	public void update(BoardDTO bDto);
+	
+	// 계층형 게시글
+	public void answer(BoardDTO bDto);
 }

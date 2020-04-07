@@ -26,6 +26,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		String referer = request.getHeader("referer");
 		log.info("****** 이전 URL :" + referer);
 		
+		// 쿼리스트링을 알려줌 ?뒤의 값을 알려줌
+		// 쿼리스트링이 없으면 null값이 들어옴
+		String qString = request.getQueryString();
+		
 		// 이동하려고 했던 page url
 		// 중간에 채온거라서 이동하려던 page를 알수있음 
 		String uri = request.getRequestURI();
@@ -78,6 +82,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			// response.sendRedirect(referer+"?message=nologin");
 			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
 			fMap.put("message", "nologin");
+			if(qString != null) {
+				uri = uri+"?"+qString;
+			}
 			fMap.put("uri", uri);
 			
 			RequestContextUtils.saveOutputFlashMap(referer, request, response);

@@ -146,7 +146,9 @@
 		text-align: center;
 		vertical-align: middle;
 	}
-	.bd_table_content{
+	.board_col > tbody > tr > td:nth-child(2){
+		text-align: left;
+		padding-left: 40px; 
 		padding-right: 15px !important;
 	}
 	.bd_table_new{
@@ -225,6 +227,9 @@
 	.board_highlight{
 		background-color: #f7b8b4;
     	border-bottom: 2px solid #f59791;
+	}
+	#curved-arrow{
+		width: 14px;
 	}
 </style>
 </head>
@@ -306,6 +311,12 @@
 							<tr>
 								<td>${list.bno}</td>
 								<td class="bd_table_content">
+									<c:if test="${list.re_level != 0}">
+										<c:forEach begin="1" end="${list.re_level}">
+											<img id="curved-arrow" src="${path}/resources/img/icons8-curved-arrow-16 (1).png">
+										</c:forEach>
+										<span style="font-weight: bold;">Re:</span> 
+									</c:if>
 									<a href="${path}/board/view/${list.bno}">${list.title}</a>
 									<c:if test="${today == regdate}">
 										<span class="bd_table_new">New</span>
@@ -365,12 +376,16 @@
 	$(document).ready(function(){
 		var sort_option = '${map.sort_option}';
 		var type = '${map.type}'
+		var re_level = '${list.re_level}';
 		
 		$('#sort_'+sort_option).addClass('sort_color');
 		
 		if(type == 'free'){
 			$('.board_menu > a:nth-child(3)').css('color','#757575');
 		}
+		var nbsp = 40*re_level;
+		
+		$('.bd_table_content').css('padding-left','nbsp');
 	});
 </script>
 </html>

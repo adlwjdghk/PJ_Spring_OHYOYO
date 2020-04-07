@@ -108,7 +108,8 @@
 		padding: 0;
 	}
 	.set_info_behind span{
-		width: 15%;
+		min-width: 68px;
+		display: inline-block;
 	} 
 	#set_title{
 		font-size: 28px;
@@ -165,8 +166,8 @@
 									<div class="board_set_input">
 										<span class="">
 											<select id="board_type" class="sel" name="type">
-												<option value="free" selected>회원게시판</option>
-												<option value="faq">FAQ</option>
+												<option value="free">회원게시판</option>
+												<option value="faq" selected>FAQ</option>
 												<option value="qna">1:1문의</option>
 												<option value="notice">공지사항</option>
 											</select>
@@ -206,17 +207,35 @@
 <%@ include file="../include/footer.jsp" %> 
 </body>
 <script type="text/javascript">
+	var flag = '${flag}';
+	console.log('******** '+flag);
 	$(function(){
 		// register ==> 게시글 등록과 게시글 수정
 		// 등록과 수정을 선택하게 만드는 것 
 		// one에 값이 있으면 수정페이지 로딩!
-		if('${one}' != ''){
+		if(flag == 'update'){
 			console.log('none');
 			// 수정페이지로 디자인 변경
 			$('.register_btn').text('수정');
 			// select Box 값으로 selected
 			// $('#board_type').val(1).attr('selected','selected') index값으로 선택할수있으나 확인이 어려움
 			$('#board_type').val('${one.type}').attr('selected','selected');
+		} else if(flag == 'answer'){
+			$('.register_btn').text('답글 등록');
+			// selectbox 옵션을 선택 못하게 하는 방법 => type을 받아오지않음
+			/* $('#board_type').val('${one.type}')
+			 			       .attr('selected','selected')
+							   .not(':selected').attr('disabled','disabled'); // select box readonly시키기 */
+							   
+			// selectbox 어떤 옵션을 선택해도 해당 게시글 type 옵션만 나오게 하는 방법
+			// type 받아옴
+ 			$('#board_type').val('${one.type}')
+						    .attr('selected','selected')
+							.attr('onFocus', 'this.initialSelect = this.selectedIndex') 
+							.attr('onChange', 'this.selectedIndex = this.initialSelect');   
+			
+			$('#set_title').attr('readonly','readonly');
+					
 		}
 	});
 	
@@ -226,8 +245,8 @@
 		
 		if(index != -1){ // list에서 왔을때 
             location.href = '${header.referer}';
-		} else if('${one}' != ''){	// view에서 왔을때
-            location.href = '${header.referer}';
+		} else if('${one.bno}' != ''){	// view에서 왔을때
+            location.href = '${path}/board/view/${one.bno}';
 		} else{ // 외부에서 왔을때 
         	location.href = '${path}/board/list';
 		}
