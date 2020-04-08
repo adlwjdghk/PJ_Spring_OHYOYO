@@ -122,7 +122,11 @@
 		text-align: center;
 	}
 	.set_file i{
-		line-height: 140px;	
+		line-height: 140px;
+		font-size: 16px;
+	}
+	.set_file p{
+		font-weight: bold;
 	}
 	.set_btn{
 		margin-top: 18px;
@@ -187,11 +191,12 @@
 								<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 								<textarea id="ir1" style="width: 100%; min-width:870px;" name="view_content">${one.view_content}</textarea>
 							</div>
-							<div class="board_set_info set_info_text">
-								<div class="set_file">
-									<i class="fas fa-paperclip">&nbsp;첨부파일을 드래그 해주세요.</i>
-									
+							<!-- 첨부파일등록 -->
+							<div class="board_set_info set_info_text form_group">
+								<div class="set_file fileDrop">
+									<p><i class="far fa-folder"></i>&nbsp;첨부파일을 드래그 해주세요.</p>
 								</div>
+								<ul class="mailbox_attachments clearfix uploadedList"></ul>
 							</div>
 						</div>
 					</div>
@@ -237,6 +242,38 @@
 			$('#set_title').attr('readonly','readonly');
 					
 		}
+		
+		// Drag&Drop 첨부파일
+		// 1. 웹브라우저에 d&d시 파일이 열리는 문제(기본효과) : 기본효과 막음!
+		$('.fileDrop').on('dragenter dragover', function(e){
+			e.preventDefault();
+		});
+		// 2. 사용자가 파일을 drop했을때
+		$('.fileDrop').on('drop', function(e){
+			e.preventDefault();
+			
+			var files = e.originalEvent.dataTransfer.files; // 드래그에 전달된 첨부파일들
+			var file = files[0]; // 그중 하나만 꺼내옴
+			
+			var formData = new FormData(); // 폼 객체생성 
+			formData.append('file', file); // 폼에 파일 1개 추가!
+			
+			// 서버에 파일 업로드
+			$.ajax({
+				url:'${path}/upload/uploadAjax',
+				data: formData,
+				datatype: 'text',
+				processData: false, // 쿼리스트링 방식 생성x
+				contentType: false, // 서버단으로 전송하는 테이터 타입 (multipart)
+				type: 'POST',
+				success: function(data){
+					console.log(data);
+					// data: 업로드한 파일 정보와 Http 상태코드
+					printFiles(data); // 첨부파일 출력 메서드 호출
+				}
+			});
+		});
+		
 	});
 	
 	$(document).on('click','.cancel_btn',function(){

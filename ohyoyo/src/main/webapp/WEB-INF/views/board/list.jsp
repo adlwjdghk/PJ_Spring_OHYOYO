@@ -311,13 +311,15 @@
 							<tr>
 								<td>${list.bno}</td>
 								<td class="bd_table_content">
-									<c:if test="${list.re_level != 0}">
-										<c:forEach begin="1" end="${list.re_level}">
-											<img id="curved-arrow" src="${path}/resources/img/icons8-curved-arrow-16 (1).png">
-										</c:forEach>
-										<span style="font-weight: bold;">Re:</span> 
-									</c:if>
-									<a href="${path}/board/view/${list.bno}">${list.title}</a>
+									<a href="${path}/board/view/${list.bno}">
+										<c:if test="${list.re_level != 0}">
+											<c:forEach begin="1" end="${list.re_level}">
+												<img id="curved-arrow" src="${path}/resources/img/icons8-curved-arrow-16 (2).png">
+											</c:forEach>
+											<span style="font-weight: bold;">Re:&nbsp;</span> 
+										</c:if>
+										${list.title}
+									</a>
 									<c:if test="${today == regdate}">
 										<span class="bd_table_new">New</span>
 									</c:if>

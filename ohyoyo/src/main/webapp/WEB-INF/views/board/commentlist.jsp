@@ -21,8 +21,9 @@
 				var="regdate" />
 			<div class="reply_text">
 				<div class="reply_txt_user">${rlist.name}</div>
+					<span class="reply_btn reply_answer" data_num="${rlist.rno}">댓글</span>
 					<c:if test="${userid == rlist.writer}">
-						<span class="reply_delete" data_num="${rlist.rno}">삭제</span>
+						<span class="reply_btn reply_delete" data_num="${rlist.rno}">삭제</span>
 					</c:if>
 				<div class="reply_txt_detail">
 					<c:choose>
@@ -67,7 +68,7 @@
 					<!-- 댓글 등록창 -->
 					<div class="bd_reply_text_box">
 						<textarea class="reply_textarea" name="content"></textarea>
-						<div class=" bd_btn reply_btn">
+						<div class=" bd_btn reply_insert">
 							<a>등록</a>
 						</div>
 					</div>

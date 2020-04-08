@@ -193,7 +193,7 @@
    		line-height: 20px;
     	letter-spacing: 1px;
 	}
-	.reply_btn > a{
+	.reply_insert > a{
 		padding: 29px 33px;
 		cursor: pointer;
 	}
@@ -240,9 +240,9 @@
 		color: #f46665;
 		cursor: pointer;
 	}
-	.reply_delete{
+	.reply_btn{
 		border: 1px solid #dadada;
-		padding: 2px 4px 2px 2px;
+		padding: 2px 4px 2px 3px;
 		margin-left: 5px;
 		color: #8e8e8e;
 		font-size: 12px;
@@ -344,7 +344,7 @@
 	});
 	
 	// 1. 사용자가 댓글을 입력하고 댓글등록버튼을 클릭
-	$(document).on('click', '.reply_btn', function(){
+	$(document).on('click', '.reply_insert', function(){
 		// 2. reply_txt라고 변수에 사용자가 입력한 댓글내용을 받는것
 		var reply_txt = $('.reply_textarea').val().trim();
 		// alert(reply_txt);
