@@ -31,7 +31,7 @@ public class UploadFileUtils {
 		String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
 		String uploadedFileName = null;
 		//이미지파일은 썸네일 사용
-		if(MediaUtills.getMediaType(formatName) != null) {
+		if(MediaUtils.getMediaType(formatName) != null) {
 			// 썸네일 생성
 			uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
 		} else {
