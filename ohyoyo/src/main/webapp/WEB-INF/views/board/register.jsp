@@ -157,6 +157,7 @@
 		.uploadedList{
 			display: flex;
 			margin-top: 20px;
+			max-width: 922px;
 		}
 		.uploadedList li{
 			margin-right: 20px;
@@ -238,7 +239,7 @@
 		</div>
 		<div class="mailbox-attachment-info">
 			<a href="{{originalFileUrl}}" class="mailbox-attachment-name">
-				<i class="fas fa-folder"></i>{{originalFileName}}
+				<i class="fas fa-file-alt"></i>{{originalFileName}}
 			</a>
 			<span class="btn btn-default btn-xs pull-right delBtn" data-src="{{basicFileName}}">
 				<i class="fas fa-times"></i>			
@@ -313,6 +314,31 @@
 					printFiles(data); // 첨부파일 출력 메서드 호출
 				}
 			});
+			
+			$('.uploadedList').on('click','.delBtn', function(event){
+				var that = $(this);
+				var bno = '${one.bno}';
+				// local에 들어가있는 첨부파일까지 생각해봐야함 
+				// 등록시 x버튼을 클릭했을때 디자인도 삭제되고 local에서도 삭제
+				// 수정시 
+				if(bno == ''){  // 게시글 등록
+					$.ajax({
+						url: '${path}/upload/deleteFile',
+						type: 'POST',
+						data: {fileName: $(this).attr('data-src')},
+						success: function(data){
+							if(data == 'deleted'){
+								that.parents('li').remove();
+							}
+						}, error: function(){
+							alert('system error!!!');
+						}
+					});
+				} else{ // 게시글 수정
+					alert('bno: '+ bno);
+				}
+			});
+			
 		});
 	});
 	
@@ -370,7 +396,7 @@
 			// lightbox 속성 추가
 			that.find('.mailbox-attachment-name').attr('data-lightbox','uploadImages');
 			// 아이콘에서 이미지 아이콘으로 변경
-			that.find('.fa-folder').attr('class','fas fa-camera');
+			that.find('.fa-file-alt').attr('class','fas fa-camera');
 		}
 	}
 	
@@ -396,7 +422,7 @@
 			// 원본이미지 요청 링크
 			originalFileUrl = '${path}/upload/displayFile?fileName='+ originalImg;
 		} else{
-			imgSrc = '${path}/resources/img/icons8-file-100.png'; //파일 아이콘
+			imgSrc = '${path}/resources/img/file-icon.png'; //파일 아이콘
 			uuidFileName = fullName.substr(12);
 			// 파일다운로드 요청 링크
 			originalFileUrl = '${path}/upload/displayFile?fileName='+fullName;

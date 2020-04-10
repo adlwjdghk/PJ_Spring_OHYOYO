@@ -1,5 +1,6 @@
 package com.ohyoyo.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,7 +45,8 @@ public class AjaxUploadController {
 	// 이미지표시가능
 	@ResponseBody // view가아닌 data리턴
 	@RequestMapping("/upload/displayFile")
-	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
+	public ResponseEntity<byte[]> displayFile(String fileName)
+			throws Exception{
 		// 서버의 파일을 다운로드하기위한 스트림
 		InputStream in = null; // java.io
 		ResponseEntity<byte[]> entity = null;
@@ -80,5 +83,44 @@ public class AjaxUploadController {
 				in.close(); // 스트림 닫기
 		}	
 		return entity;
+	}
+	
+	@ResponseBody
+	@PostMapping("/upload/deleteFile")
+	public ResponseEntity<String> deleteFile(String fileName){
+		// 일반 fileName: /2020/04/10/abe1906e-118f-43a3-9937-48704f134247_abc.txt
+		// 이미지 fileName: /2020/04/10/s_12431175-c49c-472b-87e6-6ffba0408df5_cloud.png
+		// 확장자 검사
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		// formatName: txt, png
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		// 이미지파일은 썸네일과 원본파일 모두 삭제해야하므로 
+		// 그것도 삭제하라는 코드가 더 있어야함
+		if(mType != null) {//이미지파일이면 원본이미지 삭제
+			String front = fileName.substring(0, 12);
+			// front: /2020/04/10
+			String end = fileName.substring(14);
+			// end: 12431175-c49c-472b-87e6-6ffba0408df5_cloud.png
+			
+			// 이미지 원본파일 삭제
+			// File.separatorChar : 유닉스/ 윈도우즈\ 
+			// 계속 바꾸는 이유는 윈도우이기때문에 Local에서는 \ 로 저장 view단, sts는 / 를 사용 
+			// /2020/04/10/12431175-c49c-472b-87e6-6ffba0408df5_cloud.png
+			// -> \2020\04\10\12431175-c49c-472b-87e6-6ffba0408df5_cloud.png
+			// delete() 삭제하라 : Local저장되어있는 파일 삭제시킴
+			new File(uploadPath+(front+end).replace('/', File.separatorChar)).delete();
+		}
+		// 원본파일 삭제 (이미지면 썸네일 삭제)
+		// 일반 fileName, 이미지썸네일 fileName replace 
+		// -> \2020\04\10\abe1906e-118f-43a3-9937-48704f134247_abc.txt
+		//  -> \2020\04\10\s_12431175-c49c-472b-87e6-6ffba0408df5_cloud.png
+		// 삭제하기!
+		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
+		
+		// 레코드 삭제 이건없어도 됨
+//		bService.deleteFile(fileName);
+		
+		// ResponseEntity: response를 보낼때 설정값을 디테일하게 바꾸고 싶을때 사용함
+		return new ResponseEntity<String> ("deleted",HttpStatus.OK);
 	}
 }
