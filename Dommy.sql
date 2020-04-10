@@ -151,3 +151,20 @@ COMMIT;
 
 SELECT * FROM tbl_board
 ORDER BY bno DESC;
+
+-- 게시글 첨부파일 테이블
+-- : 첨부파일이름은  uuid를 사용하기 때문에 중복 안됨
+DROP TABLE tbl_attach CASCADE CONSTRAINTS;
+CREATE TABLE tbl_attach(
+     fullname VARCHAR2(150) NOT NULL,
+     bno NUMBER NOT NULL,
+     regdate DATE DEFAULT SYSDATE
+);
+
+ALTER TABLE tbl_attach ADD CONSTRAINT pk_attach
+PRIMARY KEY(fullname);
+
+ALTER TABLE tbl_attach
+ADD CONSTRAINT fk_attach_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
