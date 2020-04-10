@@ -118,7 +118,7 @@ public class BoardController {
 		log.info(">>>>>>>> POST: BOARD WRITE ACTION");
 		log.info("^^^^^^^^^^^^^^^^^"+bDto.toString());
 		
-		bService.writer(bDto);
+		bService.write(bDto);
 		
 		return "redirect:/board/view/"+bDto.getBno();
 	}

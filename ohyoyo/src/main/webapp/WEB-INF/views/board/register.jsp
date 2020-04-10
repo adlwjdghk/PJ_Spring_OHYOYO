@@ -318,6 +318,7 @@
 			$('.uploadedList').on('click','.delBtn', function(event){
 				var that = $(this);
 				var bno = '${one.bno}';
+				
 				// local에 들어가있는 첨부파일까지 생각해봐야함 
 				// 등록시 x버튼을 클릭했을때 디자인도 삭제되고 local에서도 삭제
 				// 수정시 
@@ -373,6 +374,26 @@
 			$('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
 			$('#search_content').val(search_content);
 			
+			
+			// 첨부파일 목록[배열]도 추가
+			var str= '';
+			// uploadedList 내부의 .file 태그 각각 반복
+			// .each 앞의 선택자 갯수만큼 반복을 하라는 얘기 
+			$('.uploadedList .file').each(function(i){
+				console.log(i);
+				// hidden태그 구성
+				str += "<input type='hidden' name='files["+i+"]' value='"+$(this).val()+"'>";
+			});
+			
+			// 포컬드라이브에 저장되어있는 해당 게시글 첨부파일 삭제
+			// 아직은 필요없엄
+			/* if(deleteFileList.length > 0){
+				$.post('${path}/uplaod/deleteAllFile',{files:deleteFileList},function(){});
+			}; */
+			
+			// 폼에 hidden태그들을 붙임 붙이고 name으로 보낼수있도록 해놓은 것
+			$('#frm_board').append(str);
+			alert('ㅠㅠ');
 			$('#frm_board').submit();
 		}
 	});

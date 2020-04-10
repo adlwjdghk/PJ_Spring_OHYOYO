@@ -28,7 +28,7 @@ public interface BoardDAO {
 	public void replyCntUpdate(@Param("map") Map<String, Object> map);
 	
 	// 게시글 등록
-	public void writer(BoardDTO bDto);
+	public void write(BoardDTO bDto);
 	
 	// 게시글 수정
 	public void update(BoardDTO bDto);
@@ -38,5 +38,8 @@ public interface BoardDAO {
 	
 	// 게시글 답글 등록
 	public void answer(BoardDTO bDto);
+	
+	// 게시글 내 첨부파일 등록
+	public void addAttach(@Param("fullname") String fullname);
 
 }

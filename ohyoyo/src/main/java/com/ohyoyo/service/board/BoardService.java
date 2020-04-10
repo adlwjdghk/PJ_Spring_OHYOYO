@@ -23,7 +23,7 @@ public interface BoardService {
 	public void deleteBoard(int bno);
 	
 	// 게시글 등록
-	public void writer(BoardDTO bDto);
+	public void write(BoardDTO bDto);
 	
 	// 게시글 수정
 	public void update(BoardDTO bDto);
