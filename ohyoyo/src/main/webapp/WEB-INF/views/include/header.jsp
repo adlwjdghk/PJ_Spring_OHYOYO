@@ -428,11 +428,11 @@
 				<div class="login_err_msg">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>
 				<form class="frm_login" onsubmit="return false;">
 					<div class="input_wrap">
-						<input type="text" id="login_id" class="login_input input" placeholder="아이디" required>
+						<input type="text" id="login_id" class="login_input input" placeholder="아이디" required value="asd123">
 					</div>
 					<div class="input_wrap">
 						<input type="password" id="login_pw" class="login_input input" placeholder="비밀번호" 
-						required minlength="6" maxlength="18">
+						required minlength="6" maxlength="18" value="asdASD123!">
 						<span class="pw_eye"><i class="fas fa-eye-slash"></i></span>
 					</div>
 					<div id="login_another">
