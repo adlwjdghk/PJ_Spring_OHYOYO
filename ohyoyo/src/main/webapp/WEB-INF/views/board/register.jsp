@@ -247,6 +247,7 @@
 		</div>
 	</li>
 </script>
+<script src="${path}/resources/js/fileAttach.js"></script>
 <script type="text/javascript">
 	var flag = '${flag}';
 	console.log('******** '+flag);
@@ -398,7 +399,6 @@
 		}
 	});
 </script>
-<script src="${path}/resources/js/fileAttach.js"></script>
 <script type="text/javascript">
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({

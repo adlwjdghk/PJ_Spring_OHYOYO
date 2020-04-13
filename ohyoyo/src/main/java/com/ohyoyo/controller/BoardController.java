@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ohyoyo.domain.BoardDTO;
 import com.ohyoyo.service.board.BoardService;
@@ -171,7 +172,7 @@ public class BoardController {
 	// 답글 서버로
 	@PostMapping("/answer")
 	public String answer(BoardDTO bDto) {
-		log.info(">>>>>>>> GET: BOARD ANSWER ACTION");
+		log.info(">>>>>>>> POST: BOARD ANSWER ACTION");
 		// bDto에는 답글을 저장하려는 정보 (메인 게시글 bno, title, content, writer...)
 		log.info(bDto.toString());
 		// prevDto에는 메인 게시글의 정보가 담겨있음 (All , ref, re_level, re_step)
@@ -191,5 +192,13 @@ public class BoardController {
 		bService.answer(bDto);
 		
 		return "redirect:/board/view/"+bDto.getBno();
+	}
+	
+	@ResponseBody
+	@PostMapping("/getAttach")
+	public List<String> getAttach(int bno){
+		log.info(">>>>>>>> POST: BOARD GETATTACH ACTION");
+		log.info("bno: "+bno);
+		return bService.getAttach(bno);
 	}
 }

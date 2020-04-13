@@ -193,7 +193,9 @@
 	}
 	.bd_icon{
 		float: right;
-		padding-right: 10px;
+		border: 1px solid #dadada;
+    	padding: 3px 5px;
+    	color: #888;
 	}
 	#check_color{
 		font-size: 16px;
@@ -323,7 +325,9 @@
 									<c:if test="${today == regdate}">
 										<span class="bd_table_new">New</span>
 									</c:if>
-									<span class="bd_icon"><i class="fas fa-paperclip"></i></span>
+									<c:if test="${list.filecnt}">
+										<span class="bd_icon">첨부파일 <i class="fas fa-paperclip"></i></span>
+									</c:if>
 								</td>
 								<td>${list.name}</td>
 								<td>

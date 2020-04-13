@@ -6,6 +6,7 @@
 <head>
 <title>상세게시글</title>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 <style type="text/css">
 	body{
 		background-color: #fff !important;
@@ -265,6 +266,32 @@
 	.displayNone{
 		display: none;
 	}
+	.uploadedList{
+		border: 1px solid #dadada;
+
+	}
+	
+	/* 첨부파일 디자인*/
+	.uploadedList{
+		display: flex;
+		margin-top: 20px;
+		max-width: 100%;
+		padding: 8px;
+		margin-top: 10px;
+	}
+	.uploadedList li{
+		margin-right: 20px;
+		border: 1px dotted #dadada;
+   		padding: 3px 7px;
+	}
+	.mailbox-attachment-info{
+		text-align: center;
+		color: #5d6f6d;
+		background-color: #fff7dc;
+	}
+	a.mailbox-attachment-name i{
+	    margin-right: 5px;
+	}
 </style>
 </head>
 <body>
@@ -304,6 +331,7 @@
 					<div class="basic_div_color"><i class="far fa-thumbs-up"></i>추천</div>
 					<div class="highlight_div_color"><i class="fas fa-ban"></i>신고</div>
 				</div>
+				<ul class="mailbox-attachments clearfix uploadedList"></ul>
 				<div class="board_view_btnWrap">
 					<div class="bd_btn">
 						<a href="${header.referer}" class="list_btn">목록</a>
@@ -323,9 +351,38 @@
 	</div>
 <%@ include file="../include/footer.jsp" %> 
 </body>
+<script id="fileTemplate" type="text/x-handlebars-template">
+	<li>
+		<div class="mailbox-attachment-icon has-img">
+			<center><img alt="Attachment" src="{{imgSrc}}" class="s_img"></center>
+		</div>
+		<div class="mailbox-attachment-info">
+			<a href="{{originalFileUrl}}" class="mailbox-attachment-name">
+				<i class="fas fa-file-alt"></i>{{originalFileName}}
+			</a>
+		</div>
+	</li>
+</script>
+<script src="${path}/resources/js/fileAttach.js"></script>
 <script type="text/javascript">
+	// Handlebars 디자인해놓은 라이브러리같은것 
+	// Handlebars 파일 템플릿 컴파일
+	var fileTemplete = Handlebars.compile($('#fileTemplate').html());
 	
 	$(function(){
+		
+		// 첨부파일 목록 불러오기
+		var listCnt = listAttach('${path}', '${one.bno}');
+		
+		// 첨부파일 0건일때 '첨부파일 없음' 출력
+		console.log('FileCnt: '+ listCnt);
+		if(listCnt == 0){
+			var text = "<span class='no_attach'>첨부파일이 없습니다</span>"
+			$('.uploadedList').html(text);
+		} else{
+			$('.uploadedList').css('border','none');
+		}
+		
 		// 자바스트립트 내장함수 : setInterval(이걸 실행하라, 이시간에 한번씩 )
 		setInterval(refreshReply, 180000);
 		

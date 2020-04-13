@@ -88,11 +88,11 @@ function checkImageType(fileName){
 }
 
 //첨부파일 리스트를 출력하는 함수
-function listAttach(){
+function listAttach(path, bno){
 	var listCnt = 0;
 	$.ajax({
 		type: 'post',
-		url: '${path}/board/getAttach/${one.bno}',
+		url: path +'/board/getAttach?bno='+ bno,
 		async: false,
 		success: function(list){
 			// list: jsop
@@ -103,7 +103,7 @@ function listAttach(){
 			 i와 e는 index와 element로 json에서 {0: 'apple.png'}일때 index는 0, element는 apple.png가 됨 */
 			$(list).each(function(i, e){
 				console.log(list);
-				printFiles(e); // 첨부파일 출력메서드 호출
+				printFiles(e, path); // 첨부파일 출력메서드 호출
 			});
 		}
 	});

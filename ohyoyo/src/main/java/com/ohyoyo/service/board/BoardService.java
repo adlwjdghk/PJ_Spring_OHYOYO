@@ -30,4 +30,7 @@ public interface BoardService {
 	
 	// 계층형 게시글
 	public void answer(BoardDTO bDto);
+	
+	// 해당 게시글에 첨부파일 출력
+	public List<String> getAttach(int bno);
 }
