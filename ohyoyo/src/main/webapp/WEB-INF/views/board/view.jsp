@@ -161,6 +161,9 @@
   		align-items: center;
   		justify-content: space-between;
 	}
+	.bd_title_name{
+		border: none;
+	}
 	.bd_reply_title > span{
     	color: #999;
     	font-size: 13px;
@@ -327,10 +330,10 @@
 				</div>
 				<div class="board_view_detail">
 					<div class="basic_div_color displayNone">댓글<span>1</span></div>
-					<div class="basic_div_color">첨부</div>
 					<div class="basic_div_color"><i class="far fa-thumbs-up"></i>추천</div>
 					<div class="highlight_div_color"><i class="fas fa-ban"></i>신고</div>
 				</div>
+				<div class="bd_reply_title bd_title_name">첨부 ${one.filecnt}</div>
 				<ul class="mailbox-attachments clearfix uploadedList"></ul>
 				<div class="board_view_btnWrap">
 					<div class="bd_btn">
@@ -354,7 +357,9 @@
 <script id="fileTemplate" type="text/x-handlebars-template">
 	<li>
 		<div class="mailbox-attachment-icon has-img">
-			<center><img alt="Attachment" src="{{imgSrc}}" class="s_img"></center>
+			<a href="{{originalFileUrl}}">
+				<center><img alt="Attachment" src="{{imgSrc}}" class="s_img"></center>
+			</a>
 		</div>
 		<div class="mailbox-attachment-info">
 			<a href="{{originalFileUrl}}" class="mailbox-attachment-name">

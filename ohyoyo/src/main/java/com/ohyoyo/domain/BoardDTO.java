@@ -23,6 +23,7 @@ public class BoardDTO {
     private int viewcnt;
     private int replycnt;	   	   // 답변 수
     private int goodcnt;		   // 좋아요
+    private int filecnt;           // 첨부파일 수
     private String name; 		   // 작성자이름(tbl_member테이블)
     private Date regdate;
     private Date updatedate;

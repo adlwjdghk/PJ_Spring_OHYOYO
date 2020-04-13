@@ -322,7 +322,6 @@
 				
 				// local에 들어가있는 첨부파일까지 생각해봐야함 
 				// 등록시 x버튼을 클릭했을때 디자인도 삭제되고 local에서도 삭제
-				// 수정시 
 				if(bno == ''){  // 게시글 등록
 					$.ajax({
 						url: '${path}/upload/deleteFile',

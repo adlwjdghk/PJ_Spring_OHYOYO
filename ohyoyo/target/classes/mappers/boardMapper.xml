@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.ohyoyo.persistence.BoardDAO">
 	<select id="selectList" resultType="BoardDTO">
 		<include refid="paging_header"/>
-		SELECT bno, type, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, show, re_level
+		SELECT bno, type, title, writer, name, updatedate, viewcnt, replycnt, goodcnt, filecnt, show, re_level
 		FROM tbl_board b, tbl_member m
 		<include refid="seach"/>
 		<if test="map.sort_option == 'new'">
@@ -79,8 +79,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE bno = #{map.bno}
 	</update>
  	<insert id="write">
-		INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer, ref)
-		VALUES(seq_board.NEXTVAL,#{type},#{title},#{view_content},#{search_content},#{writer}, seq_board.CURRVAL)
+		INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer, filecnt, ref)
+		VALUES(seq_board.NEXTVAL,#{type},#{title},#{view_content},#{search_content},#{writer},#{filecnt},seq_board.CURRVAL)
 		
 		<selectKey keyProperty="bno" resultType="Integer" order="AFTER">
 			SELECT seq_board.CURRVAL FROM dual
