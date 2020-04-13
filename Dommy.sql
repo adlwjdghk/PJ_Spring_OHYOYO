@@ -125,6 +125,7 @@ CREATE TABLE tbl_board (
     viewcnt NUMBER DEFAULT 0,
     replycnt NUMBER DEFAULT 0,
     goodcnt NUMBER DEFAULT 0,
+    filecnt NUMBER DEFAULT 0,
     regdate DATE DEFAULT SYSDATE,
     updatedate DATE DEFAULT SYSDATE,
     show CHAR(1) DEFAULT 'y',
@@ -136,21 +137,36 @@ CREATE TABLE tbl_board (
 ALTER TABLE tbl_board ADD CONSTRAINT pk_board
 PRIMARY KEY(bno);
 
--- 게시글 15건 생성
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '123테스크게시1','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크dfdsf게시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스크게45시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테657스크게시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', 'fg테스ytju크게시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스87크게시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '테스56크게시글111','테스트야아아','테스트야아아','as12345');
-INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)VALUES(seq_board.NEXTVAL, 'free', '356fg테스크게시글111','테스트야아아','테스트야아아','as12345');
-
-COMMIT;
-
 SELECT * FROM tbl_board
 ORDER BY bno DESC;
+
+-- 댓글 테이블
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+DROP TABLE tbl_reply;
+CREATE TABLE tbl_reply(
+    rno NUMBER,
+    type CHAR(4) NOT NULL,
+    writer VARCHAR2(2000) NOT NULL,
+    content VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+);
+
+ALTER TABLE tbl_reply
+ADD CONSTRAINT pk_reply_rno
+PRIMARY KEY(rno);
+
+ALTER TABLE tbl_reply
+ADD CONSTRAINT fk_reply_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
+
+SELECT * FROM tbl_reply;
 
 -- 게시글 첨부파일 테이블
 -- : 첨부파일이름은  uuid를 사용하기 때문에 중복 안됨
