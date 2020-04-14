@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -121,6 +122,34 @@ public class AjaxUploadController {
 //		bService.deleteFile(fileName);
 		
 		// ResponseEntity: response를 보낼때 설정값을 디테일하게 바꾸고 싶을때 사용함
+		return new ResponseEntity<String> ("deleted",HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@PostMapping("/upload/deleteAllFile")
+	public ResponseEntity<String> deleteFile(@RequestParam("files[]")String[] files){
+		log.info("");
+		
+		if(files == null || files.length == 0) {
+			return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		}
+		
+		for(String fileName : files) {
+			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+			// formatName: txt, png
+			MediaType mType = MediaUtils.getMediaType(formatName);
+			if(mType != null) {//이미지파일이면 원본이미지 삭제
+				String front = fileName.substring(0, 12);
+				// front: /2020/04/10
+				String end = fileName.substring(14);
+				// end: 12431175-c49c-472b-87e6-6ffba0408df5_cloud.png
+				
+				// 이미지 원본파일 삭제
+				new File(uploadPath+(front+end).replace('/', File.separatorChar)).delete();
+			}
+			// 원본파일 삭제 (이미지면 썸네일 삭제)
+			new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
+		}
 		return new ResponseEntity<String> ("deleted",HttpStatus.OK);
 	}
 }

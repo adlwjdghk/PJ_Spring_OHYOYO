@@ -44,5 +44,8 @@ public interface BoardDAO {
 
 	// 해당 게시글 첨부파일 목록 출력
 	public List<String> getAttach(@Param("bno") int bno);
+	
+	// 삭제할 게시글의 첨부파일 삭제
+	public void deleteAttach(int bno);
 
 }

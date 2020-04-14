@@ -184,6 +184,7 @@ public class BoardController {
 		BoardDTO prevDto = bService.selectView(bDto.getBno());
 		log.info(prevDto.toString());
 		
+		// files는 실제 첨부파일 데이터x 파일 이름들이 배열로 들어가있음
 		if(bDto.getFiles() == null) { // 첨부파일 NO
 			bDto.setFilecnt(0);
 		} else { // 첨부파일 YES

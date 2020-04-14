@@ -269,7 +269,6 @@
 			$('#board_type').val('${one.type}').attr('selected','selected');
 		} else if(flag == 'answer'){
 			$('.register_btn').text('답글 등록');
-			$('.se2_inputarea').focus();
 			// selectbox 옵션을 선택 못하게 하는 방법 => type을 받아오지않음
 			/* $('#board_type').val('${one.type}')
 			 			       .attr('selected','selected')
@@ -323,7 +322,7 @@
 				
 				// local에 들어가있는 첨부파일까지 생각해봐야함 
 				// 등록시 x버튼을 클릭했을때 디자인도 삭제되고 local에서도 삭제
-				if(bno == ''){  // 게시글 등록
+				if(bno == '' || flag == 'answer'){  // 게시글 등록
 					$.ajax({
 						url: '${path}/upload/deleteFile',
 						type: 'POST',

@@ -108,17 +108,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT seq_board.CURRVAL FROM dual
 		</selectKey>
 	</insert>
-	
 	<!-- 첨부파일 저장 -->
 	<insert id="addAttach">
 		INSERT INTO tbl_attach(fullname, bno)
 		VALUES(#{fullname}, seq_board.CURRVAL)
 	</insert>
-	
 	<!-- 첨부파일 목록 -->
 	<select id="getAttach" resultType="String">
 		SELECT fullname FROM tbl_attach a
 		WHERE bno = #{bno}
 		ORDER BY regdate DESC
 	</select>
+	
+	<!-- 게시글 삭제시 첨부파일 삭제 -->
+	<delete id="deleteAttach">
+		DELETE FROM tbl_attach
+		WHERE bno = #{bno}
+	</delete>
 </mapper>
