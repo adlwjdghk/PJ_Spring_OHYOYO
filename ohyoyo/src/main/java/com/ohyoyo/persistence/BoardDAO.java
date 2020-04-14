@@ -47,5 +47,8 @@ public interface BoardDAO {
 	
 	// 삭제할 게시글의 첨부파일 삭제
 	public void deleteAttach(int bno);
+	
+	// 첨부파일 수정(재등록)
+	public void updateAttach(@Param("fullname") String fullName,@Param("bno") int bno);
 
 }

@@ -171,6 +171,9 @@
 		a.mailbox-attachment-name i{
 		    margin-right: 5px;
 		}
+		.delBtn{
+			cursor: pointer;
+		}
 	</style>	
 </head>
 <body>
@@ -256,6 +259,8 @@
 	// Handlebars 파일 템플릿 컴파일
 	var fileTemplete = Handlebars.compile($('#fileTemplate').html());
 	
+	// 수정시 로컬에서 삭제할 기존 첨부파일 목록
+	var deleteFileList = new Array();
 	$(function(){
 		// register ==> 게시글 등록과 게시글 수정
 		// 등록과 수정을 선택하게 만드는 것 
@@ -267,6 +272,7 @@
 			// select Box 값으로 selected
 			// $('#board_type').val(1).attr('selected','selected') index값으로 선택할수있으나 확인이 어려움
 			$('#board_type').val('${one.type}').attr('selected','selected');
+			listAttach('${path}', '${one.bno}');
 		} else if(flag == 'answer'){
 			$('.register_btn').text('답글 등록');
 			// selectbox 옵션을 선택 못하게 하는 방법 => type을 받아오지않음
@@ -282,6 +288,7 @@
 							.attr('onChange', 'this.selectedIndex = this.initialSelect');   
 			
 			$('#set_title').attr('readonly','readonly');
+
 					
 		}
 		
@@ -315,31 +322,39 @@
 					printFiles(data, '${path}'); // 첨부파일 출력 메서드 호출
 				}
 			});
-			
-			$('.uploadedList').on('click','.delBtn', function(event){
-				var that = $(this);
-				var bno = '${one.bno}';
-				
-				// local에 들어가있는 첨부파일까지 생각해봐야함 
-				// 등록시 x버튼을 클릭했을때 디자인도 삭제되고 local에서도 삭제
-				if(bno == '' || flag == 'answer'){  // 게시글 등록
-					$.ajax({
-						url: '${path}/upload/deleteFile',
-						type: 'POST',
-						data: {fileName: $(this).attr('data-src')},
-						success: function(data){
-							if(data == 'deleted'){
-								that.parents('li').remove();
-							}
-						}, error: function(){
-							alert('system error!!!');
+		});
+		$('.uploadedList').on('click','.delBtn', function(event){
+			var that = $(this);
+			var bno = '${one.bno}';
+
+			// local에 들어가있는 첨부파일까지 생각해봐야함 
+			// 등록시 x버튼을 클릭했을때 디자인도 삭제되고 local에서도 삭제
+			if(bno == '' || flag == 'answer'){  // 게시글 등록
+				alert('등록 or 답글');
+				$.ajax({
+					url: '${path}/upload/deleteFile',
+					type: 'POST',
+					data: {fileName: $(this).attr('data-src')},
+					success: function(data){
+						if(data == 'deleted'){
+							that.parents('li').next('input').remove();
+							that.parents('li').remove();
 						}
-					});
-				} else{ // 게시글 수정
-					alert('bno: '+ bno);
+					}, error: function(){
+						alert('system error!!!');
+					}
+				});
+			} else{ // 게시글 수정 삭제x
+				alert('수정');
+				var arr_size = deleteFileList.length;
+				deleteFileList[arr_size] = $(this).attr('data-src');
+				$(this).parents('li').next('input').remove();
+				$(this).parents('li').remove();
+				
+				for(var i = 0; i < deleteFileList.length; i++){
+					console.log(i+', '+deleteFileList[i]);
 				}
-			});
-			
+			}
 		});
 	});
 	
@@ -366,6 +381,7 @@
 			// 스마트 에디터의 값을 textarea에 입력
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			var view_content = $('#ir1').val();
+			
 			// 정규식을 통해 HTML태그를 제거후 순수 text만 추출
 			var search_content = view_content.replace(/(<([^>]+)>)/ig,"").replace("&nbsp;","");
 			console.log('searchsearchsearch: '+search_content);
@@ -373,7 +389,6 @@
 			// form태그에 넣어주는데 맨 마지막에 넣어줌 등록버튼을 눌렀을떄 생기고 값을 넣어줌
 			$('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
 			$('#search_content').val(search_content);
-			
 			
 			// 첨부파일 목록[배열]도 추가
 			var str= '';
@@ -386,11 +401,13 @@
 			});
 			
 			// 포컬드라이브에 저장되어있는 해당 게시글 첨부파일 삭제
-			// 아직은 필요없엄
-			/* if(deleteFileList.length > 0){
-				$.post('${path}/uplaod/deleteAllFile',{files:deleteFileList},function(){});
-			}; */
-			
+			// 사용자가 삭제한 첨부파일 목록을 가지고 local에서 첨부파일 삭제
+			if(deleteFileList.length > 0){
+				alert('delete');
+				$.post('${path}/upload/deleteAllFile',{files:deleteFileList},function(){});
+			}; 
+
+
 			// 폼에 hidden태그들을 붙임 붙이고 name으로 보낼수있도록 해놓은 것
 			$('#frm_board').append(str);
 			

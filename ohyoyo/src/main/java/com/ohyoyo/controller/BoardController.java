@@ -151,6 +151,12 @@ public class BoardController {
 		log.info(">>>>>>>> POST: BOARD UPDATE ACTION");
 		log.info("****************"+bDto.toString());
 		
+		if(bDto.getFiles() == null) { // 첨부파일 NO
+			bDto.setFilecnt(0);
+		} else { // 첨부파일 YES
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+		
 		bService.update(bDto);
 		
 		model.addAttribute("two","1");

@@ -92,6 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   title = #{title}, 
 			   view_content = #{view_content}, 
 			   search_content = #{search_content}, 
+			   filecnt = #{filecnt},
 			   updatedate = SYSDATE
 		WHERE bno = #{bno}
 	</update>
@@ -119,10 +120,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE bno = #{bno}
 		ORDER BY regdate DESC
 	</select>
-	
 	<!-- 게시글 삭제시 첨부파일 삭제 -->
 	<delete id="deleteAttach">
 		DELETE FROM tbl_attach
 		WHERE bno = #{bno}
 	</delete>
+	<!-- 첨부파일 수정, 등록 -->
+	<insert id="updateAttach">
+		INSERT INTO tbl_attach(fullname, bno)
+		VALUES(#{fullname}, #{bno})
+	</insert>
 </mapper>

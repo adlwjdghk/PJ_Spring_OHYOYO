@@ -128,7 +128,7 @@ public class AjaxUploadController {
 	@ResponseBody
 	@PostMapping("/upload/deleteAllFile")
 	public ResponseEntity<String> deleteFile(@RequestParam("files[]")String[] files){
-		log.info("");
+		log.info("삭제 시키라구유유유유유");
 		
 		if(files == null || files.length == 0) {
 			return new ResponseEntity<String>("deleted", HttpStatus.OK);
