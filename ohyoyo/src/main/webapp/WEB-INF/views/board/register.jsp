@@ -269,6 +269,7 @@
 			$('#board_type').val('${one.type}').attr('selected','selected');
 		} else if(flag == 'answer'){
 			$('.register_btn').text('답글 등록');
+			$('.se2_inputarea').focus();
 			// selectbox 옵션을 선택 못하게 하는 방법 => type을 받아오지않음
 			/* $('#board_type').val('${one.type}')
 			 			       .attr('selected','selected')
@@ -393,7 +394,7 @@
 			
 			// 폼에 hidden태그들을 붙임 붙이고 name으로 보낼수있도록 해놓은 것
 			$('#frm_board').append(str);
-			alert('ㅠㅠ');
+			
 			$('#frm_board').submit();
 		}
 	});

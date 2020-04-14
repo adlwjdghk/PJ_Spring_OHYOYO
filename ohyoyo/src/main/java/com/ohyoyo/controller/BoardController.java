@@ -184,6 +184,12 @@ public class BoardController {
 		BoardDTO prevDto = bService.selectView(bDto.getBno());
 		log.info(prevDto.toString());
 		
+		if(bDto.getFiles() == null) { // 첨부파일 NO
+			bDto.setFilecnt(0);
+		} else { // 첨부파일 YES
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+		
 		// 현재 bDto 정보 (메인 게시글 bno, All, 메인게시글 ref re_level re_step)
 		bDto.setRef(prevDto.getRef());
 		bDto.setRe_level(prevDto.getRe_level());

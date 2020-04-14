@@ -101,8 +101,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ref = #{ref} AND re_step > #{re_step}
 	</update>
 	<insert id="answer">
-		INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer, ref, re_level, re_step)
-		VALUES (seq_board.NEXTVAL,#{type},#{title},#{view_content},#{search_content},#{writer},#{ref},#{re_level},#{re_step})
+		INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer, filecnt, ref, re_level, re_step)
+		VALUES (seq_board.NEXTVAL,#{type},#{title},#{view_content},#{search_content},#{writer},#{filecnt},#{ref},#{re_level},#{re_step})
 		
 		<selectKey keyProperty="bno" resultType="Integer" order="AFTER">
 			SELECT seq_board.CURRVAL FROM dual
