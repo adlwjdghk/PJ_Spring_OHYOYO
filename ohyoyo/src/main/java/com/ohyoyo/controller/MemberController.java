@@ -87,6 +87,11 @@ public class MemberController {
 			return "member/constract";
 		}
 		
+		model.addAttribute("uri","/ohyoyo/");
+		// 회원가입창에서 로그인을 했을때 main으로 가게 하는 코드를 만들고 싶었는데
+		// 한번만 이용되는 flash를 이용했을때 login창으로 ajax를 통해 
+		// RedirectAttributes rttr 리다이렉트방식으로 보내는 거라서 받을수없음
+		// rttr.addFlashAttribute("uri","/ohyoyo/");
 		return "member/join";
 	}
 	
@@ -159,8 +164,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("/constract")
-	public String viewConstract(Model model) {
+	public String viewConstract(Model model, RedirectAttributes rttr) {
 		log.info(">>> MEMBER/CONSTRACT PAGE 출력");
+		model.addAttribute("uri","/ohyoyo/");
+		// rttr.addFlashAttribute("uri","/ohyoyo/");
 		return "member/constract";
 	}
 	

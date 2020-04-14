@@ -277,8 +277,7 @@
 						</div>
 					</c:if>
 				</div>
-				<table class="board_col"
-				>
+				<table class="board_col">
 					<colgroup>
 						<col style="width: 1%">
 						<col>

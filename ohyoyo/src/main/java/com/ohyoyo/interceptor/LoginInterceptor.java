@@ -85,6 +85,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			if(qString != null) {
 				uri = uri+"?"+qString;
 			}
+			log.info("*************************"+uri);
 			fMap.put("uri", uri);
 			
 			RequestContextUtils.saveOutputFlashMap(referer, request, response);

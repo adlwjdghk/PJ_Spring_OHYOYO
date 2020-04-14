@@ -365,7 +365,7 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		// alert('dhf');
+		// alert('${uri}');
 		$('#selmail').change(function() {
 
 			var url = $(this).val();
