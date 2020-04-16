@@ -8,5 +8,6 @@
 		<typeAlias type="com.ohyoyo.domain.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.ohyoyo.domain.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.ohyoyo.domain.ReplyDTO" alias="ReplyDTO"/>
+		<typeAlias type="com.ohyoyo.domain.AttachDTO" alias="AttachDTO"/>
     </typeAliases>
 </configuration>

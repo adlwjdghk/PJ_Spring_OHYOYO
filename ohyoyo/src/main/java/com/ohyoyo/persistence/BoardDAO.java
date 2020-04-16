@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ohyoyo.domain.AttachDTO;
 import com.ohyoyo.domain.BoardDTO;
 
 public interface BoardDAO {
@@ -50,5 +51,8 @@ public interface BoardDAO {
 	
 	// 첨부파일 수정(재등록)
 	public void updateAttach(@Param("fullname") String fullName,@Param("bno") int bno);
+	
+	// 첨부파일 목록 가져오기
+	public List<AttachDTO> getOldFiles(@Param("ydate") String ydate);
 
 }

@@ -130,4 +130,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO tbl_attach(fullname, bno)
 		VALUES(#{fullname}, #{bno})
 	</insert>
+	<!-- 로컬과 비교할 첨부파일 목록 출력 -->
+	<select id="getOldFiles" resultType="AttachDTO">
+		SELECT * FROM tbl_attach
+		WHERE #{ydate} = TO_CHAR(regdate, 'YYYYMMDD')
+	</select>
+	
 </mapper>
