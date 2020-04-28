@@ -62,7 +62,7 @@ public class SyncFileScheduler {
 	
 	// 매일 새벽 2시에 첨부파일 목록과 DB를 비교해서
 	// DB에 없는 첨부파일을 로컬디렉토리에서 삭제
-	@Scheduled(cron = "0 0 2 * * *")
+	@Scheduled(cron = "0 50 15 * * *")
 	public void checkFiles() throws Exception{
 		log.warn("File Check Task run ..........");
 		log.warn(""+new Date());

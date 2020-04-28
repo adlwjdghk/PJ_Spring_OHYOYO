@@ -293,7 +293,7 @@
 							<th scope="col">작성자</th>
 							<th scope="col">작성일</th>
 							<th scope="col">조회</th>
-							<th scope="col">추천</th>
+							<th scope="col">댓글</th>
 						</tr>
 					</thead>
 					<tbody>
