@@ -304,8 +304,16 @@
 			var files = e.originalEvent.dataTransfer.files; // 드래그에 전달된 첨부파일들
 			var file = files[0]; // 그중 하나만 꺼내옴
 			
-			var formData = new FormData(); // 폼 객체생성 
-			formData.append('file', file); // 폼에 파일 1개 추가!
+			// 비즈니스로직
+			// 사용자가 첨부파일을 드래그앤 드롭하는 순간
+			// Ajax를 활용해서 Local Drive에 저장!
+			
+			var formData = new FormData(); // 폼 객체생성
+			// 폼태그(formdata)를 하나 만들어서 거기에 파일을 넣는 것 
+			formData.append('file', file); // 폼에 파일 1개 추가! 
+			// append 가장 마지막에 넣어주는 것 지금 하나도 없으니까 첫번째 
+			
+			// 사용자가 드래그앤드롭한 첨부파일 1개를 formData에 file이라는 이름표를 붙여서 저장
 			
 			// 서버에 파일 업로드
 			$.ajax({

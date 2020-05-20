@@ -38,6 +38,8 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * 이름을 표준패턴이 아닌 임의의 이름으로 바꾸고 싶다
  * */
+
+
 @SessionAttributes({"memberDTO"})
 @Slf4j
 @RequestMapping("/member")
@@ -79,7 +81,7 @@ public class MemberController {
 	// 비정상적인 접근일 경우 flag값이 0이 된다
 	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, @RequestParam(value="flag",defaultValue="0") String flag, Model model) {
 		log.info(">>> MEMBER/JOIN GET PAGE 출력");
-		log.info(mDto.toString());
+		log.info(""+mDto.toString());
 //		model.addAttribute("flag", flag);
 		
 		// 비정상적인 접근일경우 약관동의페이지로 이동

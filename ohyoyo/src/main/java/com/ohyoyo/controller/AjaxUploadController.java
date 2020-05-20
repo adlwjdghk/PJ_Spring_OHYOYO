@@ -32,14 +32,24 @@ public class AjaxUploadController {
 	BoardService bService;
 	
 	// 업로드 디렉토리 servlet-context.xml에 설정되어있음
+	// 의존성주입 DI
+	// 종류 : Autowired Inject Resource
 	@Resource(name = "uploadPath")
-	String uploadPath;
+	String uploadPath; // c:/developer/upload
 	
 	// upload File multipart파일에 Save
 	@ResponseBody
 	@RequestMapping(value="/upload/uploadAjax", produces="text/plain;charset=utf-8") // 원래 붙여야 되는게 정석 multipart 받을때는 써야함 
+											// file = 사용자가 드래그앤드롭한 첨부파일(dobby.jpg 40byte)
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
 		// 업로드한 파일 정보와 Http 상태코드를 함께 리턴
+		// ResponseEntity response(사용자에게 전달)메세지를 디테일하게 설정할수있음
+		// MemberDTO mDto = new MemberDTO();
+		// return mDto; 
+		// return new MemberDTO();
+		// 왜? 변수에 담는 이유는 재사용을 위해서 변수에 담는 것 재사용안할거라서 변수에 안담음
+		// but 개발자에 따라서 다름 변수에 담으라고 가독성이 떨어진다구
+															// c:/developer/upload       dobby.jpg                40byte          200
 		return new ResponseEntity<String> (UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 	}
 	

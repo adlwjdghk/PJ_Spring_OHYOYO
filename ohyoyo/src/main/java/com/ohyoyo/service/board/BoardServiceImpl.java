@@ -82,6 +82,8 @@ public class BoardServiceImpl implements BoardService{
 		}
 		
 	}
+	
+	
 
 	@Transactional
 	@Override

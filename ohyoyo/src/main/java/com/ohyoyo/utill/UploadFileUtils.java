@@ -15,8 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class UploadFileUtils {
+   								// c:/developer/upload          dobby.jpg           40byte
 	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception{
 		// uuid발급
+		// ** uuid를 사용하는 이유? 첨부파일의 이름이 중복된 경웅를 대비해서 랜덤값을 생성하고 첨부파일 이름앞에 램덤값_첨부파일을 통해 중복값 식별목적
 		// 중복된 이름이 들어왔을때 다르게 저장될수있도록 
 		// 열몇자리의 uuid생성 (숫자 + 문자) 99.몇%
 		UUID uid = UUID.randomUUID();
@@ -41,20 +43,24 @@ public class UploadFileUtils {
 	}
 	
 	private static String calcPath(String uploadPath) {
+		//init() 객체생성해라 생성자 getinstance()인스턴스를 생성해라 == 객체생성해라
 		Calendar cal = Calendar.getInstance();
-		String yearPath = File.separator + cal.get(Calendar.YEAR);
+		String yearPath = File.separator + cal.get(Calendar.YEAR); // \ + 2020
 		String monthPath = yearPath + File.separator 
-				+ new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
+				+ new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);  // \2020 + \ + 04
 		String datePath = monthPath + File.separator
-				+ new DecimalFormat("00").format(cal.get(Calendar.DATE));
+				+ new DecimalFormat("00").format(cal.get(Calendar.DATE)); // \2020\04 + \ + 09
 		makeDir(uploadPath, yearPath, monthPath, datePath);
 		log.info(datePath);
 		return datePath;
 	}
-	
+	// paths[] = [0] '\2020'  [1] '\2020\05'  [2] '\2020\05\20'
 	private static void makeDir(String uploadPath, String...  paths) {
 		// 디렉토리가 존재하면 skip
+		// path[3-1].exists() => paths[2] = \2020\05\20
+		// '\2020\05\20' 디렉토리 경로가 있으면 메서드 여기서 종료!
 		if(new File(paths[paths.length -1]).exists()) {
+			//exists()있으면 true 없으면 false
 			return;
 		}
 		for (String path : paths) {

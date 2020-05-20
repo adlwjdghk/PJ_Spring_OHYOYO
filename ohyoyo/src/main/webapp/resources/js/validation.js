@@ -133,9 +133,9 @@ var joinValidate = {
 	},
 	//아이디 유효성 체크
 	checkId : function(id){
-		var regEmpty = /\s/g;   // 공백문자
-		var regEtc = /[~'!@#$%^&*()+=\|\\\{\}\[\]:";'<>.,?//]/g;  // 특수문자
-		var regId = /[^a-z0-9-_.]+/g;  // 올바른 아이디 형식
+		var regEmpty = /\s/g;   
+		var regEtc = /[~'!@#$%^&*()+=\|\\\{\}\[\]:";'<>.,?//]/g;  
+		var regId = /[^a-z0-9-_.]+/g; 
 
 		if(id == '' || id.length == 0){ // 1. 값이 있는지 없는지 체크
 				return this.resultCode.empty_val;
